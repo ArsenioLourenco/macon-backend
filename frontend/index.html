@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Rosto - Banco Sol</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="./assets/plugins/bootstrap-4.0.0-dist/css/bootstrap.min.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="./assets/plugins/fontawesome-free-5.13.0-web/css/all.css">
+
+    <!-- ANIMATE -->
+    <link rel="stylesheet" href="./assets/plugins/Animate/animate.css">
+</head>
+
+<body class="pt-5" aproved-login="no-aproved">
+    <nav class="fr_menu_topo nav d-flex justify-content-center pl-4 pr-4">
+        <h2>Folhas de Rosto - Banco Sol</h2>
+    </nav>
+
+    <div class="fr_grid_ row w-100 pt-5 mt-5 ml-0 mr-0">
+        <div class="fr_grid_navegacao col-4 pt-5">
+            <div class="lista_folha_rosto mt-5">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" num="1">Abertura de Conta</a>
+                    <a href="#" class="list-group-item list-group-item-action" num="2">Contrato de Adesao Cartao Visa</a>
+                    <a href="#" class="list-group-item list-group-item-action" num="3">Pedido de Adesao Cartao de Debito - Multicaixa</a>
+                    <a href="#" class="list-group-item list-group-item-action" num="4">Processo de Credito</a>
+                    <a href="#" class="list-group-item list-group-item-action" num="5">Processo de Microcredito</a>
+                    <a href="#" class="list-group-item list-group-item-action" num="6">Transferencia</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fr_grid_paginas col-8">
+            <section class="caixa_folha_rosto text-center">
+                <h2 class="fr_titulo_paginas text-center font-weight-bold mb-5">
+                    Abertura de Conta
+                </h2>
+                <table class="table fr_folha_a4">
+                    <caption class="fr_rodape text-center mt-0 pt-0" style="margin-top: 10rem !important;">
+                        <div class="admin-dashboard w-100 position-relative d-block text-right p-3 m-3">
+                            <!-- Button trigger modal -->
+                            <button id="fr-gerir-utilizadores" type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#janelaDashboard">
+                                Gerir Utilizadores
+                            </button>
+
+                            <button id="fr-recharging-page" class="btn btn-dark mr-3">
+                                Sair
+                            </button>
+                        </div>
+                        &copy;2020 Interdigitos - Todos direitos reservados.
+                        <span id="fr_id_usuario" class="ml-5">BSOL001JB</span>
+                    </caption>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100 active" num="1">
+                        <tr>
+                            <td>
+                                <h5>Nome:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Numero de Conta:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_conta" type="text" data-validation^="account" minlength="4" maxlength="12" placeholder="Ex.: 815140043258"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Agencia:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_agencia" type="text" maxlength="3" data-validation="agency" placeholder="Ex.: 001"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100" num="2">
+                        <tr>
+                            <td>
+                                <h5>Balcao:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_agencia" type="text" maxlength="3" data-validation="agency" placeholder="Ex.: 001"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Numero do Cartao:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_cartao" type="text" minlength="16" maxlength="16" placeholder="Ex.: 8151400432588564"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Nome:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100" num="3">
+                        <tr>
+                            <td>
+                                <h5>Nome:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Numero do Cartao:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_cartao" type="text" minlength="16" maxlength="16" placeholder="Ex.: 8151400432588564"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100" num="4">
+                        <tr>
+                            <td>
+                                <h5>Nome:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Numero de Conta:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_conta" type="text" minlength="4" maxlength="12" placeholder="Ex.: 815140043258"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Montante:</h5>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input class="form-control fr_a4_input fr_imput_montante" type="text" placeholder="Ex.: 85.891.003,45">
+                                    </div>
+                                    <div class="col-4">
+                                        <select id="my-select" class="form-control fr_a4_input custom-select">
+                                            <option>AKZ</option>
+                                            <option>USD</option>
+                                            <option>EUR</option>
+                                            <option>ZAR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100" num="5">
+                        <tr>
+                            <td>
+                                <h5>Nome:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Numero de Conta:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_conta" type="text" minlength="4" maxlength="12" placeholder="Ex.: 815140043258"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Proposta Nº:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_proposta" type="text" placeholder="Ex.: 04154"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Montante:</h5>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input class="form-control fr_a4_input fr_imput_montante" type="text" placeholder="Ex.: 85.891.003,45">
+                                    </div>
+                                    <div class="col-4">
+                                        <select id="my-select" class="form-control fr_a4_input custom-select">
+                                            <option>AKZ</option>
+                                            <option>USD</option>
+                                            <option>EUR</option>
+                                            <option>ZAR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="fr_folha mb-5 pb-5 w-100" num="6">
+                        <tr>
+                            <td>
+                                <h5>Ordenante:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Joao Bravo"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Conta Ordenante:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_conta" type="text" minlength="4" maxlength="12" placeholder="Ex.: 815140043258"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Beneficiario:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_nome" type="text" placeholder="Ex.: Bernardo Afonso"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Conta Beneficiario:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_conta" type="text" minlength="4" maxlength="12" placeholder="Ex.: 815140043258"></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Montante:</h5>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <input class="form-control fr_a4_input fr_imput_montante" type="text" placeholder="Ex.: 85.891.003,45">
+                                    </div>
+                                    <div class="col-5">
+                                        <select id="my-select" class="form-control fr_a4_input custom-select">
+                                            <option>AKZ</option>
+                                            <option>USD</option>
+                                            <option>EUR</option>
+                                            <option>ZAR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <h5>Data:</h5>
+                            </td>
+                            <td><input class="form-control fr_a4_input fr_imput_datav" type="date" minlength="8" maxlength="10" required pattern="\d{2}-\d{2}-\d{4}" data-validation="date" placeholder="Ex.: 22-02-2020"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <td class="fr_button_action_content">
+                                <div class="w-100 d-flex justify-content-end mt-2">
+                                    <span class="text-right float-right position-relative">
+                                        <button id="limpar_formulario" class="btn btn-outline-dark d-inline-block" type="submit">Limpar Formulário</button>
+                                        <button id="imprimir_pagina" class="btn btn-primary d-inline-block" type="submit">Imprimir</button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <!-- Janela Modal Dashboard-->
+
+    <div class="modal fade" id="janelaDashboard" tabindex="-1" role="dialog" aria-labelledby="ariaJanelaDashboard" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 860px; margin-top: 100px !important;" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="titleJanelaDashboard">Administrador: Gerir Utilizadores</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="overflow-y: auto !important;max-height: 480px!important;">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Identificador</th>
+                                <th scope="col">Gestão</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>administrador.sistema</td>
+                                <td>asistema@interdigitos.co.ao</td>
+                                <td>BSOL001AD</td>
+                                <td>
+                                    <button class="btn btn-outline-dark" data-action="update"><i class="fas fa-user-edit"></i></button>
+                                    <button class="btn btn-dark" data-action="update-password"><i class="fas fa-key"></i></button>
+                                    <button class="btn btn-danger" data-action="delete"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button data-addNewUser="add" class="btn btn-primary" data-toggle="modal" data-target="#janelaAddUser" data-whatever="@getbootstrap">Adicionar Novo Utilizador</button>
+                    <button type="button" class="btn btn-outline-dark ml-3" data-dismiss="modal">Fechar Janela</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela Modal AddUser-->
+
+    <div class="modal fade" id="janelaAddUser" tabindex="-1" role="dialog" aria-labelledby="ariaJanelaAddUser" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleJanelaAddUser">Adicionar Novo Utilizador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAddNewUser">
+                        <div class="form-group">
+                            <input type="name" class="form-control" id="recipient-nome" placeholder="Primeiro e o Último Nome">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="recipient-usuario" placeholder="Nome do Utilizador" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="recipient-email" placeholder="Email do Utilizador">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="recipient-senha" placeholder="Senha do Utilizador">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="recipient-senha2" placeholder="Confirmar Senha do Utilizador">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-dismiss="modal">Canselar</button>
+                    <button window-data-button="add-user" type="button" class="btn btn-primary">Criar Utilizador</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela Modal EditUser-->
+
+    <div class="modal fade" id="janelaEditUser" tabindex="-1" role="dialog" aria-labelledby="ariaJanelaEditUser" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleJanelaEditUser">Editar Dados do Utilizador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditUser">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="update-recipient-usuario" placeholder="Nome do Utilizador">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="update-recipient-email" placeholder="Email do Utilizador">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="update-recipient-senha" placeholder="Clique duas vezes para Mudar a Senha do Utilizador" disabled="disabled">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary" data-dismiss="modal">Canselar</button>
+                    <button window-data-button="edit-user" type="button" class="btn btn-primary">Editar Utilizador</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela Modal Auth-->
+
+    <div id="fr_janela_modal">
+        <form id="form_auth" class="animate__animated animate__fadeInUp" action="#" method="post">
+            <div class="input-group mb-3">
+                <img class="locker_form_icon" src="assets/img/banco_sol.jpg">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><strong>&commat;</strong></span>
+                </div>
+                <input type="text" class="form-control email-form" placeholder="Nome do Usuário" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">&#x1F512</span>
+                </div>
+                <input type="password" class="form-control password-form" placeholder="Palavra-Chave " aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+
+            <div class="input-group mb-3">
+                <button id="autenticar_usuario" type="button" class="btn btn-primary w-100">Entrar</button>
+            </div>
+            <p class=" " style="font-size: 12px;color: ccc; ">&copy;2020 Interdigitos - Todos direitos reservados.</p>
+        </form>
+    </div>
+
+    <script src="assets/plugins/jQuery/3.5.1/jQuery.js"></script>
+    <script src="assets/plugins/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
+    <script src="assets/plugins/jqueryValidation/jquery-validation-1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.0.0-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/folharosto.js"></script>
+</body>
+
+</html>
