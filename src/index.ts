@@ -1,21 +1,29 @@
-import cookieParser from 'cookie-parser';
+import { Request, Response } from "express"
 import 'reflect-metadata';
+import cookieParser from 'cookie-parser';
 import express from "express";
 import dotenv from 'dotenv-safe';
 import helmet from "helmet";
 import logger from 'morgan';
 import cors from "cors";
-
+import https from "https";
+import fs from "fs";
 // Routes
 import routes from './routes'
+// Database import
+import "./database";
+
+
+// openSSL
+const options = {
+  key: fs.readFileSync("??"),
+  cert: fs.readFileSync("??")
+};
 
 // Eviroments variables
 dotenv.config({
   allowEmptyValues: true
 });
-
-// Database import
-import "./database";
 
 // App
 const app = express();
@@ -33,10 +41,16 @@ app.use('/functionsPath', express.static('pathConf'));
 // Routes
 app.use(routes);
 
-const PORT = process.env.PORT || 5800;
+const PORT = process.env.PORT || 5801;
 //Listen Port
 if (require.main == module) {
-  app.listen(5800, 'localhost', () => {
+  // HTTPS listen API
+  https
+  .createServer(options, (req: Request, res: Response) => {
+    res.writeHead(200);
+    res.end("Running API with HTTPS!")
+  })
+  .listen(5800, 'localhost', () => {
     console.log(`SERVER ON PORT -- ${PORT} --`);
   });
 }
