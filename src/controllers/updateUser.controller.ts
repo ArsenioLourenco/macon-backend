@@ -1,11 +1,11 @@
+import { Users } from './../models/Users';
 import { Request, Response } from "express";
 import { AppResponse } from "../@types";
-import { Utilizadores } from "../models/Utilizadores";
 import UpdateUser,  { IUpdate } from "../services/updateUser.service";
 
 
 export class UpdateUserController {
-    async handle(request: Request<IUpdate>, response: Response<AppResponse<Utilizadores[]>>) {
+    async handle(request: Request<IUpdate>, response: Response<AppResponse<Users[]>>) {
         try {
             const updateUserService = new UpdateUser();
 

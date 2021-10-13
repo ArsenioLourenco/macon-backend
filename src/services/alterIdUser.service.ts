@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import ProfileUserRepository from "../repositories/profileUsers.repository";
+import ProfileRepository from "../repositories/profile.repository";
 import UsersRepository from "../repositories/users.repository";
 
 export interface IAlterProfile{
@@ -13,7 +13,7 @@ export default class AlterIdProfileUser{
             UsersRepository
         );
         const profileRepository = getCustomRepository(
-            ProfileUserRepository
+            ProfileRepository
         );
         const verifyExistId = await usersRepository.findOne(
             {

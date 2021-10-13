@@ -11,7 +11,7 @@ export default class DeleteUser{
             UsersRepository)
         try{
             const getIdProfile = await usersRepository.query(`
-                SELECT * FROM Utilizadores WHERE id = ${id}
+                SELECT * FROM users WHERE id = ${id}
             `)
             const [{ id_perfil }] = getIdProfile;
             

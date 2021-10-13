@@ -35,7 +35,7 @@ app.use(routes);
 const PORT = process.env.PORT || 6800;
 //Listen Port
 if (require.main == module) {
-  app.listen(5800, 'localhost', () => {
+  app.listen(6800, 'localhost', () => {
     console.log(`SERVER ON PORT -- ${PORT} --`);
   });
 }

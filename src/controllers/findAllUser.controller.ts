@@ -1,11 +1,11 @@
+import { Users } from './../models/Users';
 import { getCustomRepository } from 'typeorm';
 import { Request, Response } from 'express';
 import UsersRepository from '../repositories/users.repository';
 import { AppResponse } from '../@types';
-import { Utilizadores } from '../models/Utilizadores';
 
 export default class FindAllUsersController{
-    async handle(request: Request, response: Response<AppResponse<Utilizadores[]>>){
+    async handle(request: Request, response: Response<AppResponse<Users[]>>){
         try{
             const userRepository = getCustomRepository(UsersRepository);
 

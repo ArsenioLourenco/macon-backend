@@ -20,12 +20,12 @@ export default class Login{
         try{
             const verifyUserExist = await userRepository.findOne({
                     where: {
-                    nomeUtilizador: username
+                    username
                 }
             });
 
             if(verifyUserExist){
-                const userPassword = verifyUserExist['senhaUtilizador'];
+                const userPassword = verifyUserExist['password'];
                 const passwordCompare = await compare(
                     password, 
                     userPassword
@@ -37,8 +37,7 @@ export default class Login{
                 const token = sign(
                     {
                         id: verifyUserExist.id, 
-                        email: verifyUserExist.emailUtilizador, 
-                        perfilId: verifyUserExist.idPerfil
+                        email: verifyUserExist.email, 
                     },
                         process.env.JWT_SECRET,
                 );

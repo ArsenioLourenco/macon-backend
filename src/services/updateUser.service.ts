@@ -53,7 +53,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({ nomeUtilizador: newName, emailUtilizador: email, idUtilizador: newCodeUpdate })
+                        .set({ username: newName, email, code : newCodeUpdate })
                         .where("id = :id", { id: id })
                         .execute();
                     return userUpdate;
@@ -76,7 +76,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({ nomeUtilizador: newName, idUtilizador: newCodeUpdate })
+                        .set({ username: newName, code: newCodeUpdate })
                         .where("id = :id", { id: id })
                         .execute();
                     return userUpdate;
@@ -84,7 +84,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({emailUtilizador: email})
+                        .set({email})
                         .where("id = :id", { id: id })
                         .execute();
                    return userUpdate;

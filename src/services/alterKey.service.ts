@@ -40,7 +40,7 @@ export default class AlterKey{
                     .createQueryBuilder()
                     .update()
                     .set({
-                        senhaUtilizador: newKeyCript
+                        password: newKeyCript
                     })
                     .where({
                         id

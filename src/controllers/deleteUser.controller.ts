@@ -1,12 +1,12 @@
+import { Users } from './../models/Users';
 import { Request, Response } from "express";
 import { AppResponse } from "../@types";
-import { Utilizadores } from "../models/Utilizadores";
 import DeleteUser, { IUserDelete } from "../services/deleteUser.service";
 
 export default class DeleteUserController{
     async handle(
         request: Request<IUserDelete>, 
-        response: Response<AppResponse<Utilizadores>>){
+        response: Response<AppResponse<Users>>){
         
         try{
             const id = request.params.id;

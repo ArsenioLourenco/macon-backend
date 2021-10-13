@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export interface ICreateUser{
     BI: string,
-    password: string,
+    password?: string,
     email?: string,
     typeProfile: number,
     phoneNumber?: string

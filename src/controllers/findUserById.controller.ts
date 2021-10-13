@@ -1,15 +1,15 @@
+import { Users } from './../models/Users';
 import { getCustomRepository } from 'typeorm';
 import { Request, Response } from 'express';
 import UsersRepository from '../repositories/users.repository';
 import { AppResponse } from '../@types';
-import { Utilizadores } from '../models/Utilizadores';
 
 interface IId{
     id: number
 }
 
 export default class FindUsersByIdController{
-    async handle(request: Request<IId>, response: Response<AppResponse<Utilizadores[]>>){
+    async handle(request: Request<IId>, response: Response<AppResponse<Users[]>>){
         try{
             const id = request.params.id;
             const userRepository = getCustomRepository(
