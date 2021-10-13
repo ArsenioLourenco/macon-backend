@@ -7,15 +7,26 @@ export class Country {
     @PrimaryGeneratedColumn({ type: "int", name: "id" })
     id: number;
 
-    @Column()
-    name: string;
+    @Column({type: "string", name: "countryName"})
+    country: string;
 
-    @Column()
+    @Column({type: "string", name: "odeCountry"})
     code: string;
 
-    @Column()
+    @Column({type: "string", name: "region"})
     region?: string;
 
-    // @OneToMany(()=> )
-    countryID: string;
+    @Column({
+        type: "datetime",
+        name: "created_at",
+        nullable: true,
+        default: () => "sysdatetimw("
+    })
+    created_at: Date | null;
+
+    @Column({ type: "datetime", 
+    name: "updated_at", 
+    nullable: true, 
+    default: () => "sysdatetimw(" })
+    updated_at: Date | null;
 }
