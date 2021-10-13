@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Person } from "./Person";
 import { Users } from "./Users";
 
 @Index("PK__Profile__3213E83FA4D9CC8E", ["id"], { unique: true })
@@ -32,6 +33,9 @@ export class Profile {
     default: () => "getdate()",
   })
   updatedAt: Date | null;
+
+  @OneToMany(() => Person, (person) => person.typeProfile)
+  people: Person[];
 
   @OneToMany(() => Users, (users) => users.profile)
   users: Users[];

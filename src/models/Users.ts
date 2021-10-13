@@ -37,6 +37,9 @@ export class Users {
   })
   updatedAt: Date | null;
 
+  @Column("varchar", { name: "email", length: 250 })
+  email: string;
+
   @ManyToOne(() => Profile, (profile) => profile.users)
   @JoinColumn([{ name: "profileId", referencedColumnName: "id" }])
   profile: Profile;

@@ -1,10 +1,12 @@
 import { hash } from 'bcryptjs'
 import { getCustomRepository } from "typeorm";
 import UsersRepository from "../repositories/users.repository";
-import ProfileUserRepository from "../repositories/profileUsers.repository";
+import ProfileRepository from '../repositories/profile.repository';
+import PersonRepository from '../repositories/person.repository';
+import axios from 'axios';
 
 export interface ICreateUser{
-    username: string,
+    BI: string,
     password: string,
     email: string,
     profileId: number
@@ -12,34 +14,41 @@ export interface ICreateUser{
 
 export default class CreateUser {
     async execute({ 
-        username, 
+        BI, 
         password, 
         email,
         profileId 
         } : ICreateUser){
-            const usersRepository = getCustomRepository(
-                UsersRepository
-            ),
-            profileUser = getCustomRepository(
-                ProfileUserRepository
-            );
+           const usersRepository = getCustomRepository(
+               UsersRepository
+           );
+           const profileRepository = getCustomRepository(
+               ProfileRepository
+           );
+           const personRepository = getCustomRepository(
+               PersonRepository
+           )
 
             try{
-                if(!email || !username || !password || !profileId){
+                if(!email || !BI || !password || !profileId){
                     return 'Please Send all datas'
                 }
-                const alreadyExistUser = await usersRepository.findOne({where: {
-                    emailUtilizador: email
-                }});
+                const alreadyExistUser = await usersRepository.findOne({
+                    where: {
+                        email
+                    }
+                })
 
                 if(alreadyExistUser){
                     return 'User Already exists';
                 }
                 else
                 {
-                    const existProfileId = await profileUser.findOne(
-                        profileId
-                    );
+                    const existProfileId = await profileRepository.findOne({
+                        where: {
+                            id: profileId
+                        }
+                    })
 
                     if(!existProfileId)
                     {
@@ -47,15 +56,23 @@ export default class CreateUser {
                     }
                     else
                     {
+                        const verifyBI = await axios.get(`
+                            https://desenvolvimento.gov.ao/dev.api/bi/?bi=${BI}
+                        `);
+                        
+                        if(!verifyBI.data){
+                            throw new Error('This Profile not exists');
+                        }
                         //hashing password
                         const passwordCript = await hash(password, 8);
 
+                        // getting user BI datas
+                        const {FIRST_NAME, LAST_NAME, BIRTH_DATE} = verifyBI.data;
+
                         //converting name to Array
-                        const ArrayName = username.split(' '),
-                            firstName = ArrayName.shift(),
-                            lastName = ArrayName[ArrayName.length - 1],
-                            newName = (firstName+'.'+lastName).toLowerCase(),
-                            latters = (firstName[0]+lastName[0]).toUpperCase();
+                        const lastName = LAST_NAME[LAST_NAME.length - 1],
+                            username = (FIRST_NAME+'.'+lastName).toLowerCase(),
+                            latters = (FIRST_NAME[0]+lastName[0]).toUpperCase();
                         
                         //getting lastMax id
                         const lastMaxId  = await usersRepository
@@ -70,19 +87,24 @@ export default class CreateUser {
                         const remainingZeros = zerosLeft.substring(0, (zerosLeft.toString().length - newIdUser.toString().length));
 
                         // Gerando CodeUser    
-                        const newIdUseCode = 'BSOL'+remainingZeros+newIdUser+latters;
+                        const code = 'maconTrasp'+remainingZeros+newIdUser+latters;
                         
                         const createUser = usersRepository.create({
-                            nomeUtilizador: newName,
-                            senhaUtilizador: passwordCript,
-                            emailUtilizador: email,
-                            idUtilizador: newIdUseCode,
-                            idPerfil: existProfileId
+                            username,
+                            code,
+                            password: passwordCript,
+                            email
                         });
 
-                        await usersRepository.save(
+                        const saveUser = await usersRepository.save(
                             createUser
                         );
+                        if(saveUser){
+                            // saving Person Datas
+                            const saveDatasInPerson = personRepository.create({
+                                
+                            })
+                        }
                         return createUser; 
                     }
                 }

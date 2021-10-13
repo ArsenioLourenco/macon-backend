@@ -5,7 +5,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Person } from "./Person";
 import { Tranpsort } from "./Tranpsort";
 
 @Index("PK__TypeTran__3213E83F4664E4E9", ["id"], { unique: true })
@@ -33,9 +32,6 @@ export class TypeTransport {
     default: () => "getdate()",
   })
   updatedAt: Date | null;
-
-  @OneToMany(() => Person, (person) => person.typeTransport)
-  people: Person[];
 
   @OneToMany(() => Tranpsort, (tranpsort) => tranpsort.typeTransport)
   tranpsorts: Tranpsort[];
