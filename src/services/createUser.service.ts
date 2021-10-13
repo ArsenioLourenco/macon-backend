@@ -8,8 +8,9 @@ import axios from 'axios';
 export interface ICreateUser{
     BI: string,
     password: string,
-    email: string,
-    profileId: number
+    email?: string,
+    typeProfile: number,
+    phoneNumber?: string
 }
 
 export default class CreateUser {
@@ -17,7 +18,8 @@ export default class CreateUser {
         BI, 
         password, 
         email,
-        profileId 
+        typeProfile,
+        phoneNumber 
         } : ICreateUser){
            const usersRepository = getCustomRepository(
                UsersRepository
@@ -30,7 +32,7 @@ export default class CreateUser {
            )
 
             try{
-                if(!email || !BI || !password || !profileId){
+                if(!email || !BI || !password || !typeProfile){
                     return 'Please Send all datas'
                 }
                 const alreadyExistUser = await usersRepository.findOne({
@@ -46,7 +48,7 @@ export default class CreateUser {
                 {
                     const existProfileId = await profileRepository.findOne({
                         where: {
-                            id: profileId
+                            id: typeProfile
                         }
                     })
 
@@ -100,10 +102,22 @@ export default class CreateUser {
                             createUser
                         );
                         if(saveUser){
+                            // gettint id
+                            const id = saveUser.id;
                             // saving Person Datas
                             const saveDatasInPerson = personRepository.create({
-                                
-                            })
+                                firstName: FIRST_NAME,
+                                lastName: LAST_NAME,
+                                completeName: FIRST_NAME + ' ' + LAST_NAME,
+                                bi: BI,
+                                birthDate: BIRTH_DATE,
+                                userId: id,
+                                phoneNumber
+                            });
+                            await personRepository.save(
+                                saveDatasInPerson
+                            );
+                            return saveDatasInPerson;
                         }
                         return createUser; 
                     }
