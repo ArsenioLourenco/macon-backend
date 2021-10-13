@@ -1,24 +1,26 @@
 import { Request, Response } from "express";
 import { AppResponse } from "../@types";
-import { Utilizadores } from "../models/Utilizadores";
+import { Person } from "../models/Person";
 import CreateUser, { ICreateUser } from "../services/createUser.service";
 
 export default class CreateUserController{
-    async handle(request: Request<ICreateUser>, response: Response<AppResponse<Utilizadores[]>>){
+    async handle(request: Request<ICreateUser>, response: Response<AppResponse<Person[]>>){
         try{
             const createUserService = new CreateUser();
 
             const { 
-                username, 
+                BI, 
                 password, 
                 email, 
-                profileId } = request.body;
+                typeProfile,
+                phoneNumber } = request.body;
             
             const createUser = await createUserService.execute({ 
-                username, 
+                BI, 
                 password, 
                 email, 
-                profileId 
+                typeProfile,
+                phoneNumber 
             });
             
             if(createUser){
@@ -31,7 +33,7 @@ export default class CreateUserController{
               return response.status(200)
                     .json({
                         success: false,
-                        message: 'Fatal Error',
+                        message: 'User not Created',
                         data: createUser
                     });
                 
