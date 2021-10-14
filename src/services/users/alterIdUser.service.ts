@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import ProfileRepository from "../repositories/profile.repository";
-import UsersRepository from "../repositories/users.repository";
+import ProfileRepository from "../../repositories/profile.repository";
+import UsersRepository from "../../repositories/users.repository";
 
 export interface IAlterProfile{
     idUser: number;

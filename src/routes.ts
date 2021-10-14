@@ -24,7 +24,7 @@ router.get('/users/isAuthenticated', isUsersAuthenticated)
 // all users routes
 router.use(normalUsers);
 // auth route
-// router.use(Auth);
+router.use(Auth);
 // Routes with Restriction
 router.use(userRoutes);
 // logout route

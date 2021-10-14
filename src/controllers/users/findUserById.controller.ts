@@ -1,8 +1,8 @@
-import { Users } from './../models/Users';
+import { Users } from './../../models/Users';
 import { getCustomRepository } from 'typeorm';
 import { Request, Response } from 'express';
-import UsersRepository from '../repositories/users.repository';
-import { AppResponse } from '../@types';
+import UsersRepository from '../../repositories/users.repository';
+import { AppResponse } from '../../@types';
 
 interface IId{
     id: number

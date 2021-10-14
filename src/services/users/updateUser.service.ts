@@ -1,6 +1,6 @@
 import { getCustomRepository, getRepository } from "typeorm";
 import { hash } from 'bcryptjs'
-import UsersRepository from "../repositories/users.repository";
+import UsersRepository from "../../repositories/users.repository";
 
 
 export interface IUpdate {

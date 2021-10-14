@@ -1,16 +1,16 @@
 import { hash } from 'bcryptjs'
 import { getCustomRepository } from "typeorm";
-import UsersRepository from "../repositories/users.repository";
-import ProfileRepository from '../repositories/profile.repository';
-import PersonRepository from '../repositories/person.repository';
+import UsersRepository from "../../repositories/users.repository";
+import ProfileRepository from '../../repositories/profile.repository';
+import PersonRepository from '../../repositories/person.repository';
 import axios from 'axios';
 
 export interface ICreateUser{
     BI: string,
-    password?: string,
+    password: string,
     email?: string,
-    typeProfile: number,
-    phoneNumber?: string
+    profileId: number,
+    phoneNumber: string
 }
 
 export default class CreateUser {
@@ -18,7 +18,7 @@ export default class CreateUser {
         BI, 
         password, 
         email,
-        typeProfile,
+        profileId,
         phoneNumber 
         } : ICreateUser){
            const usersRepository = getCustomRepository(
@@ -32,7 +32,7 @@ export default class CreateUser {
            )
 
             try{
-                if(!email || !BI || !password || !typeProfile){
+                if(!email || !BI || !password || !profileId){
                     return 'Please Send all datas'
                 }
                 const alreadyExistUser = await usersRepository.findOne({
@@ -48,13 +48,21 @@ export default class CreateUser {
                 {
                     const existProfileId = await profileRepository.findOne({
                         where: {
-                            id: typeProfile
+                            id: profileId
                         }
                     })
 
                     if(!existProfileId)
                     {
                         throw new Error('This Profile not exists');
+                    }
+                    const verifyExistsBI = await personRepository.findOne({
+                        where: {
+                            bi: BI
+                        }
+                    });
+                    if(verifyExistsBI){
+                        return 'This BI already Register'
                     }
                     else
                     {
@@ -70,17 +78,16 @@ export default class CreateUser {
 
                         // getting user BI datas
                         const [{ FIRST_NAME, LAST_NAME, BIRTH_DATE }] = verifyBI.data;
-                        console.log(FIRST_NAME);
-                        
+                    
                         //converting name to Array
                         const 
-                            username = (FIRST_NAME+'.'+LAST_NAME).toLowerCase(),
+                            username = (FIRST_NAME+'.'+LAST_NAME[0]).toLowerCase(),
                             latters = (FIRST_NAME[0]+LAST_NAME[0]).toUpperCase();
                         
                         //getting lastMax id
                         const lastMaxId  = await usersRepository
                             .createQueryBuilder("users")
-                            .select("MAX(users.id)", "max")
+                            .select("MAX(Users.id)", "max")
                             .getRawOne();
 
                         const newIdUser = parseInt(lastMaxId['max'] + 1).toString();
@@ -96,7 +103,8 @@ export default class CreateUser {
                             username,
                             code,
                             password: passwordCript,
-                            email
+                            email,
+                            profile: existProfileId
                         });
 
                         const saveUser = await usersRepository.save(
@@ -118,13 +126,14 @@ export default class CreateUser {
                             await personRepository.save(
                                 saveDatasInPerson
                             );
-                            return verifyBI.data;
+                            return saveUser;
                         }
                         return createUser; 
                     }
                 }
-            }catch(err){
-                return err;
             }
+            catch(err){
+                return err;
+        }
     }
 }

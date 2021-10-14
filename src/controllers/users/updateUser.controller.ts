@@ -1,7 +1,7 @@
-import { Users } from './../models/Users';
+import { Users } from './../../models/Users';
 import { Request, Response } from "express";
-import { AppResponse } from "../@types";
-import UpdateUser,  { IUpdate } from "../services/updateUser.service";
+import { AppResponse } from "../../@types";
+import UpdateUser,  { IUpdate } from "../../services/users/updateUser.service";
 
 
 export class UpdateUserController {

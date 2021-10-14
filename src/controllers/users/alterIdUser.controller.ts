@@ -1,6 +1,6 @@
 import {  Request, Response } from "express";
-import { AppResponse } from "../@types";
-import AlterIdProfileUser, { IAlterProfile } from "../services/alterIdUser.service";
+import { AppResponse } from "../../@types";
+import AlterIdProfileUser, { IAlterProfile } from "../../services/users/alterIdUser.service";
 
 export default class AlterIdUserControler{
     async handle(request:Request<IAlterProfile>, response: Response<AppResponse<string>>){

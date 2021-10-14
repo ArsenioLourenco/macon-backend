@@ -1,16 +1,16 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { getCustomRepository } from 'typeorm';
-import UsersRepository from '../repositories/users.repository';
+import UsersRepository from '../../repositories/users.repository';
 
 export interface ILogin{
-    username: string,
+    email: string,
     password: string
 }
 
 export default class Login{
     async execute({
-        username,
+        email,
         password
     } : ILogin){
         
@@ -20,7 +20,7 @@ export default class Login{
         try{
             const verifyUserExist = await userRepository.findOne({
                     where: {
-                    username
+                    email
                 }
             });
 

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AppResponse } from '../@types';
 import * as Yup from "yup";
 import { showError } from '.';
-import { IAlterProfile } from '../services/alterIdUser.service';
+import { IAlterProfile } from '../services/users/alterIdUser.service';
 
 export const alterProfileUser = async (
   req: Request<IAlterProfile>,

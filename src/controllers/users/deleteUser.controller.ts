@@ -1,7 +1,7 @@
-import { Users } from './../models/Users';
+import { Users } from './../../models/Users';
 import { Request, Response } from "express";
-import { AppResponse } from "../@types";
-import DeleteUser, { IUserDelete } from "../services/deleteUser.service";
+import { AppResponse } from "../../@types";
+import DeleteUser, { IUserDelete } from "../../services/users/deleteUser.service";
 
 export default class DeleteUserController{
     async handle(

@@ -5,7 +5,7 @@ import { UpdateUserController } from './../controllers/updateUser.controller';
 import { alterProfileUser } from '../middlewares/alterProfileUser';
 import AlterkeyController from '../controllers/alterKey.controller';
 import DeleteUserController from '../controllers/deleteUser.controller';
-import AlterIdUserControler from '../controllers/alterIdUser.controller';
+import AlterIdUserControler from '../controllers/users/alterIdUser.controller';
 import FindAllUsersController from '../controllers/findAllUser.controller';
 import FindUsersByIdController from '../controllers/findUserById.controller';
 import { IsSuperAdmin } from '../middlewares/isSuperAdmin';
