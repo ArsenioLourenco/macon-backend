@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { AppResponse } from "../@types";
-import AlterKey, { IAlterKey } from "../services/alterKey.service";
+import { AppResponse } from "../../@types";
+import AlterKey, { IAlterKey } from "../../services/users/alterKey.service";
 
 export default class AlterkeyController{
     async handle(request: Request<IAlterKey>, response: Response<AppResponse<string>>){

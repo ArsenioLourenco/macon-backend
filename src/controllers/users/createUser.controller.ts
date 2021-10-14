@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { AppResponse } from "../@types";
-import { Person } from "../models/Person";
-import CreateUser, { ICreateUser } from "../services/registerAdmin.service";
+import { AppResponse } from "../../@types";
+import { Person } from "../../models/Person";
+import CreateUser, { ICreateUser } from "../../services/users/registerAdmin.service";
 
 export default class CreateUserController{
     async handle(request: Request<ICreateUser>, response: Response<AppResponse<Person[]>>){
@@ -12,14 +12,14 @@ export default class CreateUserController{
                 BI, 
                 password, 
                 email, 
-                typeProfile,
+                profileId,
                 phoneNumber } = request.body;
             
             const createUser = await createUserService.execute({ 
                 BI, 
                 password, 
                 email, 
-                typeProfile,
+                profileId,
                 phoneNumber 
             });
 

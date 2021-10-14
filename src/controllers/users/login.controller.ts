@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
-import { AppResponse } from '../@types';
-import Login, { ILogin } from '../services/login.service';
+import { AppResponse } from '../../@types';
+import Login, { ILogin } from '../../services/users/login.service';
 
 export default class LoginController{
     async handle(request: Request<ILogin>, response: Response<AppResponse<string>>){
-        const { username, password } = request.body;
+        const { email, password } = request.body;
         try{
             const loginService = new Login();
             const auth = await loginService.execute({
-                username, 
+                email, 
                 password
             });
 
-            response.cookie("folhaDeRosto", auth, {
+            response.cookie("maconBackEndInterdigitosDevs", auth, {
                 maxAge: 86400000
             });
 

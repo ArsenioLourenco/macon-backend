@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AppResponse } from '../@types';
 import * as Yup from "yup";
 import { showError } from '.';
-import { IAlterKey } from '../services/alterKey.service';
+import { IAlterKey } from '../services/users/alterKey.service';
 
 export const alterKey = async (
   req: Request<IAlterKey>,

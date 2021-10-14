@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { login } from "../middlewares/login";
 import { createUser } from "../middlewares/createUser";
-import LoginController from "../controllers/login.controller";
-import LogoutController from "../controllers/logout.controller";
-import CreateUserController from "../controllers/createUser.controller";
+import LoginController from "../controllers/users/login.controller";
+import LogoutController from "../controllers/users/logout.controller";
+import CreateUserController from "../controllers/users/createUser.controller";
 
 
 const router = Router();

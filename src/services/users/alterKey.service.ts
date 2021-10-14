@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
-import UsersRepository from '../repositories/users.repository';
+import UsersRepository from '../../repositories/users.repository';
 
 export interface IAlterKey{
     id: number,

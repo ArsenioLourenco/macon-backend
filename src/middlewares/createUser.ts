@@ -3,7 +3,7 @@ import {NextFunction, Request, Response} from 'express';
 import * as Yup from 'yup';
 import { showError } from '.';
 import { AppResponse } from '../@types';
-import { ICreateUser } from '../services/registerAdmin.service';
+import { ICreateUser } from '../services/users/registerAdmin.service';
 
 export const createUser = async(
     req: Request<ICreateUser>,
@@ -20,7 +20,7 @@ export const createUser = async(
         email: Yup.string()
             .required('Informe seu email é obrigatório')
             .email('Email inválido!'),
-        typeProfile: Yup.string()
+        profileId: Yup.string()
             .required('O perfil do Usuário é Obrigatório!')
     });
     await showError(req, res, next, schema);

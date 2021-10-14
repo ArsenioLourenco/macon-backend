@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import { updateUser } from '../middlewares/updateUser';
 import { alterKey } from '../middlewares/alterKey';
-import { UpdateUserController } from './../controllers/updateUser.controller';
+import { UpdateUserController } from './../controllers/users/updateUser.controller';
 import { alterProfileUser } from '../middlewares/alterProfileUser';
-import AlterkeyController from '../controllers/alterKey.controller';
-import DeleteUserController from '../controllers/deleteUser.controller';
-import AlterIdUserControler from '../controllers/alterIdUser.controller';
-import FindAllUsersController from '../controllers/findAllUser.controller';
-import FindUsersByIdController from '../controllers/findUserById.controller';
+import AlterkeyController from '../controllers/users/alterKey.controller';
+import DeleteUserController from '../controllers/users/deleteUser.controller';
+import AlterIdUserControler from '../controllers/users/alterIdUser.controller';
+import FindAllUsersController from '../controllers/users/findAllUser.controller';
+import FindUsersByIdController from '../controllers/users/findUserById.controller';
 import { IsSuperAdmin } from '../middlewares/isSuperAdmin';
 import { isUsersAuthenticated } from '../middlewares/isAuthenticated';
 

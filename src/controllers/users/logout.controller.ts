@@ -1,10 +1,10 @@
 import {  Response } from "express";
-import { AppResponse } from "../@types";
+import { AppResponse } from "../../@types";
 
 export default class LogoutController {
     async handle(response:Response<AppResponse<string>>) {
         try {
-            response.cookie('folhaDeRosto', '', { maxAge: 0 });
+            response.cookie('maconBackEndInterdigitosDevs', '', { maxAge: 0 });
             return response.status(200).json({
                     success: true,
                     message: "Logout Succesffully"
