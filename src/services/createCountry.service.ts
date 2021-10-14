@@ -1,5 +1,5 @@
-
-
+import { getCustomRepository } from 'typeorm';
+import CountryRepository from '../repositories/country.repository';
 
 export interface ICreateCountry{
     country: string;
@@ -16,6 +16,7 @@ export class CreateCountry{
     }: ICreateCountry){
         const countryRepository = getCustomRepository(
             CountryRepository
-        )
+        ),
+        
     }
 }
