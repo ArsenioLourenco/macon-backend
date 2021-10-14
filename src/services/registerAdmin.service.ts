@@ -62,19 +62,20 @@ export default class CreateUser {
                             https://desenvolvimento.gov.ao/dev.api/bi/?bi=${BI}
                         `);
                         
-                        if(!verifyBI.data){
-                            throw new Error('This Profile not exists');
+                        if(!(verifyBI.status === 200)){
+                            throw new Error('This BI not exists');
                         }
                         //hashing password
                         const passwordCript = await hash(password, 8);
 
                         // getting user BI datas
-                        const {FIRST_NAME, LAST_NAME, BIRTH_DATE} = verifyBI.data;
-
+                        const [{ FIRST_NAME, LAST_NAME, BIRTH_DATE }] = verifyBI.data;
+                        console.log(FIRST_NAME);
+                        
                         //converting name to Array
-                        const lastName = LAST_NAME[LAST_NAME.length - 1],
-                            username = (FIRST_NAME+'.'+lastName).toLowerCase(),
-                            latters = (FIRST_NAME[0]+lastName[0]).toUpperCase();
+                        const 
+                            username = (FIRST_NAME+'.'+LAST_NAME).toLowerCase(),
+                            latters = (FIRST_NAME[0]+LAST_NAME[0]).toUpperCase();
                         
                         //getting lastMax id
                         const lastMaxId  = await usersRepository
@@ -117,7 +118,7 @@ export default class CreateUser {
                             await personRepository.save(
                                 saveDatasInPerson
                             );
-                            return saveDatasInPerson;
+                            return verifyBI.data;
                         }
                         return createUser; 
                     }

@@ -22,10 +22,10 @@ const findUserByIdController = new FindUsersByIdController();
 const findUserAllUserController = new FindAllUsersController();
 
 // router.post('/users/create', createUserController.handle);
-router.use(IsAdmin)
+// router.use(IsAdmin)
 router.get('/users/all', findUserAllUserController.handle);
 router.get('/users/all/:id', findUserByIdController.handle);
-router.use(IsSuperAdmin)
+// router.use(IsSuperAdmin)
 router.get('/users/all', findUserAllUserController.handle);
 router.get('/users/all/:id', findUserByIdController.handle);
 router.delete('/users/delete/:id', deleteUserController.handle);

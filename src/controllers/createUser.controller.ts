@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AppResponse } from "../@types";
 import { Person } from "../models/Person";
-import CreateUser, { ICreateUser } from "../services/createUser.service";
+import CreateUser, { ICreateUser } from "../services/registerAdmin.service";
 
 export default class CreateUserController{
     async handle(request: Request<ICreateUser>, response: Response<AppResponse<Person[]>>){
@@ -22,6 +22,8 @@ export default class CreateUserController{
                 typeProfile,
                 phoneNumber 
             });
+
+            console.log(createUser)
             
             if(createUser){
                 return response.status(200)
