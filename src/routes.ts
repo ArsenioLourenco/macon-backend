@@ -4,7 +4,7 @@ import normalUsers from "./routes/normalUsers.routes";
 import { isUsersAuthenticated } from './middlewares/isAuthenticated';
 import logoutRoute from "./routes/logout.routes";
 import userRoutes from "./routes/users.routes";
-
+import transportRoutes from "./routes/transport.routes";
 // Router Instance
 const router = Router();
 
@@ -25,6 +25,7 @@ router.get('/users/isAuthenticated', isUsersAuthenticated)
 router.use(normalUsers);
 // auth route
 // router.use(Auth);
+router.use(transportRoutes)
 // Routes with Restriction
 router.use(userRoutes);
 // logout route

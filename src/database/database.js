@@ -13,7 +13,7 @@ const mssql = require('mssql');
 //Config Server 6
 let configDB = {
     server: "192.168.40.5",
-    database: "folha_de_rosto",
+    database: "macon",
     user: "sa",
     password: "google.2021",
     port: 1433,
