@@ -16,7 +16,7 @@ export class Spots {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("varchar", { name: "spotName", length: 50 })
+  @Column("varchar", { name: "spotName", length: 250 })
   spotName: string;
 
   @Column("text", { name: "description", nullable: true })
