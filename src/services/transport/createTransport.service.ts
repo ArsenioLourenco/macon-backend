@@ -1,5 +1,4 @@
 import { getCustomRepository } from "typeorm";
-import { Tranpsort } from "../../models/Tranpsort";
 import TransportRepository from "../../repositories/transports.repository";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
@@ -35,13 +34,6 @@ export default class CreateTransport{
                 return ' We dont have this transport';
             }
 
-            const transportId = verifyIfExistTypeTransport.id
-
-            // const transport = await transportRepository
-            //     .query(`INSERT INTO Transport(transportName, transportNumber, totalPlaces, typeTransportId) VALUES (${transportName}, ${transportNumber}, ${totalPlace}, ${transportId})`);
-
-
-
             const createTransport = transportRepository.create({
                 transportName,
                 transportNumber,
@@ -57,14 +49,7 @@ export default class CreateTransport{
                 return createTransport;
             }
             return 'Bug'
-            //  const createTransport= transportRepository.create(
-            //      {
-            //          transportName,
-            //          transportNumber: transportNumber,
-            //         totalPlace: totalPlace,
-            //          typeTransport: typeTransportId
-            //      }
-            //  )
+            
         }
         catch(err){
             return err.message
