@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { updateUser } from '../middlewares/updateUser';
 import { alterKey } from '../middlewares/alterKey';
 import { UpdateUserController } from './../controllers/users/updateUser.controller';
 import { alterProfileUser } from '../middlewares/alterProfileUser';
@@ -30,6 +29,6 @@ router.get('/users/all/:id', findUserByIdController.handle);
 router.delete('/users/delete/:id', deleteUserController.handle);
 router.post('/users/edit/alterKey', alterKey, alterKeyController.handle);
 router.post("/users/edit/profile", alterProfileUser, alterIdUserControler.handle);
-router.put("/users/update", updateUser, updateUserController.handle)
+
 
 export default router;
