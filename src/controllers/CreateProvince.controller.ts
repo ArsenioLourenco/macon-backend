@@ -1,16 +1,18 @@
+
+
 import { Request, Response } from 'express';
 import { AppResponse } from '../@types';
-import { Countries } from '../models/Countries';
-import CreateCountry, { ICreateCountry } from '../services/CreateCountry.service';
+import { Provinces } from '../models/Provinces';
+import CreateProvince, { ICreateProvince } from '../services/CreateProvince.service';
 
-export default class CreateCountryController {
-    async handle(request: Request<ICreateCountry>, response: Response<AppResponse<Countries[]>>) {
-        const { name, region, code } = request.body;
-        const countryService = new CreateCountry();
-        const countryExist = await countryService.execute({ name, region, code });
+export default class CreateProvinceController {
+    async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
+        const { name, region, code, countryID } = request.body;
+        const provinceService = new CreateProvince();
+        const provinceExist = await provinceService.execute({ name, region, code, countryID });
 
         try {
-            if (!countryExist) {
+            if (!provinceExist) {
                 return response.json({
                     success: false,
                     message: 'Failed'
@@ -20,7 +22,7 @@ export default class CreateCountryController {
                     .json({
                         success: true,
                         message: 'Created successfully',
-                        data: countryExist
+                        data: provinceExist
                     })
             }
 

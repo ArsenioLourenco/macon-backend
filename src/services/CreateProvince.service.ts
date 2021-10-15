@@ -18,29 +18,23 @@ export default class CreateProvince {
         countryID
     }: ICreateProvince) {
         try {
+
+            const provinceRepository = getCustomRepository(ProvinceRepository);
+            const coutryRepository = getCustomRepository(CountryRepository);
+            const provinciaExist = await provinceRepository.findOne({ where: { provinceName: name } });
+            const countryExist = await coutryRepository.findOne(countryID);
+
             if (!name) {
                 return 'Entra o nome da Provincia';
             }
 
-            const provinceRepository = getCustomRepository(
-                ProvinceRepository
-            );
-            const coutryRepository = getCustomRepository(
-                CountryRepository
-            );
-
-            const provinciaExist = provinceRepository.findOne({ where: { provinceName: name }});
-
-            if(provinciaExist){
+            if (provinciaExist) {
                 return 'Essa provincia ja esta na base de dados';
-            }else{
-                const countryExist = await coutryRepository.findOne(
-                    countryID
-                );
+            } else {
 
-                if(!countryExist){
-                    return 'Country already Exist';
-                }else{
+                if (!countryExist) {
+                    return 'This country already Exist';
+                } else {
                     const createProvince = provinceRepository.create({
                         provinceName: name,
                         region: region,

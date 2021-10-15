@@ -1,9 +1,8 @@
 import { getCustomRepository } from 'typeorm';
-import CountryRepository from '../repositories/country.repository';
 import ProvinceRepository from '../repositories/province.repositoy';
 import SpotRepository from '../repositories/spot.repository';
 
-export interface ICreatePoint {
+export interface ICreateSpot {
     name: string;
     description?: string;
     location?: string;
@@ -11,14 +10,14 @@ export interface ICreatePoint {
     provinceID: string;
 }
 
-export class CreatePoint {
+export class CreateSpot {
     async execute({
         name,
         description,
         location,
         contact,
         provinceID,
-    }: ICreatePoint) {
+    }: ICreateSpot) {
         const spotRepository = getCustomRepository(
             SpotRepository
         );

@@ -37,9 +37,9 @@ export default class CreateCountry {
                 await countryRepository.save(
                     createCountry
                 );
+                
                 return createCountry;
             }
-
         } catch (error) {
             return error;
         }

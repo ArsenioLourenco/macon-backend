@@ -1,16 +1,19 @@
 import { Request, Response } from 'express';
-import { AppResponse } from '../@types';
-import { Countries } from '../models/Countries';
-import CreateCountry, { ICreateCountry } from '../services/CreateCountry.service';
+import { AppResponse } from "../@types";
+import { Spots } from '../models/Spots';
+import { ICreateSpot, CreateSpot } from "../services/CreateSpot.service";
 
-export default class CreateCountryController {
-    async handle(request: Request<ICreateCountry>, response: Response<AppResponse<Countries[]>>) {
-        const { name, region, code } = request.body;
-        const countryService = new CreateCountry();
-        const countryExist = await countryService.execute({ name, region, code });
+
+
+
+export default class CreateSpotController {
+    async handle(request: Request<ICreateSpot>, response: Response<AppResponse<Spots[]>>) {
+        const { name, description, location, contact, provinceID } = request.body;
+        const spotService = new CreateSpot();
+        const spotExist = await spotService.execute({ name, description, location, contact, provinceID });
 
         try {
-            if (!countryExist) {
+            if (!spotExist) {
                 return response.json({
                     success: false,
                     message: 'Failed'
@@ -20,7 +23,7 @@ export default class CreateCountryController {
                     .json({
                         success: true,
                         message: 'Created successfully',
-                        data: countryExist
+                        data: spotExist
                     })
             }
 
