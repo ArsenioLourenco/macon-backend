@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import * as Yup from 'yup';
 import { showError } from '.';
-import { AppResponse } from "../@types";
-import { Provinces } from "../models/Provinces";
-import { ICreateProvince } from "../services/CreateProvince.service";
-
-
+import { AppResponse } from "../../@types";
+import { Provinces } from "../../models/Provinces";
+import { ICreateProvince } from "../../services/location/CreateProvince.service";
 export const CreateProvinceMiddleware = async (
     request: Request<ICreateProvince>,
     response: Response<AppResponse<Provinces[]>>,

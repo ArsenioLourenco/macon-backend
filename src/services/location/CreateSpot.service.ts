@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
-import ProvinceRepository from '../repositories/province.repositoy';
-import SpotRepository from '../repositories/spot.repository';
+import ProvinceRepository from '../../repositories/province.repositoy';
+import SpotRepository from '../../repositories/spot.repository';
 
 export interface ICreateSpot {
     name: string;

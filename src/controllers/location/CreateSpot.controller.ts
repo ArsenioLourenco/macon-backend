@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { AppResponse } from "../@types";
-import { Spots } from '../models/Spots';
-import { ICreateSpot, CreateSpot } from "../services/CreateSpot.service";
+import { AppResponse } from "../../@types";
+import { Spots } from '../../models/Spots';
+import { ICreateSpot, CreateSpot } from "../../services/location/CreateSpot.service";
 
 
 

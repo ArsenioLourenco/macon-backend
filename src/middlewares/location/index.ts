@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { AppResponse } from "../@types";
+import { AppResponse } from "../../@types";
 import * as Yup from 'yup';
 
 

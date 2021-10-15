@@ -1,8 +1,6 @@
 import { getCustomRepository } from 'typeorm';
-import CountryRepository from '../repositories/country.repository';
-import ProvinceRepository from '../repositories/province.repositoy';
-
-
+import CountryRepository from '../../repositories/country.repository';
+import ProvinceRepository from '../../repositories/province.repositoy';
 export interface ICreateProvince {
     name: string,
     region?: string,

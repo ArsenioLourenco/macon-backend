@@ -1,6 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import CountryRepository from '../repositories/country.repository';
-
+import CountryRepository from '../../repositories/country.repository';
 
 export interface ICreateCountry {
     name: string,

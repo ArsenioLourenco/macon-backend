@@ -1,10 +1,9 @@
 
 
 import { Request, Response } from 'express';
-import { AppResponse } from '../@types';
-import { Provinces } from '../models/Provinces';
-import CreateProvince, { ICreateProvince } from '../services/CreateProvince.service';
-
+import { AppResponse } from '../../@types';
+import { Provinces } from '../../models/Provinces';
+import CreateProvince, { ICreateProvince } from '../../services/location/CreateProvince.service';
 export default class CreateProvinceController {
     async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
         const { name, region, code, countryID } = request.body;
