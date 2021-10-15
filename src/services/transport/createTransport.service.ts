@@ -18,9 +18,11 @@ export default class CreateTransport{
             TypeTransportRepository
         )
         try{
-            const readyTransport= await transportRepository.findOne(
-                transportNumber
-            )
+            const readyTransport= await transportRepository.findOne({
+                where: {
+                    transportNumber:transportNumber
+                }
+            })
 
             if(readyTransport){
                 return 'Transport Already exists'

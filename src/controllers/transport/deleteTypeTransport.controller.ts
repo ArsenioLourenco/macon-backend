@@ -1,21 +1,21 @@
 
 import { Request, Response } from "express";
 import { AppResponse } from "../../@types";
-import DeleteTransport from '../../services/transport/deleteTransport.service';
+import DeleteTypeTransport from "../../services/transport/deleteTypeTransport.service";
 
 
-export default class DeleteTransportController{
+export default class DeleteTypeTransportController{
     async handle(request: Request, response: Response<AppResponse<string>>){
         
         try{
             const id = Number(request.params.id);
-            const deleteTransport = new DeleteTransport
-            const deleteTransportId = await deleteTransport.execute(id);
+            const deleteTypeTransport = new DeleteTypeTransport()
+            const deleteTypeTransportId = await deleteTypeTransport.execute(id);
             return response.status(200)
                 .json({
                     success: true,
-                    message: 'Transport was deleted',
-                    data: deleteTransportId,
+                    message: ' Type Transport was deleted',
+                    data: deleteTypeTransportId,
                 })
         }catch(err){
             return response
