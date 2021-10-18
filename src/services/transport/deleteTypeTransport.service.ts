@@ -4,17 +4,17 @@ import TypeTransportRepository from "../../repositories/typeTransport.repository
 
 export default class DeleteTypeTransport{
     async execute(id:number){
-        const TypetransportRepository = getCustomRepository(
+        const typetransportRepository = getCustomRepository(
             TypeTransportRepository)
 
         try{
         
-            const getIdTypeTransport = await TypetransportRepository.findOne(id)
+            const getIdTypeTransport = await typetransportRepository.findOne(id)
             if(!getIdTypeTransport) {
                 return "This Type Transport not exist";   
             }
             
-            const deleteTypeTransport = await TypetransportRepository
+            const deleteTypeTransport = await typetransportRepository
                 .createQueryBuilder()
                 .delete()
                 .where("id = :id", {id: id})
