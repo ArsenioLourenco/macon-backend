@@ -4,26 +4,26 @@ import { Spots } from '../../models/Spots';
 import { ICreateSpot, CreateSpot } from "../../services/location/CreateSpot.service";
 
 
-
-
 export default class CreateSpotController {
     async handle(request: Request<ICreateSpot>, response: Response<AppResponse<Spots[]>>) {
-        const { name, description, location, contact, provinceID } = request.body;
-        const spotService = new CreateSpot();
-        const spotExist = await spotService.execute({ name, description, location, contact, provinceID });
-
+       
         try {
-            if (!spotExist) {
+            const { name, description, location, contacts, provinceID } = request.body;
+            const serviceSpot = new CreateSpot();
+            const createSpot = await serviceSpot.execute({ name, description, location, contacts, provinceID });
+    
+            if (!createSpot) {
                 return response.json({
-                    success: false,
-                    message: 'Failed'
+                    success: true,
+                    message: name+' Created successfully',
+                    data: createSpot
                 });
             } else {
                 return response.status(200)
                     .json({
-                        success: true,
-                        message: 'Created successfully',
-                        data: spotExist
+                        success: false,
+                        message: 'Nao criou... '+name,
+                        data: createSpot
                     })
             }
 

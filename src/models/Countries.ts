@@ -13,7 +13,7 @@ export class Countries {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("varchar", { name: "countryName", length: 50 })
+  @Column("varchar", { name: "countryName", unique: true, length: 50 })
   countryName: string;
 
   @Column("varchar", { name: "region", nullable: true, length: 250 })
@@ -36,6 +36,6 @@ export class Countries {
   })
   updatedAt: Date | null;
 
-  @OneToMany(() => Provinces, (provinces) => provinces.country)
+  @OneToMany(() => Provinces, (provinces) => provinces.countryID)
   provinces: Provinces[];
 }

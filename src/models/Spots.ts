@@ -16,7 +16,7 @@ export class Spots {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("varchar", { name: "spotName", length: 250 })
+  @Column("varchar", { name: "spotName", length: 50 })
   spotName: string;
 
   @Column("text", { name: "description", nullable: true })
@@ -44,7 +44,7 @@ export class Spots {
 
   @ManyToOne(() => Provinces, (provinces) => provinces.spots)
   @JoinColumn([{ name: "provinceId", referencedColumnName: "id" }])
-  province: Provinces;
+  provinceID: Provinces;
 
   @OneToMany(() => Travels, (travels) => travels.spot)
   travels: Travels[];

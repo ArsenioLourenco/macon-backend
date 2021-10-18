@@ -6,22 +6,24 @@ import { Provinces } from '../../models/Provinces';
 import CreateProvince, { ICreateProvince } from '../../services/location/CreateProvince.service';
 export default class CreateProvinceController {
     async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
-        const { name, region, code, countryID } = request.body;
-        const provinceService = new CreateProvince();
-        const provinceExist = await provinceService.execute({ name, region, code, countryID });
-
+       
         try {
-            if (!provinceExist) {
+            const { name, region, code, countryID } = request.body;
+            const serviceProvince = new CreateProvince();
+            const createProvince = await serviceProvince.execute({ name, region, code, countryID });
+    
+            if (!createProvince) {
                 return response.json({
-                    success: false,
-                    message: 'Failed'
+                    success: true,
+                    message: name+' created successfully',
+                    data: createProvince
                 });
             } else {
-                return response.status(200)
+                return response
                     .json({
-                        success: true,
-                        message: 'Created successfully',
-                        data: provinceExist
+                        success: false,
+                        message: name,
+                        data: createProvince
                     })
             }
 
@@ -29,7 +31,7 @@ export default class CreateProvinceController {
             return response
                 .json({
                     success: false,
-                    message: error.message
+                    message: 'Erro ao criar uma Provincia '+error.message
                 })
         }
     }

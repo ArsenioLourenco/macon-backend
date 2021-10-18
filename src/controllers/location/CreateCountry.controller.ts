@@ -4,22 +4,24 @@ import { Countries } from '../../models/Countries';
 import CreateCountry, { ICreateCountry } from '../../services/location/CreateCountry.service';
 export default class CreateCountryController {
     async handle(request: Request<ICreateCountry>, response: Response<AppResponse<Countries[]>>) {
-        const { name, region, code } = request.body;
-        const countryService = new CreateCountry();
-        const countryExist = await countryService.execute({ name, region, code });
-
         try {
-            if (!countryExist) {
-                return response.json({
-                    success: false,
-                    message: 'Failed'
+            const serviceCountry = new CreateCountry();
+            const { name, region, code } = request.body;
+            const createCountry = await serviceCountry.execute({name, region, code})
+
+            if (!createCountry) {
+                return response
+                .json({
+                    success: true,
+                    message: 'created successfully',
+                    data: createCountry
                 });
             } else {
                 return response.status(200)
                     .json({
-                        success: true,
-                        message: 'Created successfully',
-                        data: countryExist
+                        success: false,
+                        message: name,
+                        data: createCountry
                     })
             }
 
@@ -27,7 +29,7 @@ export default class CreateCountryController {
             return response
                 .json({
                     success: false,
-                    message: error.message
+                    message: 'Erro ao crear um Pais, ' + error.message,
                 })
         }
     }

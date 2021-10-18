@@ -42,9 +42,9 @@ export class Provinces {
 
   @ManyToOne(() => Countries, (countries) => countries.provinces)
   @JoinColumn([{ name: "countryId", referencedColumnName: "id" }])
-  country: Countries;
+  countryID: Countries;
 
-  @OneToMany(() => Spots, (spots) => spots.province)
+  @OneToMany(() => Spots, (spots) => spots.provinceID)
   spots: Spots[];
 
   @OneToMany(() => Travels, (travels) => travels.origin)

@@ -3,11 +3,11 @@ import ProvinceRepository from '../../repositories/province.repositoy';
 import SpotRepository from '../../repositories/spot.repository';
 
 export interface ICreateSpot {
-    name: string;
-    description?: string;
-    location?: string;
-    contact?: string;
-    provinceID: string;
+    name: string,
+    description: string,
+    location: string,
+    contacts: string,
+    provinceID: string
 }
 
 export class CreateSpot {
@@ -15,7 +15,7 @@ export class CreateSpot {
         name,
         description,
         location,
-        contact,
+        contacts,
         provinceID,
     }: ICreateSpot) {
         const spotRepository = getCustomRepository(
@@ -26,27 +26,23 @@ export class CreateSpot {
         );
 
         try {
-            if(!name){
-                return 'Entra o nome do Ponto!';
-            }
+            const pontoExist = await spotRepository.findOne({ where: { SpotsName: name } })
 
-            const pontoExist = await spotRepository.findOne({where: {spotName: name}})
-
-            if(pontoExist){
+            if (pontoExist) {
                 return 'Ponto ja existente!'
-            }else{
-                const provincia = await provinceRepository.findOne(
+            } else {
+                const provinceExist = await provinceRepository.findOne(
                     provinceID
                 );
-                if(!provincia){
-                    return 'Essa Provincia Nao existe na base de dados'
-                }else{
+                if (provinceExist) {
+                    return 'Essa Provincia nao existe na base de dados'
+                } else {
                     const createPonto = spotRepository.create({
                         spotName: name,
-                        description: description,
-                        location: location,
-                        contacts: contact,
-                        province: provincia, 
+                        description,
+                        location,
+                        contacts,
+                        provinceID: provinceExist,
                     });
 
                     await spotRepository.save(

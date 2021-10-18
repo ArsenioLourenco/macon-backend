@@ -9,7 +9,7 @@ const createCountryController = new CreateCountryController();
 const createProvinceController = new CreateProvinceController();
 const createSpotController = new CreateSpotController();
 
-router.post('/location/coutry', createCountryController.handle)
+router.post('/location/country', createCountryController.handle)
 router.post('/location/province', createProvinceController.handle)
 router.post('/location/spot', createSpotController.handle)
 
