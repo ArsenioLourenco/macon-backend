@@ -3,39 +3,31 @@ import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/transports.repository";
 
 
-
-
-
 export default class FindAllTransportController{
     async handle(request:Request, response: Response){
         const transportRepository = getCustomRepository(
             TransportRepository
-        )
+        );
 
         try{
-            const readyAllTransport = await transportRepository.find()
-            if(readyAllTransport){
-                return response
-                .status(200)
+            const getAllTransports = await transportRepository.find()
+            if(getAllTransports){
+                return response.status(200)
                 .json({
                     success: true,
-                    message: 'All Transport',
-                    data: readyAllTransport
+                    message: 'Transports',
+                    data: getAllTransports
                 });
-                
-
             }
             else {
-                return response
-                    .status(400)
+                return response.status(400)
                     .json({
                         success: false,
-                        message: 'Table Transport void'
+                        message: 'Transports is empty'
                     });
-
             }
-        } catch(err){
-            return err
+        }catch(err){
+            return err.message;
         }
     }
 }

@@ -19,7 +19,7 @@ export default class Login{
         );
         try{
             const verifyUserExist = await userRepository.findOne({
-                    where: {
+                where: {
                     email
                 }
             });
@@ -40,6 +40,9 @@ export default class Login{
                         email: verifyUserExist.email, 
                     },
                         process.env.JWT_SECRET,
+                    {
+                        expiresIn: "1d",
+                    }
                 );
 
                 return token;

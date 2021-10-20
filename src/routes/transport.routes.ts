@@ -6,10 +6,7 @@ import DeleteTypeTransportController from "../controllers/transport/deleteTypeTr
 import FindAllTransportController from "../controllers/transport/findAllTransport.controller";
 
 
-
 const router = Router();
-
-
 
 const readyAllTransport = new FindAllTransportController()
 const cretateTransportRoute = new CreateTransportController()

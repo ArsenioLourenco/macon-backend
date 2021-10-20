@@ -29,11 +29,11 @@ export default class AlterKey{
                 return 'User not Exists';
             }
             if(newKey.length < 6){
-                return 'Password too short'
+                return 'Password too short';
             }
 
             if(!(newKey == confirmNewKey)){
-                return 'The news keys not is smiles'
+                return 'The news keys not is smiles';
             }
             const newKeyCript = await hash(newKey, 8),
                 alterKey = await usersRepository
