@@ -13,14 +13,14 @@ export default class CreateCountryController {
                 return response
                 .json({
                     success: true,
-                    message: 'created successfully',
+                    message: name + ' created successfully',
                     data: createCountry
                 });
             } else {
                 return response.status(200)
                     .json({
                         success: false,
-                        message: name,
+                        message: 'Nao criou...' + name,
                         data: createCountry
                     })
             }

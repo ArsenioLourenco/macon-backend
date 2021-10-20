@@ -2,8 +2,8 @@ import { getCustomRepository } from 'typeorm';
 import CountryRepository from '../../repositories/country.repository';
 export interface ICreateCountry {
     name: string,
-    region?: string,
-    code?: string,
+    region: string,
+    code: string,
 }
 export default class CreateCountry {
     async execute({

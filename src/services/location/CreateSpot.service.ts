@@ -1,15 +1,13 @@
 import { getCustomRepository } from 'typeorm';
 import ProvinceRepository from '../../repositories/province.repositoy';
 import SpotRepository from '../../repositories/spot.repository';
-
 export interface ICreateSpot {
     name: string,
     description: string,
     location: string,
     contacts: string,
-    provinceID: string
+    provinceID: number
 }
-
 export class CreateSpot {
     async execute({
         name,
@@ -18,36 +16,26 @@ export class CreateSpot {
         contacts,
         provinceID,
     }: ICreateSpot) {
-        const spotRepository = getCustomRepository(
-            SpotRepository
-        );
-        const provinceRepository = getCustomRepository(
-            ProvinceRepository
-        );
-
+        const spotRepository = getCustomRepository(SpotRepository);
+        const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
-            const pontoExist = await spotRepository.findOne({ where: { SpotsName: name } })
-
+            const pontoExist = await spotRepository.findOne({ where: { SpotsName: name } });
             if (pontoExist) {
-                return 'Ponto ja existente!'
+                return 'Ponto ja existe nessa base de dados';
             } else {
-                const provinceExist = await provinceRepository.findOne(
-                    provinceID
-                );
-                if (provinceExist) {
-                    return 'Essa Provincia nao existe na base de dados'
+                const provinceExist = await provinceRepository.findOne(provinceID);
+                if (!provinceExist) {
+                    return 'Essa Provincia nao existe na base de dados';
                 } else {
                     const createPonto = spotRepository.create({
                         spotName: name,
-                        description,
-                        location,
-                        contacts,
+                        description: description,
+                        location: location,
+                        contacts: contacts,
                         provinceID: provinceExist,
                     });
-
-                    await spotRepository.save(
-                        createPonto
-                    );
+                    await spotRepository.save(createPonto);
+                    return createPonto;
                 }
             }
 

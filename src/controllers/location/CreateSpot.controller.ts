@@ -15,14 +15,14 @@ export default class CreateSpotController {
             if (!createSpot) {
                 return response.json({
                     success: true,
-                    message: name+' Created successfully',
+                    message: name + ' created successfully',
                     data: createSpot
                 });
             } else {
-                return response.status(200)
+                return response
                     .json({
                         success: false,
-                        message: 'Nao criou... '+name,
+                        message: 'Nao criou...' + name,
                         data: createSpot
                     })
             }
@@ -31,7 +31,7 @@ export default class CreateSpotController {
             return response
                 .json({
                     success: false,
-                    message: error.message
+                    message: 'Erro ao criar um ponto ' + error.message
                 })
         }
     }

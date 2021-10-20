@@ -7,7 +7,6 @@ export interface ICreateProvince {
     code: string,
     countryID: number,
 }
-
 export default class CreateProvince {
     async execute({
         name,
@@ -15,20 +14,16 @@ export default class CreateProvince {
         code,
         countryID
     }: ICreateProvince) {
-
         const provinceRepository = getCustomRepository(ProvinceRepository);
         const coutryRepository = getCustomRepository(CountryRepository);
         try {
             const provinceExist = await provinceRepository.findOne({ where: { provinceName: name } });
-
             if (provinceExist) {
-                return 'Essa provincia ja esta na base de dados';
+                return 'Essa provincia ja existe nessa base de dados';
             } else {
-
                 const countryExist = await coutryRepository.findOne(countryID);
-
                 if (!countryExist) {
-                    return 'This province already Exist';
+                    return 'Esse pais nao exite na base de dados';
                 } else {
                     const createProvince = provinceRepository.create({
                         provinceName: name,
@@ -36,10 +31,7 @@ export default class CreateProvince {
                         codeProvince: code,
                         countryID: countryExist
                     });
-
-                    await provinceRepository.save(
-                        createProvince
-                    );
+                    await provinceRepository.save( createProvince);
                     return createProvince;
                 }
             }

@@ -15,14 +15,14 @@ export default class CreateProvinceController {
             if (!createProvince) {
                 return response.json({
                     success: true,
-                    message: name+' created successfully',
+                    message: name + ' created successfully',
                     data: createProvince
                 });
             } else {
                 return response
                     .json({
                         success: false,
-                        message: name,
+                        message: 'Nao criou...' + name,
                         data: createProvince
                     })
             }
@@ -31,7 +31,7 @@ export default class CreateProvinceController {
             return response
                 .json({
                     success: false,
-                    message: 'Erro ao criar uma Provincia '+error.message
+                    message: 'Erro ao criar uma Provincia ' + error.message
                 })
         }
     }
