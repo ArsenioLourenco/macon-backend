@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import locationRoute from './routes/location/CreateLocation.route'
+import locationRoute from './routes/location/location.route'
 // Router Instance
 const router = Router();
 

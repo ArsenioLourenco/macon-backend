@@ -7,7 +7,6 @@ export interface ICreateCountry{
     region: Countries
     code: Countries
 }
-
 export interface ICreateProvince{
     id: Provinces,
     name: Provinces,

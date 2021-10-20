@@ -9,7 +9,7 @@ export default class CreateCountryController {
             const { name, region, code } = request.body;
             const createCountry = await serviceCountry.execute({name, region, code})
 
-            if (!createCountry) {
+            if (createCountry) {
                 return response
                 .json({
                     success: true,

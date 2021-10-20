@@ -1,5 +1,3 @@
-
-
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Provinces } from '../../models/Provinces';
@@ -8,7 +6,7 @@ export default class CreateProvinceController {
     async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
        
         try {
-            const { name, region, code, countryID } = request.body;
+            const { id, name, region, code, countryID } = request.body;
             const serviceProvince = new CreateProvince();
             const createProvince = await serviceProvince.execute({ name, region, code, countryID });
     

@@ -6,9 +6,9 @@ export interface ICreateSpot {
     description: string,
     location: string,
     contacts: string,
-    provinceID: number
+    provinceID: number,
 }
-export class CreateSpot {
+export default class CreateSpot {
     async execute({
         name,
         description,
@@ -19,7 +19,7 @@ export class CreateSpot {
         const spotRepository = getCustomRepository(SpotRepository);
         const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
-            const pontoExist = await spotRepository.findOne({ where: { SpotsName: name } });
+            const pontoExist = await spotRepository.findOne({ where: { spotName: name } });
             if (pontoExist) {
                 return 'Ponto ja existe nessa base de dados';
             } else {

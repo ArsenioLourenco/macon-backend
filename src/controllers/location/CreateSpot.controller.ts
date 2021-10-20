@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
-import { AppResponse } from "../../@types";
+import { AppResponse } from '../../@types';
 import { Spots } from '../../models/Spots';
-import { ICreateSpot, CreateSpot } from "../../services/location/CreateSpot.service";
-
-
+import CreateSpot, {ICreateSpot} from '../../services/location/CreateSpot.service';
 export default class CreateSpotController {
     async handle(request: Request<ICreateSpot>, response: Response<AppResponse<Spots[]>>) {
        
