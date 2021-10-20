@@ -14,7 +14,6 @@ export default class DeleteTransportController{
             return response.status(200)
                 .json({
                     success: true,
-                    message: 'Transport was deleted',
                     data: deleteTransportId,
                 })
         }catch(err){

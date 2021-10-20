@@ -14,7 +14,7 @@ interface IcreateTravels{
     returnDate: Date,
    timeToGoTo: Date,
    timeToArrival: Date,
-   typeTransportId: number,
+   transportId: number,
    obervations: string
 }
 
@@ -27,28 +27,44 @@ export default class CreateTravels{
         returnDate, 
         timeToGoTo, 
         timeToArrival, 
-        typeTransportId, 
+        transportId, 
         observations
     }){
         const travelsRepository= getCustomRepository(TravelsRepository)
         const sportRepository= getCustomRepository(SpotRepository)
-        //const transportRepository= getCustomRepository(TransportRepository)
+        const transportRepository= getCustomRepository(TransportRepository)
         try{
-            const verifyIfExistTravels= await travelsRepository.findOne()
+            const verifyIfExistTravels= await travelsRepository.findOne( )
             if(verifyIfExistTravels){
                 return 'this trip has already been booked'; 
             } 
-            const verifyIdExistSport= await sportRepository.findOne()
-            if(!verifyIdExistSport){
-                return ''
+            const verifyIdExistSport= await sportRepository.findOne(spotId)
+            if(verifyIdExistSport){
+                const verifyIdExistTransport= await transportRepository.findOne(transportId)
+                if(verifyIdExistTransport){
+                    const travels= await travelsRepository.create({
+                        spot: verifyIdExistSport,
+                        origin,
+                        destiny,
+                        departureDate,
+                        returnDate,
+                        timeToGoTo,
+                        timeToArrival,
+                        observations
+                    })
+                } else {return 'this transport not exist'}
             }
+            else {return 'this spot not exist'}
+           
+
+            
             
 
 
         } 
         
         catch(err){
-
+         return err;
         }
         
     }
