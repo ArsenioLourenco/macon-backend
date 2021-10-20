@@ -20,7 +20,6 @@ export default class SendSMS{
                   text
                 }
               );
-        
               return response.status === 200 ? true : false;
         }catch(err){
             return err.message;

@@ -1,8 +1,7 @@
 export interface AppResponse<Data> {
   success: boolean;
-  message?: string | boolean;
+  message?: string;
   data?: object;
 }
 
-export type TypeProfileUser = 'Administrador' | 'Normal';
 

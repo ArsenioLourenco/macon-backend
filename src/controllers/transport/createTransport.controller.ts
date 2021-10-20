@@ -26,7 +26,6 @@ export default class CreateTransportController{
                 return response.status(200)
                     .json({
                         success: true,
-                        message: 'Transport Was Created',
                         data: createTransport
                     });
 

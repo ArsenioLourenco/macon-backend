@@ -11,6 +11,7 @@ export default class DeleteTransportController{
     async handle(request: Request<IDeleteTransport>, response: Response<AppResponse<String>>){
         const id = request.params.id;
         const deleteTransport = new DeleteTransport;
+
         try{
             const deleteTransportId = await deleteTransport.execute(
                 id
@@ -18,7 +19,7 @@ export default class DeleteTransportController{
             return response.status(200)
                 .json({
                     success: true,
-                    message: 'Transport deleted',
+                    message: 'Transport was deleted',
                     data: deleteTransportId
                 })
         }catch(err){

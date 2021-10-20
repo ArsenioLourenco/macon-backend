@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
 import { Auth } from './middlewares/tokenGuard';
-import normalUsers from "./routes/normalUsers.routes";
 import { isUsersAuthenticated } from './middlewares/isAuthenticated';
 import logoutRoute from "./routes/logout.routes";
 import userRoutes from "./routes/users.routes";
