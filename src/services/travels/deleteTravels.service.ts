@@ -19,7 +19,6 @@ import TravelsRepository from "../../repositories/travels.repository";
              const deletetravel = await travelsRepository
              .createQueryBuilder()
              .delete()
-             .from(Travels)
              .where("id = :id", { id: id})
              .execute();
 
