@@ -7,7 +7,6 @@ export default class CreateUserController{
     async handle(request: Request<ICreateUser>, response: Response<AppResponse<Person[]>>){
         try{
             const createUserService = new CreateUser();
-
             const { 
                 BI, 
                 password, 

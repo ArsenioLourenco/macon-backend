@@ -62,7 +62,7 @@ export default class CreateUser {
                         }
                     });
                     if(verifyExistsBI){
-                        return 'This BI already Register'
+                        return 'This BI already Register';
                     }
                     else
                     {
@@ -126,14 +126,13 @@ export default class CreateUser {
                             await personRepository.save(
                                 saveDatasInPerson
                             );
-                            return saveUser;
                         }
-                        return createUser; 
+                        return [ createUser, saveUser ]; 
                     }
                 }
             }
             catch(err){
-                return err;
+                return err.message;
         }
     }
 }

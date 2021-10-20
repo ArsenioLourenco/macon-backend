@@ -24,7 +24,7 @@ export default class DeleteUser{
             const deleteUser = await usersRepository
                 .createQueryBuilder()
                 .delete()
-                .where("id = :id", {id: id})
+                .where("id = :id", { id: id })
                 .execute();
             
             return deleteUser;

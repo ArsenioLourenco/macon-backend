@@ -1,5 +1,5 @@
 import { getCustomRepository, getRepository } from "typeorm";
-import { hash } from 'bcryptjs'
+import { hash } from 'bcryptjs';
 import UsersRepository from "../../repositories/users.repository";
 
 
@@ -94,7 +94,7 @@ export default class Update {
                 return 'This user not Exists'
             }
         } catch (err) {
-            return err;
+            return err.message;
         }
     }
 }

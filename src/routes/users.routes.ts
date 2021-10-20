@@ -27,10 +27,11 @@ const createUserController = new CreateUserController()
 const loginController = new LoginController();
 const logoutController = new LogoutController()
 
+router.post('/users/login', login, loginController.handle);
+
 // router.post('/users/create', createUserController.handle);
 router.use(IsSuperAdmin)
 router.post('/users/create', createUser, createUserController.handle);
-router.post('/users/login', login, loginController.handle);
 router.get('/users/all', findUserAllUserController.handle);
 router.get('/users/all/:id', findUserByIdController.handle);
 router.delete('/users/delete/:id', deleteUserController.handle);
