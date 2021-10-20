@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/transports.repository";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
-interface ICreateTransport{
+export interface ICreateTransport{
     transportName: string,
     transportNumber: number,
     totalPlace: number,
@@ -10,20 +10,25 @@ interface ICreateTransport{
 }
 
 export default class CreateTransport{
-    async execute({transportName, transportNumber, totalPlace, typeTransportId}: ICreateTransport){
+    async execute({
+        transportName, 
+        transportNumber, 
+        totalPlace, 
+        typeTransportId } : ICreateTransport){
+        
         const transportRepository= getCustomRepository(
             TransportRepository
         )
         const typeTransportRepository = getCustomRepository(
             TypeTransportRepository
-        )
+        );
         try{
-            const readyTransport= await transportRepository.findOne(
+            const alreadyExistsTransportNumber = await transportRepository.findOne(
                 transportNumber
-            )
+            );
 
-            if(readyTransport){
-                return 'Transport Already exists'
+            if(alreadyExistsTransportNumber){
+                return 'This Transport Already exists!';
             }
             
             const verifyIfExistTypeTransport = await typeTransportRepository.findOne(
@@ -31,7 +36,7 @@ export default class CreateTransport{
             );
 
             if(!verifyIfExistTypeTransport){
-                return ' We dont have this transport';
+                return 'We dont have this type transport!';
             }
 
             const createTransport = transportRepository.create({
@@ -45,14 +50,10 @@ export default class CreateTransport{
                 createTransport
             );
 
-            if(createTransport){
-                return createTransport;
-            }
-            return 'Bug'
-            
+            return createTransport;
         }
         catch(err){
-            return err.message
+            return err.message;
         }
     } 
 }

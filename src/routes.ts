@@ -13,7 +13,7 @@ router.get('/', (__, res) => {
     res.send({
         app: 'macon-backend',
         versao: 'v0.1.0',
-        autor: "©2020 Interdigitos LDA",
+        autor: "©2021 Interdigitos LDA",
         erro: '0x000001',
         msg_erro: 'Nenhum parametro foi aplicado.',
         note: "Trainess Codando..."
