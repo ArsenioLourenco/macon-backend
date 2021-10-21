@@ -60,7 +60,7 @@ export default class UpdateSpot{
                 // }
             }
         } catch (error) {
-            
+            return error
         }
     }
 }

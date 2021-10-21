@@ -1,27 +1,27 @@
 import {Request, Response} from 'express';
 import { AppResponse } from '../../@types';
-import { Countries } from '../../models/Countries';
-import DeleteCountry, { IDeleteCountry } from '../../services/location/deleteCountry.service';
+import { Spots } from '../../models/Spots';
+import DeleteSpot, { IDeleteSpot } from '../../services/location/deleteSpot.service';
 
-export default class DeleteCountryController{
-    async handle(request: Request<IDeleteCountry>, response: Response<AppResponse<Countries>>){
+export default class DeleteSpotController{
+    async handle(request: Request<IDeleteSpot>, response: Response<AppResponse<Spots>>){
         try {
             const id = request.params.id;
-            const serviceCountry = new DeleteCountry();
+            const serviceCountry = new DeleteSpot();
             const deleteCountry = await serviceCountry.execute({id});
 
             if(deleteCountry){
                 return response
                 .json({
                     success: true,
-                    message: 'Pais removido da Base de dados',
+                    message: 'Ponto removido da Base de dados',
                     data: deleteCountry
                 })
             }else{
                 return response
             .json({
                 success: false,
-                message: 'Falha ao deletar o Pais',
+                message: 'Falha ao deletar o Ponto',
             });
             }
             
@@ -29,7 +29,7 @@ export default class DeleteCountryController{
             return response
             .json({
                 success: false,
-                message: 'Erro ao deletar o Pais, ' + error.message,
+                message: 'Erro ao deletar o Ponto, ' + error.message,
             });
         }
     }

@@ -61,7 +61,7 @@ export default class UpdateProvince{
                 }
             }
         } catch (error) {
-            
+            return error
         }
     }
 }

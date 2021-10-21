@@ -1,27 +1,29 @@
 import {Request, Response} from 'express';
 import { AppResponse } from '../../@types';
-import { Countries } from '../../models/Countries';
-import DeleteCountry, { IDeleteCountry } from '../../services/location/deleteCountry.service';
+import { Provinces } from '../../models/Provinces';
+import DeleteProvince, { IDeleteProvince } from '../../services/location/deleteProvince.service';
 
-export default class DeleteCountryController{
-    async handle(request: Request<IDeleteCountry>, response: Response<AppResponse<Countries>>){
+
+
+export default class DeleteProvinceController{
+    async handle(request: Request<IDeleteProvince>, response: Response<AppResponse<Provinces>>){
         try {
             const id = request.params.id;
-            const serviceCountry = new DeleteCountry();
+            const serviceCountry = new DeleteProvince();
             const deleteCountry = await serviceCountry.execute({id});
-
+            
             if(deleteCountry){
                 return response
                 .json({
                     success: true,
-                    message: 'Pais removido da Base de dados',
+                    message: 'Provincia removido da Base de dados',
                     data: deleteCountry
                 })
             }else{
                 return response
             .json({
                 success: false,
-                message: 'Falha ao deletar o Pais',
+                message: 'Falha ao deletar o Provincia',
             });
             }
             
@@ -29,7 +31,7 @@ export default class DeleteCountryController{
             return response
             .json({
                 success: false,
-                message: 'Erro ao deletar o Pais, ' + error.message,
+                message: 'Erro ao deletar o Provincia, ' + error.message,
             });
         }
     }
