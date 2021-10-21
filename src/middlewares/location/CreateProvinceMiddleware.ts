@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { showError } from '.';
 import { AppResponse } from "../../@types";
 import { Provinces } from "../../models/Provinces";
-import { ICreateProvince } from "../../services/location/CreateProvince.service";
+import { ICreateProvince } from "../../services/location/createProvince.service";
 export const CreateProvinceMiddleware = async (
     request: Request<ICreateProvince>,
     response: Response<AppResponse<Provinces[]>>,

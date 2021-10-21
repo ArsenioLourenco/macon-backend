@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Spots } from '../../models/Spots';
-import UpdateSpot, { IUpdateSpot } from '../../services/location/UpdateSpot.service';
+import UpdateSpot, { IUpdateSpot } from '../../services/location/updateSpot.service';
 
 
 export default class CreateSpotController {

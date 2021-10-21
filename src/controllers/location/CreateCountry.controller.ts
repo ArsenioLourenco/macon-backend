@@ -5,8 +5,8 @@ import CreateCountry, { ICreateCountry } from '../../services/location/CreateCou
 export default class CreateCountryController {
     async handle(request: Request<ICreateCountry>, response: Response<AppResponse<Countries[]>>) {
         try {
-            const serviceCountry = new CreateCountry();
             const { name, region, code } = request.body;
+            const serviceCountry = new CreateCountry();
             const createCountry = await serviceCountry.execute({name, region, code})
 
             if (createCountry) {
@@ -17,7 +17,7 @@ export default class CreateCountryController {
                     data: createCountry
                 });
             } else {
-                return response.status(200)
+                return response
                     .json({
                         success: false,
                         message: 'Nao criou...' + name,

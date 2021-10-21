@@ -6,9 +6,9 @@ export default class CreateProvinceController {
     async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
        
         try {
-            const { id, name, region, code, countryID } = request.body;
+            const { name, region, code, countryID } = request.body;
             const serviceProvince = new CreateProvince();
-            const createProvince = await serviceProvince.execute({ name, region, code, countryID });
+            const createProvince = await serviceProvince.execute({name, region, code, countryID });
     
             if (!createProvince) {
                 return response.json({
