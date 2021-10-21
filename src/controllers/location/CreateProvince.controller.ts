@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Provinces } from '../../models/Provinces';
-import CreateProvince, { ICreateProvince } from '../../services/location/CreateProvince.service';
+import CreateProvince, { ICreateProvince } from '../../services/location/createProvince.service';
 export default class CreateProvinceController {
     async handle(request: Request<ICreateProvince>, response: Response<AppResponse<Provinces[]>>) {
        

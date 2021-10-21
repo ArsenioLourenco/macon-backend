@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Countries } from '../../models/Countries';
-import UpdateCountry, { IUpdateCountry } from '../../services/location/UpdateCountry.service';
+import UpdateCountry, { IUpdateCountry } from '../../services/location/updateCountry.service';
 export default class CreateCountryController {
     async handle(request: Request<IUpdateCountry>, response: Response<AppResponse<Countries[]>>) {
         try {

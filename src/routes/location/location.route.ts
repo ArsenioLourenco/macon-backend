@@ -1,10 +1,10 @@
 import { Router } from "express";
-import CreateCountryController from "../../controllers/location/CreateCountry.controller";
-import CreateProvinceController from "../../controllers/location/CreateProvince.controller";
-import CreateSpotController from "../../controllers/location/CreateSpot.controller";
-import UpdateCountryController from "../../controllers/location/UpdateCountry.controller";
-import UpdateProvinceController from "../../controllers/location/UpdateProvince.controller";
-import UpdateSpotController from "../../controllers/location/UpdateSpot.controller";
+import CreateCountryController from "../../controllers/location/createCountry.controller";
+import CreateProvinceController from "../../controllers/location/createProvince.controller";
+import CreateSpotController from "../../controllers/location/createSpot.controller";
+import UpdateCountryController from "../../controllers/location/updateCountry.controller";
+import UpdateProvinceController from "../../controllers/location/updateProvince.controller";
+import UpdateSpotController from "../../controllers/location/updateSpot.controller";
 import { CreateCountryMiddleware } from "../../middlewares/location/CreateCountryMiddleware";
 
 const router = Router();
