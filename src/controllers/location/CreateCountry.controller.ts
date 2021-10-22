@@ -8,15 +8,15 @@ export default class CreateCountryController {
         try {
             const { name, region, code } = request.body;
             const serviceCountry = new CreateCountry();
-            const createCountry = await serviceCountry.execute({name, region, code})
+            const createCountry = await serviceCountry.execute({ name, region, code })
 
             if (createCountry) {
                 return response
-                .json({
-                    success: true,
-                    message: name + ' created successfully',
-                    data: createCountry
-                });
+                    .json({
+                        success: true,
+                        message: name + ' created successfully',
+                        data: createCountry
+                    });
             } else {
                 return response
                     .json({
@@ -25,7 +25,6 @@ export default class CreateCountryController {
                         data: createCountry
                     })
             }
-
         } catch (error) {
             return response
                 .json({

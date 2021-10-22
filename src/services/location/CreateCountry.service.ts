@@ -10,16 +10,11 @@ export default class CreateCountry {
         name,
         region,
         code,
-    }: ICreateCountry) {
+    }: ICreateCountry) {        
         const countryRepository = getCustomRepository(CountryRepository);
-        
+        const countryExist = await countryRepository.findOne({where: {countryName: name}});
         try {
-            const countryExist = countryRepository
-            .findOne({ where: { countryName: name } });
-
             if (!countryExist) {
-                return 'Esse Pais ja existe na BD';
-            } else {
                 const createCountry = countryRepository.create({
                     countryName: name,
                     region,
@@ -31,6 +26,9 @@ export default class CreateCountry {
                 );
 
                 return createCountry;
+            } else {
+                
+                return 'Esse Pais ja existe na BD';
             }
         } catch (error) {
             return error;
