@@ -1,11 +1,12 @@
 {
-    "name": "folhaDeRostoApp",
+    "name": "macon-back-end",
     "version": "0.2.1",
-    "description": "Criar e editar folhas de rosto.",
+    "description": "macon Complete BackEnd and DevOp configurations",
     "main": "src/index.js",
     "scripts": {
-        "dev": "nodemon src/index.ts",
-        "startServer": "nodemon src/index.ts"
+        "dev": "ts-node-dev --exit-child src/index.ts",
+        "startServer": "nodemon src/index.ts",
+        "start": "nodemon src/index.ts"
     },
     "author": "euclidesdry@gmail.com",
     "license": "MIT",

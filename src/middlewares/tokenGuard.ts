@@ -5,7 +5,7 @@ export async function Auth(
     response: Response,
     next: NextFunction
 ) {
-    const token = request.cookies.folhaDeRosto
+    const token = request.cookies.maconBackEndInterdigitosDevs
     if(!token){
         return response.status(401)
             .send('O você não está autenticado!');

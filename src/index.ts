@@ -4,8 +4,8 @@ import express from "express";
 import dotenv from 'dotenv-safe';
 import helmet from "helmet";
 import logger from 'morgan';
+import http from "http"
 import cors from "cors";
-
 // Routes
 import routes from './routes'
 // Database import
@@ -18,6 +18,7 @@ dotenv.config({
 
 // App
 const app = express();
+const serverHttp = http.createServer(app);
 
 app.use(cors());
 app.use(logger('dev'));
@@ -33,24 +34,11 @@ app.use('/functionsPath', express.static('pathConf'));
 app.use(routes);
 
 const PORT = process.env.PORT || 6800;
+const HOST = '0.0.0.0';
 //Listen Port
-if (require.main == module) {
-    app.listen(6800, 'localhost', () => {
+if(require.main == module){
+  serverHttp.listen(6800, HOST, () => {
     console.log(`SERVER ON PORT -- ${PORT} --`);
   });
 }
-
 export default app;
-
-  // openSSL
-// const options = {
-//   key: fs.readFileSync("??"),
-//   cert: fs.readFileSync("??")
-// };
-
-  // HTTPS listen API
-  // https
-  // .createServer(options, (req: Request, res: Response) => {
-  //   res.writeHead(200);
-  //   res.end("Running API with HTTPS!")
-  // })
