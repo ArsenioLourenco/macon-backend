@@ -3,8 +3,6 @@ import { AppResponse } from '../../@types';
 import { Provinces } from '../../models/Provinces';
 import DeleteProvince, { IDeleteProvince } from '../../services/location/deleteProvince.service';
 
-
-
 export default class DeleteProvinceController{
     async handle(request: Request<IDeleteProvince>, response: Response<AppResponse<Provinces>>){
         try {
