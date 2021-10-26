@@ -15,6 +15,7 @@ import UpdateSpotController from "../../controllers/location/updateSpot.controll
 import { CreateCountryMiddleware } from "../../middlewares/location/CreateCountryMiddleware";
 import ReadSpotsController from '../../controllers/location/readSpots.controller';
 import ReadSpotByIDController from "../../controllers/location/readSpotByID.controller";
+import ReadSpotsProvinceController from '../../controllers/location/readSpotsProvince.controller';
 
 const router = Router();
 
@@ -38,6 +39,7 @@ const readProvincesController = new ReadProvincesController();
 
 const readSpotByIDController = new ReadSpotByIDController();
 const readSpotsController = new ReadSpotsController();
+const readSpotsProvinceController = new ReadSpotsProvinceController();
 
 router.post('/location/create/country', CreateCountryMiddleware, createCountryController.handle)
 router.post('/location/create/province', createProvinceController.handle)
@@ -59,5 +61,6 @@ router.get('/location/read/provinces', readProvincesController.handle)
 
 router.get('/location/read/spot/:id', readSpotByIDController.handle)
 router.get('/location/read/spots', readSpotsController.handle)
+router.get('/location/read/spotprovince', readSpotsProvinceController.handle)
 
 export default router;
