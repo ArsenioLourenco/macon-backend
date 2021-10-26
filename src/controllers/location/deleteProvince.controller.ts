@@ -12,7 +12,7 @@ export default class DeleteProvinceController{
             const serviceCountry = new DeleteProvince();
             const deleteCountry = await serviceCountry.execute({id});
             
-            if(deleteCountry){
+            if(!deleteCountry){
                 return response
                 .json({
                     success: true,
@@ -23,7 +23,7 @@ export default class DeleteProvinceController{
                 return response
             .json({
                 success: false,
-                message: 'Falha ao deletar o Provincia',
+                message: 'Provincia nao existe',
             });
             }
             

@@ -15,10 +15,7 @@ export default class DeleteProvince {
         try {
 
             const provinceID = provinceRepository.findOne(id);
-             
-            console.log('mauro');
-            console.log((await provinceID).provinceName);
-            if ((await provinceID).id) {
+            if (provinceID) {
                 const deleteProvince = await provinceRepository
                     .createQueryBuilder()
                     .delete()
