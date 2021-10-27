@@ -8,20 +8,22 @@ export default class CreateSpotController {
     async handle(request: Request<IUpdateSpot>, response: Response<AppResponse<Spots[]>>) {
         try {
             const serviceSpot = new UpdateSpot();
-            const { id, name, description, location, contacts, provinceID } = request.body;
-            const updateSpot = await serviceSpot.execute({id, name, description, location, contacts, provinceID });
+            const { id, name, description, location, contacts} = request.body;
+            const updateSpot = await serviceSpot.execute({id, name, description, location, contacts});
             
             if (updateSpot) {
                 return response
                     .json({
                         success: true,
                         message: name + ', updated successfully.',
+                        data: updateSpot
                     });
             } else {
                 return response
                     .json({
                         success: false,
                         message: 'Nao actualizado...' + name,
+                        data: updateSpot
                     })
             }
 

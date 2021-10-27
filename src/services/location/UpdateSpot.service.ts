@@ -1,63 +1,82 @@
 import { getCustomRepository } from 'typeorm';
+import ProvinceRepository from '../../repositories/province.repositoy';
 import SpotRepository from '../../repositories/spot.repository';
 
-
-export interface IUpdateSpot{
+export interface IUpdateSpot {
     id: number,
     name: string,
     description: string,
     location: string,
     contacts: string,
-    provinceID: number,
 }
 
-export default class UpdateSpot{
+export default class UpdateSpot {
     async execute({
-        id, 
-        name, 
+        id,
+        name,
         description,
         location,
         contacts,
-        provinceID,
-    }: IUpdateSpot){
+    }: IUpdateSpot) {
         const spotRepository = getCustomRepository(SpotRepository);
+
         try {
-            const spotExist = await spotRepository.findOne(id);
-            if(spotExist){
-                if(name && description && location && contacts){
-                    const spotUpdate = await spotRepository.createQueryBuilder()
+
+            if (name && description && location && contacts) {
+
+                const spotUpdate = spotRepository
+                    .createQueryBuilder()
                     .update()
-                    .set({ spotName: name, description, location, contacts})
-                    .where({id})
+                    .set({ spotName: name, description, location, contacts })
+                    .where({ id })
                     .execute();
 
-                    return spotUpdate;
-                } 
-                // else if(region){
-                //     const spotUpdate = await provinceRepository.createQueryBuilder()
-                //     .update()
-                //     .set({region: region})
-                //     .where({id})
-                //     .execute();
+                return spotUpdate;
+            }
+            if (name) {
 
-                //     return spotUpdate;
-                // }else if(code){
-                //     const spotUpdate = await provinceRepository.createQueryBuilder()
-                //     .update()
-                //     .set({codeProvince: code})
-                //     .where({id})
-                //     .execute();
+                const spotUpdate = spotRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({ spotName: name})
+                    .where({ id })
+                    .execute();
 
-                //     return spotUpdate;
-                // } else if(name){
-                //     const spotUpdate = await provinceRepository.createQueryBuilder()
-                //     .update()
-                //     .set({provinceName: name})
-                //     .where({id})
-                //     .execute();
+                return spotUpdate;
+            }
+            if (description) {
 
-                //     return spotUpdate;
-                // }
+                const spotUpdate = spotRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({ description})
+                    .where({ id })
+                    .execute();
+
+                return spotUpdate;
+            }
+            if (location) {
+
+                const spotUpdate = spotRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({location})
+                    .where({ id })
+                    .execute();
+
+                return spotUpdate;
+            }
+
+            if (contacts) {
+
+                const spotUpdate = spotRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({ contacts })
+                    .where({ id })
+                    .execute();
+
+                return spotUpdate;
             }
         } catch (error) {
             return error

@@ -13,7 +13,7 @@ export default class ReadSpotsProvinceController {
                 return response
                     .json({
                         success: true,
-                        message: 'Informacao do Ponto',
+                        message: 'Informacao dos Pontos por provincia',
                         data: spotsProvince
                     });
             }

@@ -7,8 +7,8 @@ export default class CreateCountryController {
     async handle(request: Request<IUpdateProvince>, response: Response<AppResponse<Provinces[]>>) {
         try {
             const serviceProvince = new UpdateProvince();
-            const { id, name, region, code, countryID } = request.body;
-            const updateProvince = await serviceProvince.execute({ id, name, region, code, countryID });
+            const { id, name, region, code} = request.body;
+            const updateProvince = await serviceProvince.execute({ id, name, region, code});
             
             if (updateProvince) {
                 return response

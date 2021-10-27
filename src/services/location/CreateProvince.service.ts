@@ -15,26 +15,27 @@ export default class CreateProvince {
         countryID
     }: ICreateProvince) {
         const provinceRepository = getCustomRepository(ProvinceRepository);
-        const coutryRepository = getCustomRepository(CountryRepository);
+        const countryRepository = getCustomRepository(CountryRepository);
         try {
             const provinceExist = await provinceRepository.findOne({ where: { provinceName: name } });
-            if (provinceExist) {
-                return 'Essa provincia ja existe nessa base de dados';
-            } else {
-                const countryExist = await coutryRepository.findOne(countryID);
-                if (!countryExist) {
-                    return 'Esse pais nao exite na base de dados';
-                } else {
-                    const createProvince = provinceRepository.create({
-                        provinceName: name,
-                        region: region,
-                        codeProvince: code,
-                        countryID: countryExist
-                    });
-                    await provinceRepository.save( createProvince);
-                    return createProvince;
-                }
+            const countryExist = await countryRepository.findOne({ where: { id: countryID } });
+
+            if (!countryExist) {
+                return 'Esse pais ja exite na base de dados';
             }
+            if (provinceExist) {
+                return 'Essa provincia ja existe na base de dados';
+            }
+            const createProvince = provinceRepository.create({
+                provinceName: name,
+                region: region,
+                codeProvince: code,
+                countryID: countryExist
+            });
+            await provinceRepository.save(createProvince);
+
+            return createProvince;
+
         } catch (error) {
             return error;
         }

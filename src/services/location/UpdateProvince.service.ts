@@ -7,7 +7,6 @@ export interface IUpdateProvince{
     name: string,
     region: string,
     code: string,
-    countryID: number
 }
 
 export default class UpdateProvince{
@@ -16,20 +15,20 @@ export default class UpdateProvince{
         name, 
         region, 
         code,
-        countryID
+
     }: IUpdateProvince){
         const provinceRepository = getCustomRepository(ProvinceRepository);
-        const countryRepository = getCustomRepository(CountryRepository);
+
         try {
             const provinceID = await provinceRepository.findOne(id);
-            const countryExist = await countryRepository.findOne(countryID);
+
             if(provinceID){
                 if(name && region && code){
 
                     const provinceUpdate = await provinceRepository.createQueryBuilder()
                     .update()
                     .set({provinceName: name, region, codeProvince: code})
-                    .where({id})
+                    .where("id = :id", { id: id })
                     .execute();
 
                     return provinceUpdate;

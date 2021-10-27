@@ -15,7 +15,7 @@ import { Travels } from "./Travels";
 @Entity("Provinces", { schema: "dbo" })
 export class Provinces {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  id: number | string;
 
   @Column("varchar", { name: "ProvinceName", length: 50 })
   provinceName: string;

@@ -8,19 +8,19 @@ export default class CreateSpotController {
         try {
             const { name, description, location, contacts, provinceID } = request.body;
             const serviceSpot = new CreateSpot();
-            const createSpot = await serviceSpot.execute({ name, description, location, contacts, provinceID });
+            const createSpot = await serviceSpot.execute({ name, description, location, contacts, provinceID});
     
-            if (!createSpot) {
+            if (createSpot) {
                 return response.json({
                     success: true,
-                    message: name + ' created successfully',
+                    message: name + ' Created successfully',
                     data: createSpot
                 });
             } else {
                 return response
                     .json({
                         success: false,
-                        message: 'Nao criou...' + name,
+                        message: 'Ponto ja existente',
                         data: createSpot
                     })
             }

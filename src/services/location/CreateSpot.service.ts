@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import { Spots } from '../../models/Spots';
 import ProvinceRepository from '../../repositories/province.repositoy';
 import SpotRepository from '../../repositories/spot.repository';
 export interface ICreateSpot {
@@ -6,7 +7,7 @@ export interface ICreateSpot {
     description: string,
     location: string,
     contacts: string,
-    provinceID: number,
+    provinceID: number | string,
 }
 export default class CreateSpot {
     async execute({
@@ -19,26 +20,30 @@ export default class CreateSpot {
         const spotRepository = getCustomRepository(SpotRepository);
         const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
+
             const pontoExist = await spotRepository.findOne({ where: { spotName: name } });
-            if (pontoExist) {
-                return 'Ponto ja existe nessa base de dados';
-            } else {
-                const provinceExist = await provinceRepository.findOne(provinceID);
-                if (!provinceExist) {
-                    return 'Essa Provincia nao existe na base de dados';
-                } else {
-                    const createPonto = spotRepository.create({
-                        spotName: name,
-                        description: description,
-                        location: location,
-                        contacts: contacts,
-                        provinceID: provinceExist,
-                    });
-                    await spotRepository.save(createPonto);
+            const provinceExist = await provinceRepository.findOne({ where: { id: provinceID } });
+
+            if (!pontoExist) {
+                if (provinceExist) {
+                    const createPonto = await spotRepository
+                        .createQueryBuilder()
+                        .insert()
+                        .into(Spots)
+                        .values(
+                            {
+                                spotName: name,
+                                description: description,
+                                location: location,
+                                contacts: contacts,
+                                provinceID: provinceExist,
+                            }
+                        )
+                        .execute();
                     return createPonto;
                 }
-            }
-
+            } 
+            
         } catch (error) {
             return error;
         }

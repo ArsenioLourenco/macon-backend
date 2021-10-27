@@ -1,5 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import CountryRepository from '../../repositories/country.repository';
+
 export interface ICreateCountry {
     name: string,
     region: string,
@@ -10,26 +11,25 @@ export default class CreateCountry {
         name,
         region,
         code,
-    }: ICreateCountry) {        
+    }: ICreateCountry) {
         const countryRepository = getCustomRepository(CountryRepository);
-        const countryExist = await countryRepository.findOne({where: {countryName: name}});
+        const countryExist = await countryRepository.findOne({ where: { countryName: name } });
         try {
-            if (!countryExist) {
-                const createCountry = countryRepository.create({
-                    countryName: name,
-                    region,
-                    codeCountry: code,
-                });
 
-                await countryRepository.save(
-                    createCountry
-                );
-
-                return createCountry;
-            } else {
-                
+            if (countryExist) {
                 return 'Esse Pais ja existe na BD';
             }
+
+            const createCountry = countryRepository.create({
+                countryName: name,
+                region,
+                codeCountry: code,
+            });
+
+            await countryRepository.save(createCountry);
+
+            return createCountry;
+
         } catch (error) {
             return error;
         }

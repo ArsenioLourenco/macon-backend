@@ -10,7 +10,7 @@ export default class CreateProvinceController {
             const serviceProvince = new CreateProvince();
             const createProvince = await serviceProvince.execute({name, region, code, countryID });
     
-            if (!createProvince) {
+            if (createProvince) {
                 return response.json({
                     success: true,
                     message: name + ' created successfully',

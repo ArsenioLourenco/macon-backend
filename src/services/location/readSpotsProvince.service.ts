@@ -8,17 +8,11 @@ export interface IReadSpotsProvince {
 export default class ReadSpotsProvince {
     async execute({id}: IReadSpotsProvince) {
         const spotRepository = getCustomRepository(SpotRepository);
-        const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
-            const spot = await spotRepository.find();
-            const province = await provinceRepository.findOne(id);
-            if (spot) {
-                const spots = await spotRepository
-                    .createQueryBuilder()
-                    .where("id = :id", { id: province})
-                    .getOne();
-                    return spots;
-            }
+
+            const province = spotRepository.find({where:{provinceID:id}});
+            return province;
+            
         } catch (error) {
             return error
         }
