@@ -11,9 +11,10 @@ export async function IsSuperAdmin(
     const usersRepository = getCustomRepository(
         UsersRepository
     ),
-    token = request.cookies.maconBackEndInterdigitosDevs,
-    decodeToken = verify(token, process.env.JWT_SECRET) as JwtPayload;    
-    const { id } = decodeToken
+    token = request.headers.authorization,
+    decodeToken = verify(token, process.env.JWT_SECRET) as JwtPayload;
+
+    const { id } = decodeToken;
     
     console.log('teste')
     

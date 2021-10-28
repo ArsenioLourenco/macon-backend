@@ -5,7 +5,7 @@ export async function isUsersAuthenticated(
     request: Request,
     response: Response<IUsersIsAuthenticated>,
 ) {
-    const token = request.cookies.folhaDeRosto
+    const token = request.headers.authorization;
     if(!token){
         return response.status(200)
             .json({error: false});
