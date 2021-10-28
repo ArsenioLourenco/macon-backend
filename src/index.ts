@@ -62,7 +62,7 @@ const HOST = '0.0.0.0';
 //Listen Port
 if(require.main == module){
   serverHttp.listen(6800, HOST, () => {
-    console.log(`SERVER ON PORT -- ${PORT} --`);
+    console.log(`SERVER ON PORT [--- ${PORT} ---]`);
   });
 }
 export default app;
