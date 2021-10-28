@@ -36,6 +36,6 @@ export class Countries {
   })
   updatedAt: Date | null;
 
-  @OneToMany(() => Provinces, (provinces) => provinces.countryID)
+  @OneToMany(() => Provinces, (provinces) => provinces.country)
   provinces: Provinces[];
 }

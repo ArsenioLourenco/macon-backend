@@ -44,7 +44,7 @@ export class Spots {
 
   @ManyToOne(() => Provinces, (provinces) => provinces.spots)
   @JoinColumn([{ name: "provinceId", referencedColumnName: "id" }])
-  provinceID: Provinces;
+  province: Provinces;
 
   @OneToMany(() => Travels, (travels) => travels.spot)
   travels: Travels[];

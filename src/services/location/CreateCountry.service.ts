@@ -16,19 +16,19 @@ export default class CreateCountry {
         const countryExist = await countryRepository.findOne({ where: { countryName: name } });
         try {
 
-            if (countryExist) {
-                return 'Esse Pais ja existe na BD';
+            if (!countryExist) {
+                const createCountry = countryRepository.create({
+                    countryName: name,
+                    region,
+                    codeCountry: code,
+                });
+    
+                await countryRepository.save(createCountry);
+    
+                return createCountry;
             }
 
-            const createCountry = countryRepository.create({
-                countryName: name,
-                region,
-                codeCountry: code,
-            });
-
-            await countryRepository.save(createCountry);
-
-            return createCountry;
+            
 
         } catch (error) {
             return error;

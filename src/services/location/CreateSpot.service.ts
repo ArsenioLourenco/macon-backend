@@ -7,7 +7,7 @@ export interface ICreateSpot {
     description: string,
     location: string,
     contacts: string,
-    provinceID: number | string,
+    province: number,
 }
 export default class CreateSpot {
     async execute({
@@ -15,14 +15,14 @@ export default class CreateSpot {
         description,
         location,
         contacts,
-        provinceID,
+        province,
     }: ICreateSpot) {
         const spotRepository = getCustomRepository(SpotRepository);
         const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
 
-            const pontoExist = await spotRepository.findOne({ where: { spotName: name } });
-            const provinceExist = await provinceRepository.findOne({ where: { id: provinceID } });
+            const pontoExist = await spotRepository.findOne({ where: { spotName: name }});
+            const provinceExist = await provinceRepository.findOne({ where: { id: province } });
 
             if (!pontoExist) {
                 if (provinceExist) {
@@ -36,7 +36,7 @@ export default class CreateSpot {
                                 description: description,
                                 location: location,
                                 contacts: contacts,
-                                provinceID: provinceExist,
+                                province: provinceExist,
                             }
                         )
                         .execute();

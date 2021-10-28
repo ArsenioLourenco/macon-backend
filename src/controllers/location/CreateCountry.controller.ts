@@ -21,7 +21,7 @@ export default class CreateCountryController {
                 return response
                     .json({
                         success: false,
-                        message: 'Nao criou... ' + name,
+                        message: name + ' Ja existe na BD',
                         data: createCountry
                     })
             }

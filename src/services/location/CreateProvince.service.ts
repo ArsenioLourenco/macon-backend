@@ -5,36 +5,35 @@ export interface ICreateProvince {
     name: string,
     region: string,
     code: string,
-    countryID: number,
+    country: number,
 }
 export default class CreateProvince {
     async execute({
         name,
         region,
         code,
-        countryID
+        country
     }: ICreateProvince) {
         const provinceRepository = getCustomRepository(ProvinceRepository);
         const countryRepository = getCustomRepository(CountryRepository);
         try {
             const provinceExist = await provinceRepository.findOne({ where: { provinceName: name } });
-            const countryExist = await countryRepository.findOne({ where: { id: countryID } });
+            const countryExist = await countryRepository.findOne({ where: { id: country } });
+            
+            if (countryExist) {
+                if (!provinceExist) {
+                    const createProvince = provinceRepository.create({
+                        provinceName: name,
+                        region: region,
+                        codeProvince: code,
+                        country: countryExist
+                    });
 
-            if (!countryExist) {
-                return 'Esse pais ja exite na base de dados';
-            }
-            if (provinceExist) {
-                return 'Essa provincia ja existe na base de dados';
-            }
-            const createProvince = provinceRepository.create({
-                provinceName: name,
-                region: region,
-                codeProvince: code,
-                countryID: countryExist
-            });
-            await provinceRepository.save(createProvince);
+                    const final = await provinceRepository.save(createProvince);
 
-            return createProvince;
+                    return final;
+                }
+            }
 
         } catch (error) {
             return error;

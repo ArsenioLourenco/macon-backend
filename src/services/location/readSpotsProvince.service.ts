@@ -10,7 +10,7 @@ export default class ReadSpotsProvince {
         const spotRepository = getCustomRepository(SpotRepository);
         try {
 
-            const province = spotRepository.find({where:{provinceID:id}});
+            const province = spotRepository.find({where:{province:id}, relations: ['province']});
             return province;
             
         } catch (error) {

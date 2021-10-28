@@ -6,9 +6,9 @@ export default class CreateSpotController {
     async handle(request: Request<ICreateSpot>, response: Response<AppResponse<Spots[]>>) {
        
         try {
-            const { name, description, location, contacts, provinceID } = request.body;
+            const { name, description, location, contacts, province } = request.body;
             const serviceSpot = new CreateSpot();
-            const createSpot = await serviceSpot.execute({ name, description, location, contacts, provinceID});
+            const createSpot = await serviceSpot.execute({ name, description, location, contacts, province});
     
             if (createSpot) {
                 return response.json({
