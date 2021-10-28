@@ -7,6 +7,7 @@ import UpdateSpot, { IUpdateSpot } from '../../services/location/updateSpot.serv
 export default class CreateSpotController {
     async handle(request: Request<IUpdateSpot>, response: Response<AppResponse<Spots[]>>) {
         try {
+            
             const serviceSpot = new UpdateSpot();
             const { id, name, description, location, contacts} = request.body;
             const updateSpot = await serviceSpot.execute({id, name, description, location, contacts});
