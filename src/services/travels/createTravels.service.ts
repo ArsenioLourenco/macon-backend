@@ -1,71 +1,89 @@
 import { getCustomRepository } from "typeorm";
+import ProvincesRepository from "../../repositories/provinces.repository";
 import SpotRepository from "../../repositories/spots.repository";
-import TransportRepository from "../../repositories/transports.repository";
+import TransportRepository from "../../repositories/Transport";
 import TravelsRepository from "../../repositories/travels.repository";
 
-
-
-
-interface IcreateTravels{
-    spotId: number,
-    origin: number,
-    destiny: number,
+export interface IcreateTravels {
     departureDate: Date,
     returnDate: Date,
-   timeToGoTo: Date,
-   timeToArrival: Date,
-   transportId: number,
-   obervations: string
+    timeToGoTo: Date,
+    timeToArrival: Date,
+    observations: string,
+    spotId: number,
+    originProvince: number,
+    destinyProvince: number,
+    transportId: number,
+    price: number
 }
 
-export default class CreateTravels{
+export default class CreateTravels {
     async execute({
-        spotId, 
-        origin, 
-        destiny, 
-        departureDate, 
-        returnDate, 
-        timeToGoTo, 
-        timeToArrival, 
-        transportId, 
-        observations
-    }){
-        const travelsRepository= getCustomRepository(TravelsRepository)
-        const sportRepository= getCustomRepository(SpotRepository)
-        const transportRepository= getCustomRepository(TransportRepository)
-        try{
-            const verifyIfExistTravels= await travelsRepository.findOne( )
-            if(verifyIfExistTravels){
-                return 'this trip has already been booked'; 
-            } 
-            const verifyIdExistSport= await sportRepository.findOne(spotId)
-            if(verifyIdExistSport){
-                const verifyIdExistTransport= await transportRepository.findOne(transportId)
-                if(verifyIdExistTransport){
-                    const travels= await travelsRepository.create({
-                        spot: verifyIdExistSport,
-                        origin,
-                        destiny,
+        departureDate,
+        returnDate,
+        timeToGoTo,
+        timeToArrival,
+        observations,
+        spotId,
+        originProvince,
+        destinyProvince,
+        transportId,
+        price
+
+
+    }: IcreateTravels) {
+        const travelsRepository = getCustomRepository(TravelsRepository)
+        const spotRepository = getCustomRepository(SpotRepository)
+        const transportRepository = getCustomRepository(TransportRepository)
+        const provincesRepository = getCustomRepository(ProvincesRepository)
+        try {
+            const verifyIdSpots = await spotRepository.findOne({ where: { id: spotId } })
+            const verifyIdTransport = await transportRepository.findOne({ where: { id: transportId } })
+            const verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: {id:  originProvince } })
+            const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: {id: destinyProvince } })
+
+            const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
+            if (findTravelsDeparture) {
+                const { id } = findTravelsDeparture.transport
+                if (id === transportId) {
+                    return 'this travel exist '
+                }
+            }
+
+            console.log('Begin: '+verifyIdProvinceOrigin.id)
+            console.log('Destiny: '+verifyIdProvinceDestiny.id)
+
+            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
+                return 'this Travel is not valid'
+            }
+
+
+            const createTravel = await travelsRepository
+                .createQueryBuilder()
+                .insert()
+                .values([
+                    {
                         departureDate,
                         returnDate,
                         timeToGoTo,
                         timeToArrival,
-                        observations
-                    })
-                } else {return 'this transport not exist'}
-            }
-            else {return 'this spot not exist'}
-           
+                        observations,
+                        spot: verifyIdSpots,
+                        originProvince: verifyIdProvinceOrigin,
+                        destinyProvince: verifyIdProvinceDestiny,
+                        transport: verifyIdTransport,
+                        price
+                    },
 
-            
-            
+                ])
+                .execute();
+            return createTravel;
 
-
-        } 
-        
-        catch(err){
-         return err;
         }
-        
+
+        catch (err) {
+            return err;
+        }
+
     }
 }

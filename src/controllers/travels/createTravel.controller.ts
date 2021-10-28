@@ -1,37 +1,49 @@
 import { Request, Response } from "express";
-import CreateTravels from "../../services/travels/createTravels.service";
+import CreateTravels, { IcreateTravels } from "../../services/travels/createTravels.service";
 
+export default class CreateTravelsController {
+    async handle(request: Request<IcreateTravels>, response: Response) {
+        const { departureDate, returnDate, timeToGoTo, timeToArrival, observations, spotId, originProvince, destinyProvince, transportId, price } = request.body;
 
+        const createTravels = new CreateTravels()
+        try {
+            const travel = await createTravels.execute({
+                departureDate,
+                returnDate,
+                timeToGoTo,
+                timeToArrival,
+                observations,
+                spotId,
+                originProvince,
+                destinyProvince,
+                transportId,
+                price,
+            });
 
+            if (travel) {
+                return response
 
-export default class CreateTravelsController{
-    async handle(request: Request, response: Response){
-
-        const {spotId, origin, destiny, departureDate, returnDate, timeToGoTo, timeToArrival, transportId, observations}= request.body;
-
-        const createTravels= new CreateTravels()
-        try{
- const travel= createTravels.execute({ spotId, 
-    origin, 
-    destiny, 
-    departureDate, 
-    returnDate, 
-    timeToGoTo, 
-    timeToArrival, 
-    transportId, 
-    observations})
-    
-            return response
-            .status(200)
-            .json({
-                success: true,
-                data: travel
-            })
+                    .json({
+                        success: true,
+                        message: "Travel Created sucessify",
+                        data: travel
+                    })
+            }
+            else {
+                if (travel) {
+                    return response
+                        .json({
+                            success: false,
+                            message: "Travel Created falhou",
+                            data: travel
+                        })
+                }
+            }
         }
-        catch(err){
+        catch (err) {
             return err
         }
-        
+
 
     }
 }

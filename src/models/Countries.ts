@@ -38,4 +38,7 @@ export class Countries {
 
   @OneToMany(() => Provinces, (provinces) => provinces.country)
   provinces: Provinces[];
+
+  @OneToMany(() => Provinces, (provinces) => provinces.country2)
+  provinces2: Provinces[];
 }

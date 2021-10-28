@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import TransportRepository from "../../repositories/transports.repository";
+import TransportRepository from "../../repositories/Transport";
 
 export default class DeleteTransport{
     async execute(id:number){
@@ -7,9 +7,7 @@ export default class DeleteTransport{
             TransportRepository
         )
         try{
-            const getIdTransport = await transportRepository.findOne(
-                id
-            )
+            const getIdTransport = await transportRepository.findOne({where:{id:id}})
             if(!getIdTransport) {
                 return "This Transport not exist";   
             }

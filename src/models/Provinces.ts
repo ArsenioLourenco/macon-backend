@@ -40,16 +40,22 @@ export class Provinces {
   })
   updatedAt: Date | null;
 
-  @ManyToOne(() => Countries, (countries) => countries.provinces)
+  @ManyToOne(() => Countries, (countries) => countries.provinces, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn([{ name: "countryId", referencedColumnName: "id" }])
   country: Countries;
+
+  @ManyToOne(() => Countries, (countries) => countries.provinces2)
+  @JoinColumn([{ name: "countryId", referencedColumnName: "id" }])
+  country2: Countries;
 
   @OneToMany(() => Spots, (spots) => spots.province)
   spots: Spots[];
 
-  @OneToMany(() => Travels, (travels) => travels.origin)
+  @OneToMany(() => Travels, (travels) => travels.originProvince)
   travels: Travels[];
 
-  @OneToMany(() => Travels, (travels) => travels.destiny)
+  @OneToMany(() => Travels, (travels) => travels.destinyProvince)
   travels2: Travels[];
 }
