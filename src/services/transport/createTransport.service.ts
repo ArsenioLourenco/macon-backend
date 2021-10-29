@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import TransportRepository from "../../repositories/transports.repository";
+import TransportRepository from "../../repositories/Transport";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
 export interface ICreateTransport{
@@ -24,7 +24,9 @@ export default class CreateTransport{
         );
         try{
             const alreadyExistsTransportNumber = await transportRepository.findOne(
-                transportNumber
+                {
+                    where:{transportNumber:transportNumber}
+                }
             );
 
 
@@ -58,3 +60,5 @@ export default class CreateTransport{
         }
     } 
 }
+
+

@@ -11,6 +11,7 @@ export default class DeleteTypeTransportController{
             const id = Number(request.params.id);
             const deleteTypeTransport = new DeleteTypeTransport()
             const deleteTypeTransportId = await deleteTypeTransport.execute(id);
+
             return response.status(200)
                 .json({
                     success: true,

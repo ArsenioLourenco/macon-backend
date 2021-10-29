@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { Auth } from './middlewares/tokenGuard';
 import { isUsersAuthenticated } from './middlewares/isAuthenticated';
 import usersRoutes from "./routes/users.routes";
@@ -7,12 +7,13 @@ import agendTravelRoutes from "./routes/agendTravel.routes";
 import SendSMS from './services/sendSMS/sendSMS.service';
 import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
-// Router Instance
+
 const router = Router();
 const sendSMS = new SendSMS();
 
 const loginController = new LoginController()
-// base Route
+import travelsRoutes from "./routes/travels.routes"
+
 router.get('/', (__, res) => {
     res.send({
         app: 'macon-backend',
@@ -23,15 +24,14 @@ router.get('/', (__, res) => {
         note: "Trainess Codando..."
     });
 });
-// Client Routes
+
 router.use(agendTravelRoutes);
-// isUserAuthenticated
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
-// Routes with Restriction
 router.use(Auth);
-// Users Routes
 router.use(usersRoutes);
-// Transports Routes
 router.use(transportRoutes);
+router.use(travelsRoutes)
+
 export default router;
+ 

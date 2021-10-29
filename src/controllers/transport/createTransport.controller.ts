@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { AppResponse } from "../../@types";
-import { Tranpsort } from "../../models/Tranpsort";
+import { Transport } from "../../models/Transport";
 import CreateTransport, { ICreateTransport } from "../../services/transport/createTransport.service";
 
 
 export default class CreateTransportController{
-    async handle(request:Request<ICreateTransport>, response:Response<AppResponse<Tranpsort[]>>){
+    async handle(request:Request<ICreateTransport>, response:Response<AppResponse<Transport[]>>){
         const createTransportController = new CreateTransport();
         
         const { 

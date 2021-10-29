@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
-import TransportRepository from "../../repositories/transports.repository";
+import TransportRepository from "../../repositories/Transport";
 import TravelsRepository from "../../repositories/travels.repository";
 
 export interface IAgendTravel{
