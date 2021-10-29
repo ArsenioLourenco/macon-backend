@@ -3,7 +3,7 @@ import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/Transport";
 
 
-export default class FindAllTransportController{
+export default class GetAllTransportsController{
     async handle(request:Request, response: Response){
         const transportRepository = getCustomRepository(
             TransportRepository

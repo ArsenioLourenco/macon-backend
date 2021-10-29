@@ -3,7 +3,7 @@ import UpdateTravel, { IUpdateTravels } from "../../services/travels/updateTrave
 
 export default class UpdateTravelsController {
     async handle(request: Request<IUpdateTravels>, response: Response) {
-       
+
         try {
             const { id,
                 departureDate,
@@ -16,7 +16,7 @@ export default class UpdateTravelsController {
                 destinyProvince,
                 transportId,
                 price } = request.body;
-    
+
             const updateTravels = new UpdateTravel();
             const update = await updateTravels.execute({
                 id,
@@ -30,10 +30,18 @@ export default class UpdateTravelsController {
                 destinyProvince,
                 transportId,
                 price
-            }) 
+            })
             if (update) {
                 return response.json({
                     success: true,
+                    message: "Travel Updated",
+                    data: update
+                })
+            }
+            else {
+                return response.json({
+                    success: false,
+                    message: "A viagem não foi alterada",
                     data: update
                 })
             }
