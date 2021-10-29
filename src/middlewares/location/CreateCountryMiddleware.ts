@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 import { showError } from '.';
 import { AppResponse } from "../../@types";
 import { Countries } from "../../models/Countries";
-import { ICreateCountry } from "../../services/location/createCountry.service";
-export const CreateCountryMiddleware = async (
+import { ICreateCountry } from "../../services/location/country/createCountry.service";
+export const createCountryMiddleware = async (
     request: Request<ICreateCountry>,
     response: Response<AppResponse<Countries[]>>,
     next: NextFunction

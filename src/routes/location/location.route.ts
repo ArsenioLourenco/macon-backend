@@ -1,21 +1,22 @@
 import { Router } from "express";
-import CreateCountryController from "../../controllers/location/createCountry.controller";
-import CreateProvinceController from "../../controllers/location/createProvince.controller";
-import CreateSpotController from "../../controllers/location/createSpot.controller";
-import DeleteCountryController from "../../controllers/location/deleteCountry.controller";
-import DeleteProvinceController from "../../controllers/location/deleteProvince.controller";
-import DeleteSpotController from "../../controllers/location/deleteSpot.controller";
-import GetCountriesController from "../../controllers/location/getAllCountries.controller";
-import GetProvincesController from "../../controllers/location/getAllProvinces.controller";
-import GetSpotsController from "../../controllers/location/getAllSpots.controller";
-import GetCountryByIDController from "../../controllers/location/getCountryByID.controller";
-import GetProvinceByIDController from "../../controllers/location/getProvinceByID.controller";
-import GetSpotByIDController from "../../controllers/location/getSpotByID.controller";
-import GetSpotsProvinceController from "../../controllers/location/getSpotsProvince.controller";
-import UpdateCountryController from "../../controllers/location/updateCountry.controller";
-import UpdateProvinceController from "../../controllers/location/updateProvince.controller";
-import UpdateSpotController from "../../controllers/location/updateSpot.controller";
-import { CreateCountryMiddleware } from "../../middlewares/location/CreateCountryMiddleware";
+import CreateCountryController from "../../controllers/location/country/createCountry.controller";
+import DeleteCountryController from "../../controllers/location/country/deleteCountry.controller";
+import GetCountriesController from "../../controllers/location/country/getAllCountries.controller";
+import GetCountryByIDController from "../../controllers/location/country/getCountryByID.controller";
+import UpdateCountryController from "../../controllers/location/country/updateCountry.controller";
+import CreateProvinceController from "../../controllers/location/province/createProvince.controller";
+import DeleteProvinceController from "../../controllers/location/province/deleteProvince.controller";
+import GetProvincesController from "../../controllers/location/province/getAllProvinces.controller";
+import GetProvinceByIDController from "../../controllers/location/province/getProvinceByID.controller";
+import UpdateProvinceController from "../../controllers/location/province/updateProvince.controller";
+import CreateSpotController from "../../controllers/location/spot/createSpot.controller";
+import DeleteSpotController from "../../controllers/location/spot/deleteSpot.controller";
+import GetSpotsController from "../../controllers/location/spot/getAllSpots.controller";
+import GetSpotByIDController from "../../controllers/location/spot/getSpotByID.controller";
+import GetSpotsProvinceController from "../../controllers/location/spot/getSpotsProvince.controller";
+import UpdateSpotController from "../../controllers/location/spot/updateSpot.controller";
+import { createCountryMiddleware } from "../../middlewares/location/CreateCountryMiddleware";
+import { createProvinceMiddleware } from "../../middlewares/location/CreateProvinceMiddleware";
 
 const router = Router();
 
@@ -41,8 +42,8 @@ const getSpotByIDController = new GetSpotByIDController();
 const getAllSpotsController = new GetSpotsController();
 const getSpotsProvinceController = new GetSpotsProvinceController();
 
-router.post('/location/create/country', createCountryController.handle)
-router.post('/location/create/province', createProvinceController.handle)
+router.post('/location/create/country', createCountryMiddleware, createCountryController.handle)
+router.post('/location/create/province', createProvinceMiddleware, createProvinceController.handle)
 router.post('/location/create/spot', createSpotController.handle)
 
 router.put('/location/update/country', updateCountryController.handle)
