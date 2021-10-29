@@ -7,7 +7,7 @@ export interface ICreateProvince {
     code: string,
     country: number,
 }
-export default class CreateProvince {
+export default class CreateProvinceService {
     async execute({
         name,
         region,

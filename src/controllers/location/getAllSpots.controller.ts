@@ -1,19 +1,20 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Spots } from '../../models/Spots';
-import ReadSpots from '../../services/location/readSpots.service';
-export default class ReadSpotsController {
+import SpotsService from '../../services/location/getAllSpots.service';
+
+export default class GetSpotsController {
     async handle(request: Request, response: Response<AppResponse<Spots[]>>) {
         try {
-            const serviceReadSpot = new ReadSpots();
-            const spot = await serviceReadSpot.execute();
+            const serviceSpot = new SpotsService();
+            const spots = await serviceSpot.execute();
 
-            if (spot) {
+            if (spots) {
                 return response
                     .json({
                         success: true,
                         message: 'Lista dos Pontos',
-                        data: spot
+                        data: spots
                     });
             }
             else {

@@ -3,12 +3,13 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Provinces } from '../../models/Provinces';
-import ReadProvinces from '../../services/location/readProvince.service';
-export default class ReadProvincesController {
+import ProvincesService from '../../services/location/getAllProvinces.service';
+
+export default class GetProvincesController {
     async handle(request: Request, response: Response<AppResponse<Provinces[]>>) {
         try {
-            const serviceReadProvinces = new ReadProvinces();
-            const provinces = await serviceReadProvinces.execute();
+            const serviceProvinces = new ProvincesService();
+            const provinces = await serviceProvinces.execute();
 
             if (provinces) {
                 return response

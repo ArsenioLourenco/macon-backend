@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import SpotRepository from '../../repositories/spot.repository';
-export default class ReadSpots {
+export default class SpotsService {
     async execute() {
         const spotRepository = getCustomRepository(SpotRepository);
         try {

@@ -5,17 +5,17 @@ import CreateSpotController from "../../controllers/location/createSpot.controll
 import DeleteCountryController from "../../controllers/location/deleteCountry.controller";
 import DeleteProvinceController from "../../controllers/location/deleteProvince.controller";
 import DeleteSpotController from "../../controllers/location/deleteSpot.controller";
-import ReadCountriesController from "../../controllers/location/readCountries.controller";
-import ReadCountryByIDController from "../../controllers/location/readCountryByID.controller";
-import ReadProvinceByIDController from "../../controllers/location/readProvinceByID.controller";
-import ReadProvincesController from "../../controllers/location/readProvinces.controller";
+import GetCountriesController from "../../controllers/location/getAllCountries.controller";
+import GetProvincesController from "../../controllers/location/getAllProvinces.controller";
+import GetSpotsController from "../../controllers/location/getAllSpots.controller";
+import GetCountryByIDController from "../../controllers/location/getCountryByID.controller";
+import GetProvinceByIDController from "../../controllers/location/getProvinceByID.controller";
+import GetSpotByIDController from "../../controllers/location/getSpotByID.controller";
+import GetSpotsProvinceController from "../../controllers/location/getSpotsProvince.controller";
 import UpdateCountryController from "../../controllers/location/updateCountry.controller";
 import UpdateProvinceController from "../../controllers/location/updateProvince.controller";
 import UpdateSpotController from "../../controllers/location/updateSpot.controller";
 import { CreateCountryMiddleware } from "../../middlewares/location/CreateCountryMiddleware";
-import ReadSpotsController from '../../controllers/location/readSpots.controller';
-import ReadSpotByIDController from "../../controllers/location/readSpotByID.controller";
-import ReadSpotsProvinceController from '../../controllers/location/readSpotsProvince.controller';
 
 const router = Router();
 
@@ -31,17 +31,17 @@ const deleteCountryControler = new DeleteCountryController();
 const deleteProvinceControler = new DeleteProvinceController();
 const deleteSpotControler = new DeleteSpotController();
 
-const readCountryByIDController = new ReadCountryByIDController();
-const readCountriesController = new ReadCountriesController();
+const getCountryByIDController = new GetCountryByIDController();
+const getAllCountriesController = new GetCountriesController();
 
-const readProvinceByIDController = new ReadProvinceByIDController();
-const readProvincesController = new ReadProvincesController();
+const getProvinceByIDController = new GetProvinceByIDController();
+const getAllProvincesController = new GetProvincesController();
 
-const readSpotByIDController = new ReadSpotByIDController();
-const readSpotsController = new ReadSpotsController();
-const readSpotsProvinceController = new ReadSpotsProvinceController();
+const getSpotByIDController = new GetSpotByIDController();
+const getAllSpotsController = new GetSpotsController();
+const getSpotsProvinceController = new GetSpotsProvinceController();
 
-router.post('/location/create/country', CreateCountryMiddleware, createCountryController.handle)
+router.post('/location/create/country', createCountryController.handle)
 router.post('/location/create/province', createProvinceController.handle)
 router.post('/location/create/spot', createSpotController.handle)
 
@@ -53,14 +53,14 @@ router.delete('/location/delete/country/:id', deleteCountryControler.handle)
 router.delete('/location/delete/province/:id', deleteProvinceControler.handle)
 router.delete('/location/delete/spot/:id', deleteSpotControler.handle)
 
-router.get('/location/read/country/:id', readCountryByIDController.handle)
-router.get('/location/read/countries', readCountriesController.handle)
+router.get('/location/read/country/:id', getCountryByIDController.handle)
+router.get('/location/read/countries', getAllCountriesController.handle)
 
-router.get('/location/read/province/:id', readProvinceByIDController.handle)
-router.get('/location/read/provinces', readProvincesController.handle)
+router.get('/location/read/province/:id', getProvinceByIDController.handle)
+router.get('/location/read/provinces', getAllProvincesController.handle)
 
-router.get('/location/read/spot/:id', readSpotByIDController.handle)
-router.get('/location/read/spots', readSpotsController.handle)
-router.get('/location/read/spotprovince', readSpotsProvinceController.handle)
+router.get('/location/read/spot/:id', getSpotByIDController.handle)
+router.get('/location/read/spots', getAllSpotsController.handle)
+router.get('/location/read/spotprovince', getSpotsProvinceController.handle)
 
 export default router;

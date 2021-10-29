@@ -2,12 +2,12 @@ import { getCustomRepository } from "typeorm";
 import ProvinceRepository from "../../repositories/province.repositoy";
 
 
-export interface IReadProvinceByID {
+export interface IProvinceByID {
     id: number
 }
 
-export default class ReadProvinceByID {
-    async execute({ id }: IReadProvinceByID) {
+export default class ProvinceByIDService {
+    async execute({ id }: IProvinceByID) {
         const provinceRepository = getCustomRepository(ProvinceRepository);
         try {
             const provinceID = await provinceRepository.findOne(id);

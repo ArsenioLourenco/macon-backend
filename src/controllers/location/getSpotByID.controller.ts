@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Spots } from '../../models/Spots';
-import ReadSpotByID, { IReadSpotByID } from '../../services/location/readSpotByID.service';
-export default class ReadSpotByIDController {
-    async handle(request: Request<IReadSpotByID>, response: Response<AppResponse<Spots[]>>) {
+import SpotByIDService, { ISpotByID } from '../../services/location/getSpotByID.service';
+
+export default class GetSpotByIDController {
+    async handle(request: Request<ISpotByID>, response: Response<AppResponse<Spots[]>>) {
         try {
             const id = request.params.id;
-            const serviceReadSpotID = new ReadSpotByID();
-            const spotID = await serviceReadSpotID.execute({id});
+            const serviceSpotID = new SpotByIDService();
+            const spotID = await serviceSpotID.execute({id});
 
             if (spotID) {
                 return response

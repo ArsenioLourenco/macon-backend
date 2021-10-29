@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import CountryRepository from '../../repositories/country.repository';
-export default class ReadCountries {
+export default class CountriesService {
     async execute() {
         const countryRepository = getCustomRepository(CountryRepository);
         try {

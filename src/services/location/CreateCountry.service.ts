@@ -6,7 +6,7 @@ export interface ICreateCountry {
     region: string,
     code: string,
 }
-export default class CreateCountry {
+export default class CreateCountryService {
     async execute({
         name,
         region,

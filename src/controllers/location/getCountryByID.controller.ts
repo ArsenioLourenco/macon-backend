@@ -1,19 +1,20 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import { Countries } from '../../models/Countries';
-import ReadCountries from '../../services/location/readCountries.service';
-export default class ReadCountriesController {
-    async handle(request: Request, response: Response<AppResponse<Countries[]>>) {
+import CountryByIDService, { ICountryByID } from '../../services/location/getCountryByID.service';
+export default class GetCountryByIDController {
+    async handle(request: Request<ICountryByID>, response: Response<AppResponse<Countries[]>>) {
         try {
-            const serviceReadCountries = new ReadCountries();
-            const country = await serviceReadCountries.execute();
+            const id = request.params.id;
+            const serviceCountryID = new CountryByIDService();
+            const countryID = await serviceCountryID.execute({id});
 
-            if (country) {
+            if (countryID) {
                 return response
                     .json({
                         success: true,
-                        message: 'Lista dos Paises',
-                        data: country
+                        message: 'Informacao do Pais',
+                        data: countryID
                     });
             }
             else {

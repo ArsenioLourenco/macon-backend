@@ -2,11 +2,11 @@ import { getCustomRepository } from 'typeorm';
 import SpotRepository from '../../repositories/spot.repository';
 
 
-export interface IReadSpotByID {
+export interface ISpotByID {
     id: number
 }
-export default class ReadSpotByID {
-    async execute({ id }: IReadSpotByID) {
+export default class SpotByIDService {
+    async execute({ id }: ISpotByID) {
         const spotRepository = getCustomRepository(SpotRepository);
         try {
             const spotID = await spotRepository.findOne(id);
