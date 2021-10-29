@@ -1,34 +1,25 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
+import { AppResponse } from "../../@types";
+import { Travels } from "../../models/Travels";
 import TravelsRepository from "../../repositories/travels.repository";
 
-
-
-
-
-export default class GetAllTravels{
-    async handle(request: Request, response: Response){
-        const travelsRepository= getCustomRepository(TravelsRepository)
+export default class GetAllTravelsController{
+    async handle(request: Request, response: Response<AppResponse<Travels[]>>){
         try{
-            const getAllTravels= await travelsRepository.find()
+            const travelsRepository = getCustomRepository(TravelsRepository);
+            const getAllTravels = await travelsRepository.find();
+
             if(getAllTravels){
                 return response.status(200)
-                .json({
-                    success: true, 
-                    message: '',
-                    data: getAllTravels
-                })
+                    .json({ success: true, message: 'Viagens Disponíveis', data: getAllTravels });
             }
-            else {
-                return response.status(200)
-                .json({
-                    success: false,
-                    message: 'Not exist travels'
-                })
-            }
+            return response.status(400)
+                .json({ success: false, message: 'Sem Viagens Disponíveis' });
         }
         catch(err){
-            return err;
+            return response.status(500)
+                .json({ success: false, message: 'Servidor Indisponível' });
         }
     }
 }

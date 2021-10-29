@@ -6,7 +6,7 @@ export interface ICreateTransport{
     transportName: string,
     transportNumber: number,
     totalPlace: number,
-    typeTransportId: number
+    typeTransport: number
 }
 
 export default class CreateTransport{
@@ -14,32 +14,22 @@ export default class CreateTransport{
         transportName, 
         transportNumber, 
         totalPlace, 
-        typeTransportId } : ICreateTransport){
-        
-        const transportRepository= getCustomRepository(
-            TransportRepository
-        )
-        const typeTransportRepository = getCustomRepository(
-            TypeTransportRepository
-        );
-        try{
-            const alreadyExistsTransportNumber = await transportRepository.findOne(
-                {
-                    where:{transportNumber:transportNumber}
-                }
-            );
-
+        typeTransport } : ICreateTransport)
+    {
+        try{    
+            const 
+                transportRepository = getCustomRepository( TransportRepository ),
+                typeTransportRepository = getCustomRepository( TypeTransportRepository ),
+                alreadyExistsTransportNumber = await transportRepository.findOne( { where: { transportNumber } });
 
             if(alreadyExistsTransportNumber){
-                return 'This Transport Already exists!';
+                return 'Não é permitido a duplicação de Autocarros';
             }
-            
-            const verifyIfExistTypeTransport = await typeTransportRepository.findOne(
-                typeTransportId
-            );
+
+            const verifyIfExistTypeTransport = await typeTransportRepository.findOne( typeTransport );
 
             if(!verifyIfExistTypeTransport){
-                return 'We dont have this type transport!';
+                return 'Não temos esse modelo de Autocarro!';
             }
 
             const createTransport = transportRepository.create({
@@ -53,7 +43,7 @@ export default class CreateTransport{
                 createTransport
             );
 
-            return createTransport;
+            return [createTransport, 'Autocarro Registrado.'];
         }
         catch(err){
             return err.message;

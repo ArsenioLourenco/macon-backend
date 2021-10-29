@@ -1,39 +1,28 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
+import { AppResponse } from "../../@types";
 import TravelsRepository from "../../repositories/travels.repository";
 
-
 export default class DeleteAllTravelController {
-    async handle(request: Request, response: Response) {
-
-        const travelsRepository = getCustomRepository(TravelsRepository)
+    async handle(request: Request, response: Response<AppResponse<string>>) {
         try {
-            const findAllTravell = await travelsRepository.find();
-
-            if (findAllTravell) {
-                const deleteAllTravel = await travelsRepository
+            const travelsRepository = getCustomRepository(TravelsRepository)
+            if (await travelsRepository.find()) {
+                await travelsRepository
                     .createQueryBuilder()
                     .delete()
                     .execute();
-                    return response
-                        .json({
-                            success: true,
-                            message: 'Travel Deleted',
-                            data: deleteAllTravel
-                   })
+                return response.status(200)
+                    .json({ success: true, message: 'Todas Viagens Removidas.' });
                 } 
-               
-            else {
-                return response
-                    .json({
-                        success: false,
-                        message: "Not exist data in table",
-
-                    })
+            else{
+                return response.status(400)
+                    .json({ success: false, message: "Sem Viagens Registradas." })
             }
         }
-        catch (err) {
-            return err;
+        catch(err) {
+            return response.status(500)
+                .json({ success: false, message: err.message });
         }
     }
 }
