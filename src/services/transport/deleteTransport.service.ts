@@ -1,24 +1,21 @@
 import { getCustomRepository } from "typeorm";
-import TransportRepository from "../../repositories/transports.repository";
+import TransportRepository from "../../repositories/Transport";
 
 export default class DeleteTransport{
-    async execute(id:number){
-        const transportRepository = getCustomRepository(
-            TransportRepository
-        )
+    async execute( id: number ){
         try{
-            const getIdTransport = await transportRepository.findOne(
-                id
-            )
-            if(!getIdTransport) {
+            const transportRepository = getCustomRepository( TransportRepository );
+            const alreadyExistTransport = await transportRepository.findOne({ where: { id } });
+
+            if(!alreadyExistTransport) {
                 return "This Transport not exist";   
             }
-            const deleteTransport = await transportRepository
+            await transportRepository
                 .createQueryBuilder()
                 .delete()
                 .where("id = :id", { id: id })
                 .execute();
-            return deleteTransport;
+            return 'Transporte Removido com Sucesso!';
         }catch(err){
             return err.message;
         }

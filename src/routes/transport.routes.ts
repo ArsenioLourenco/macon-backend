@@ -3,22 +3,21 @@ import CreateTransportController from "../controllers/transport/createTransport.
 import CreateTypeTransportController from "../controllers/transport/createTypeTransport.controller";
 import DeleteTransportController from "../controllers/transport/deleteTransport.controller";
 import DeleteTypeTransportController from "../controllers/transport/deleteTypeTransport.controller";
-import FindAllTransportController from "../controllers/transport/findAllTransport.controller";
-
+import GetAllTransportsController from "../controllers/transport/getAllTransports.controller";
 
 const router = Router();
 
-const readyAllTransport = new FindAllTransportController()
-const cretateTransportRoute = new CreateTransportController()
-const deleteTransportRoute =  new DeleteTransportController()
-const createTypeTransportRoute = new CreateTypeTransportController()
-const deleteTypeTransportRoute = new DeleteTypeTransportController()
+const getAllTransportsController = new GetAllTransportsController();
+const createTransportController = new CreateTransportController();
+const deleteTransportController =  new DeleteTransportController();
+const createTransportTypeController = new CreateTypeTransportController();
+const deleteTransportTypeController = new DeleteTypeTransportController();
 
-router.get("/readyAllTransport", readyAllTransport.handle)
-router.post("/createTransport", cretateTransportRoute.handle)
-router.delete("/deleteTransport/:id", deleteTransportRoute.handle)
-router.post("/CreateTypeTransport", createTypeTransportRoute.handle)
-router.delete("/delete/typeTransport/:id", deleteTypeTransportRoute.handle)
+router.get("/transport/all", getAllTransportsController.handle);
+router.post("/transport/create", createTransportController.handle);
+router.delete("/transport/delete/:id", deleteTransportController.handle);
+router.post("/transportType/create", createTransportTypeController.handle);
+router.delete("/transportType/delete/:id", deleteTransportTypeController.handle);
 
 
 export default router;

@@ -4,40 +4,24 @@ import AlterKey, { IAlterKey } from "../../services/users/alterKey.service";
 
 export default class AlterkeyController{
     async handle(request: Request<IAlterKey>, response: Response<AppResponse<string>>){
-        const { 
-            id, 
-            newKey, 
-            confirmNewKey } = request.body;
         try{
-            if(
-                newKey != confirmNewKey
-                ){
-                return response
-                    .json({
-                        success: false,
-                        message: 'The Keys not is equals',
-                    })    
+            const 
+                { id, newKey, confirmNewKey } = request.body,
+                alterkey = new AlterKey();
+            if( newKey != confirmNewKey ){
+                return response.status(400)
+                    .json({ success: false, message: 'As palavras Passe não são iguais!' });    
             }
-            const alterkey = new AlterKey();
-            await alterkey.execute({
-                id, 
-                newKey, 
-                confirmNewKey
-            });
+            await alterkey.execute(
+                { id, newKey, confirmNewKey }
+            );
             
             return response
                 .status(200)
-                .json({
-                    success: true,
-                    message: 'User Key Alter',
-                })
+                .json({ success: true, message: 'Palavra Passe alterada!' });
         }catch(err){
-            return response
-                .json({
-                    success: false,
-                    message: 'User Not Alter',
-                    data: err.message
-                })
+            return response.status(500)
+                .json({ success: false, message: err.message });
         }
     }
 }

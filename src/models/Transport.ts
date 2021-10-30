@@ -4,13 +4,15 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { TypeTransport } from "./TypeTransport";
+import { Travels } from "./Travels";
 
 @Index("PK__Tranpsor__3213E83FC529A64A", ["id"], { unique: true })
-@Entity("Tranpsort", { schema: "dbo" })
-export class Tranpsort {
+@Entity("Transport", { schema: "dbo" })
+export class Transport {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
@@ -37,7 +39,10 @@ export class Tranpsort {
   })
   updatedAt: Date | null;
 
-  @ManyToOne(() => TypeTransport, (typeTransport) => typeTransport.tranpsorts)
+  @ManyToOne(() => TypeTransport, (typeTransport) => typeTransport.transports)
   @JoinColumn([{ name: "typeTransportId", referencedColumnName: "id" }])
   typeTransport: TypeTransport;
+
+  @OneToMany(() => Travels, (travels) => travels.transport)
+  travels: Travels[];
 }

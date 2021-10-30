@@ -1,26 +1,22 @@
 import { getCustomRepository } from "typeorm";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
-
 export default class DeleteTypeTransport{
-    async execute(id:number){
-        const typetransportRepository = getCustomRepository(
-            TypeTransportRepository)
-
+    async execute( id: number ){
         try{
-        
-            const getIdTypeTransport = await typetransportRepository.findOne(id)
+            const typetransportRepository = getCustomRepository(TypeTransportRepository);
+            const getIdTypeTransport = await typetransportRepository.findOne(id);
+
             if(!getIdTypeTransport) {
-                return "This Type Transport not exist";   
+                return "Esse transporte não Existe";   
             }
             
-            const deleteTypeTransport = await typetransportRepository
+            await typetransportRepository
                 .createQueryBuilder()
                 .delete()
-                .where("id = :id", {id: id})
+                .where("id = :id", { id: id })
                 .execute();
-            
-            return deleteTypeTransport;
+            return 'Modelo de Transporte Removido com Sucesso!';
         }
         catch(err){
             return err;
