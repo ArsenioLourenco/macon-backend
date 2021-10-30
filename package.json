@@ -4,12 +4,12 @@
     "description": "macon Complete BackEnd and DevOp configurations",
     "main": "src/index.js",
     "scripts": {
-        "dev": "ts-node-dev --exit-child src/index.ts",
+        "dev": "ts-node-dev --exit-child src/server.ts",
         "startServer": "nodemon src/index.ts",
         "start": "nodemon src/index.ts"
     },
     "license": "MIT",
-    "dependencies": {
+    "devDependencies": {
         "@types/bcrypt": "^5.0.0",
         "@types/bcryptjs": "^2.4.2",
         "@types/cookie-parser": "^1.4.2",
@@ -22,6 +22,15 @@
         "@types/swagger-ui-express": "^4.1.3",
         "@types/typescript": "^2.0.0",
         "@types/yup": "^0.29.13",
+        "@typescript-eslint/eslint-plugin": "^4.32.0",
+        "@typescript-eslint/parser": "^4.32.0",
+        "dotenv": "^10.0.0",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "nodemon": "^2.0.13",
+        "typescript": "^4.4.3"
+    },
+    "dependencies": {
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
         "cookie-parser": "^1.4.5",
@@ -42,14 +51,5 @@
         "ts-node-dev": "^1.1.8",
         "typeorm": "^0.2.37",
         "yup": "^0.32.9"
-    },
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.32.0",
-        "@typescript-eslint/parser": "^4.32.0",
-        "dotenv": "^10.0.0",
-        "eslint": "^7.32.0",
-        "eslint-config-airbnb-base": "^14.2.1",
-        "nodemon": "^2.0.13",
-        "typescript": "^4.4.3"
     }
 }

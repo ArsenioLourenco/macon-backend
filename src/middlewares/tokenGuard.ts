@@ -1,14 +1,25 @@
 import { Request, Response, NextFunction } from "express"
+import { verify } from "jsonwebtoken";
+
+interface IPayload {
+    sub: string;
+  }
 
 export async function Auth(
     request: Request,
     response: Response,
     next: NextFunction
 ) {
-    const token = request.headers.authorization;
-    if(!token){
+    const authToken = request.headers.authorization;
+    if(!authToken){
         return response.status(401)
-            .send('O você não está autenticado!');
+            .json('O você não está autenticado!');
     }
-    return next();
+    const [, token] = authToken.split(" ");
+    try {
+        verify(token, process.env.JWT_SECRET) as IPayload;
+        return next();
+    }catch(err) {
+        return response.status(401).json({ errorCode: "token.expired" });
+    }
 }
