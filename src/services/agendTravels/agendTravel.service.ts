@@ -1,20 +1,22 @@
 import { getCustomRepository } from "typeorm";
-import { string } from "yup/lib/locale";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
+import ProvincesRepository from "../../repositories/provinces.repository";
 import TransportRepository from "../../repositories/Transport";
 import TravelsRepository from "../../repositories/travels.repository";
 
 export interface IAgendTravel{
     placesReserve: number,
     travelId: number,
+    phoneNumber: string,
 }
 
 export default class AgendTravels{
-    async execute({ placesReserve, travelId } : IAgendTravel){
+    async execute({ placesReserve, travelId, phoneNumber } : IAgendTravel){
         const 
             travelRepository = getCustomRepository( TravelsRepository ),
             transportRepository = getCustomRepository( TransportRepository ),
-            agendTravelRepository = getCustomRepository( AgendTravelsRepository )
+            agendTravelRepository = getCustomRepository( AgendTravelsRepository ),
+            provinceRepository = getCustomRepository( ProvincesRepository );
         try{
             const verifyIfExistTravel = await travelRepository.query(
                 `SELECT * FROM Travels WHERE id = '${travelId}'`
@@ -29,6 +31,8 @@ export default class AgendTravels{
             // geting transport id
             const 
                 [{ id, transportId, price, departureDate, timeToGoTo, originProvince, destinyProvince }] = verifyIfExistTravel,
+                origin = await provinceRepository.findOne(originProvince),
+                destiny = await provinceRepository.findOne(destinyProvince),
                 verifyTransportIdDatas = await transportRepository.findOne( transportId ),
                 totalPlacesInTransport = verifyTransportIdDatas.totalPlace;
             // geting totalPlace that was reserved on disponible travel transport
@@ -60,14 +64,12 @@ export default class AgendTravels{
                     userAgendCode: newIdAgendTravels as string,
                     placesReserve,
                     personalCodeAgend,                    
-                    notes: ''            
+                    notes: '',
+                    phoneNumber,
+                    status: 'Reserva Ativa!'            
                 });
             await agendTravelRepository.save(reserving);
-            return `Reserva efectuada de ${placesReserve} luagares.
-                Trajecto ${originProvince} - ${destinyProvince}. 
-                Data De Partida: ${timeToGoTo}. 
-                Custo: ${calculateTheTotalCustOfTheTrip}. 
-                Código da reseva: ${personalCodeAgend}`;
+            return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`;
         }catch(err){
             return err.message;
         }
