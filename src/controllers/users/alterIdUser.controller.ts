@@ -5,25 +5,19 @@ import AlterIdProfileUser, { IAlterProfile } from "../../services/users/alterIdU
 export default class AlterIdUserControler{
     async handle(request:Request<IAlterProfile>, response: Response<AppResponse<string>>){
         try{
-            const { idUser, idProfile } = request.body;
-            const alterIdProfileUser = new AlterIdProfileUser();
-            const a = await alterIdProfileUser.execute({ 
+            const 
+                { idUser, idProfile } = request.body,
+                alterIdProfileUser = new AlterIdProfileUser(),
+                updating = await alterIdProfileUser.execute({ 
                 idUser, 
                 idProfile
             });
-
             return response.status(200)
-            .json({
-                success: true,
-                data: a
-            })
+                .json({ success: true, data: updating });
         }
         catch(err){
-            return response
-                .json({
-                    success: false,
-                    message: err.message
-            });
+            return response.status(500)
+                .json({ success: false, message: err.message });
         }   
     }
 }
