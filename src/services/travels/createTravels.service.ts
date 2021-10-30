@@ -31,15 +31,15 @@ export default class CreateTravels {
         price }: IcreateTravels) {
         try {
             const 
-                travelsRepository = getCustomRepository( TravelsRepository ),
-                spotRepository = getCustomRepository( SpotRepository ),
+                travelsRepository   = getCustomRepository( TravelsRepository ),
+                spotRepository      = getCustomRepository( SpotRepository ),
                 transportRepository = getCustomRepository( TransportRepository ),
                 provincesRepository = getCustomRepository( ProvincesRepository ),
-                verifyIdSpots = await spotRepository.findOne({ where: { id: spotId } }),
-                verifyIdTransport = await transportRepository.findOne({ where: { id: transportId } }),
+                verifyIdSpots       = await spotRepository.findOne({ where: { id: spotId } }),
+                verifyIdTransport   = await transportRepository.findOne({ where: { id: transportId } }),
                 verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id:  originProvince } }),
                 verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } }),
-                findTravelsDeparture = await travelsRepository.findOne({ 
+                findTravelsDeparture    = await travelsRepository.findOne({ 
                     where: { departureDate }, 
                     relations: ['transport', 'originProvince', 'destinyProvince'] 
                 });

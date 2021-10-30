@@ -30,8 +30,9 @@ router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
 router.use(Auth);
 router.use(usersRoutes);
-router.use(transportRoutes);
 router.use(travelsRoutes)
+router.use(transportRoutes);
+router.use(agendTravelRoutes);
 
 export default router;
  
