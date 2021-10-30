@@ -5,6 +5,6 @@ const router = Router();
 
 const agendTravelController = new AgendTravelsController();
 
-router.post('/client/Travel/agend', agendTravelController.handle);
+router.post('/client/travel/agend', agendTravelController.handle);
 
 export default router;
