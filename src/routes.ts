@@ -7,6 +7,7 @@ import agendTravelRoutes from "./routes/agendTravel.routes";
 import SendSMS from './services/sendSMS/sendSMS.service';
 import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
+import SendEMAIL from './services/email/sendEMAIL.service';
 
 const router = Router();
 const sendSMS = new SendSMS();
@@ -14,7 +15,7 @@ const sendSMS = new SendSMS();
 const loginController = new LoginController()
 import travelsRoutes from "./routes/travels.routes"
 
-router.get('/', (__, res) => {
+router.get('/', async (__, res) => {
     res.send({
         app: 'macon-backend',
         versao: 'v0.1.0',
@@ -23,6 +24,10 @@ router.get('/', (__, res) => {
         msg_erro: 'Nenhum parametro foi aplicado.',
         note: "Trainess Codando..."
     });
+    const sendEmail = new SendEMAIL();
+    await sendEmail.execute(
+        { destiny: "luiscaputo15@gmailcom", message: "teste"}
+    );
 });
 
 router.use(agendTravelRoutes);
