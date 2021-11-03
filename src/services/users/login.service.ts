@@ -44,7 +44,6 @@ export default class Login{
                         expiresIn: "1d",
                     }
                 );
-
                 return token;
             }   
             else{

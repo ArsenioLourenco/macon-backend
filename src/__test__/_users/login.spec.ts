@@ -1,4 +1,5 @@
 import { response } from "express";
+import { string } from "yup/lib/locale";
 import Login from "../../services/users/login.service"
 
 describe("Autenticacao", () => {
@@ -9,6 +10,6 @@ describe("Autenticacao", () => {
             password: "teste123456"
         };
         const testLogin = await loginService.execute(userLoginData);
-        expect(response).toBe(testLogin.token);
+        expect(string).toBe(testLogin.token);
     })
 })
