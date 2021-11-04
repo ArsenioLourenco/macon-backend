@@ -1,5 +1,6 @@
-import { getCustomRepository } from 'typeorm';
-import CountryRepository from '../../../repositories/country.repository';
+import { getCustomRepository } from "typeorm";
+import CountryRepository from "../../../repositories/country.repository";
+
 
 export interface IUpdateCountry { id: number, name: string, region: string, code: string }
 
@@ -12,28 +13,28 @@ export default class UpdateCountryService {
                 if (name && region && code) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ countryName: name, region: region, codeCountry: code })
+                        .set({ countryName:() =>  name, region: () => region, codeCountry: () => code })
                         .where({ id })
                         .execute();
                     return countryUpdate;
                 } else if (region) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ region: region })
+                        .set({ region: () => region })
                         .where({ id })
                         .execute();
                     return countryUpdate;
                 } else if (code) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ codeCountry: code })
+                        .set({ codeCountry: () => code })
                         .where({ id })
                         .execute();
                     return countryUpdate;
                 } else if (name) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ countryName: name })
+                        .set({ countryName: () => name })
                         .where({ id })
                         .execute();
                     return countryUpdate;
