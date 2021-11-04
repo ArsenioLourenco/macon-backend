@@ -10,7 +10,6 @@ app.use(express.urlencoded({ extended: false }));                               
 
 const port = process.env.SERVER_PORT;                                       //GETTING PORT NUMBER FROM .ENV FILE
 
-
 app.use(routes)
 
 app.listen(port || 6800,() => {                                             //HTTP://LOCALHOST:6800
