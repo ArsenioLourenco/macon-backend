@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../@types';
 import Login, { ILogin } from '../../services/users/login.service';
-
 export default class LoginController{
     async handle(request: Request<ILogin>, response: Response<AppResponse<string>>){
         const { email, password } = request.body;
@@ -12,9 +11,9 @@ export default class LoginController{
                 password
             });
 
-            // response.cookie("maconBackEndInterdigitosDevs", auth, {
-            //     maxAge: 86400000
-            // });
+            response.cookie("maconBackEndInterdigitosDevs", auth, {
+                maxAge: 86400000
+            });
 
             return response.status(200)
                 .json({
