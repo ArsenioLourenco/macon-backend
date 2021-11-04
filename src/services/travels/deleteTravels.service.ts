@@ -9,8 +9,6 @@ import TravelsRepository from "../../repositories/travels.repository";
 
          try{
              const readyIdTravel = await travelsRepository.findOne(id)
-             
-             console.log("rosa" + readyIdTravel)
              if(readyIdTravel){
                 
              const deletetravel = await travelsRepository

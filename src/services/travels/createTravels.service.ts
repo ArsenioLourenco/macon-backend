@@ -54,7 +54,7 @@ export default class CreateTravels {
             console.log('Destiny: '+verifyIdProvinceDestiny.id)
 
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'this Travel is not valid'
+                return 'Está viagem não é válida, a origem não pode ser a mesma que o destino '
             }
 
 

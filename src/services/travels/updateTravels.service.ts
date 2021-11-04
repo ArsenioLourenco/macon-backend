@@ -43,18 +43,19 @@ export default class UpdateTravel {
             const verifyIdProvinceOrigin = await provincesRepository.findOne({ where: { id: originProvince } })
             const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
 
-            const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
-            if (findTravelsDeparture) {
-                const { id } = findTravelsDeparture.transport
-                if (id === transportId) {
-                    return 'this travel exist '
+            const findTravelsDeparture = await travelsRepository.findOne({ where:{departureDate}, relations: ['transport', 'originProvince', 'destinyProvince'] })
+            console.log("transport id:" +findTravelsDeparture.transport.id)
+            
+                console.log("transport id:" + findTravelsDeparture.departureDate )
+                if (findTravelsDeparture.transport.id === transportId) {
+                    return 'Está viagem já existe'
                 }
-            }
+            
             console.log('Begin: ' + verifyIdProvinceOrigin.id)
             console.log('Destiny: ' + verifyIdProvinceDestiny.id)
 
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'this Travel is not valid'
+                return 'Está viagem não é válida, a origem não pode ser a mesma que o destino'
             }
 
 
