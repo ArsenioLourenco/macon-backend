@@ -26,7 +26,7 @@ router.get('/', async (__, res) => {
     });
     const sendEmail = new SendEMAIL();
     await sendEmail.execute(
-        { destiny: "luiscaputo15@gmailcom", message: "teste"}
+        { destiny: "luiscaputo15@gmail.com", message: "Testando envio de Email"}
     );
 });
 
