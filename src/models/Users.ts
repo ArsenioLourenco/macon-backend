@@ -37,7 +37,7 @@ export class Users {
   })
   updatedAt: Date | null;
 
-  @Column("varchar", { name: "email", length: 250 })
+  @Column("varchar", { name: "email", length: 250, nullable: true })
   email: string;
 
   @ManyToOne(() => Profile, (profile) => profile.users)

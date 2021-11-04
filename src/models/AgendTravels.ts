@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { Travels } from "./Travels";
 
-@Index("PK__AgendTra__3213E83F63458BA6", ["id"], { unique: true })
+@Index("PK__AgendTra__3213E83FC85E6B97", ["id"], { unique: true })
 @Entity("AgendTravels", { schema: "dbo" })
 export class AgendTravels {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
@@ -40,7 +40,15 @@ export class AgendTravels {
   })
   updatedAt: Date | null;
 
-  @ManyToOne(() => Travels, (travels) => travels.agendTravels)
+  @Column("varchar", { name: "phoneNumber", length: 50 })
+  phoneNumber: string;
+
+  @Column("varchar", { name: "status", length: 50 })
+  status: string;
+
+  @ManyToOne(() => Travels, (travels) => travels.agendTravels, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn([{ name: "travelId", referencedColumnName: "id" }])
   travel: Travels;
 }

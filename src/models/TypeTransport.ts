@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Tranpsort } from "./Tranpsort";
+import { Transport } from "./Transport";
 
 @Index("PK__TypeTran__3213E83F4664E4E9", ["id"], { unique: true })
 @Entity("TypeTransport", { schema: "dbo" })
@@ -33,6 +33,6 @@ export class TypeTransport {
   })
   updatedAt: Date | null;
 
-  @OneToMany(() => Tranpsort, (tranpsort) => tranpsort.typeTransport)
-  tranpsorts: Tranpsort[];
+  @OneToMany(() => Transport, (transport) => transport.typeTransport)
+  transports: Transport[];
 }

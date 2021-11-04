@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Countries } from '../models/Countries';
 import { Provinces } from '../models/Provinces';
 import { Spots } from '../models/Spots';
@@ -22,3 +23,14 @@ export interface ICreateSpot{
     contacts: Spots,
     provinceID: Spots
 }
+=======
+export interface IUsersIsAuthenticated{
+    error?: string | boolean,
+    message?: string | boolean
+}
+export interface IDelete{
+    id: number
+}
+
+export type UserTypes = 'Super Admin' | 'Administrador' | 'Normal';
+>>>>>>> 80a1b853dc5427dcdf9ff7fe966e8f4b304943af

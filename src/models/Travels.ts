@@ -6,12 +6,15 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  CreateDateColumn
 } from "typeorm";
 import { AgendTravels } from "./AgendTravels";
-import { Provinces } from "./Provinces";
 import { Spots } from "./Spots";
+import { Provinces } from "./Provinces";
+import { Transport } from "./Transport";
 
-@Index("PK__Travels__3213E83F27535BEF", ["id"], { unique: true })
+@Index("Travels_PK", ["id"], { unique: true })
 @Entity("Travels", { schema: "dbo" })
 export class Travels {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
@@ -29,38 +32,38 @@ export class Travels {
   @Column("time", { name: "timeToArrival", nullable: true })
   timeToArrival: Date | null;
 
-  @Column("int", { name: "typeTransportId", nullable: true })
-  typeTransportId: number | null;
+  @Column("varchar", { name: "observations", nullable: true, length: 50 })
+  observations: string;
 
-  @Column("text", { name: "observations", nullable: true })
-  observations: string | null;
-
-  @Column("datetime", {
-    name: "created_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
+  @Column("datetime", { name: "created_at", nullable: false })
   createdAt: Date | null;
 
-  @Column("datetime", {
-    name: "updated_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
+  @Column("datetime", { name: "updated_at", nullable: false })
   updatedAt: Date | null;
+
+  @Column("int", { name: "price" })
+  price: number;
 
   @OneToMany(() => AgendTravels, (agendTravels) => agendTravels.travel)
   agendTravels: AgendTravels[];
 
-  @ManyToOne(() => Provinces, (provinces) => provinces.travels)
-  @JoinColumn([{ name: "origin", referencedColumnName: "id" }])
-  origin: Provinces;
-
-  @ManyToOne(() => Provinces, (provinces) => provinces.travels2)
-  @JoinColumn([{ name: "destiny", referencedColumnName: "id" }])
-  destiny: Provinces;
-
-  @ManyToOne(() => Spots, (spots) => spots.travels)
+  @ManyToOne(() => Spots, (spots) => spots.travels, { onDelete: "CASCADE" })
   @JoinColumn([{ name: "spotId", referencedColumnName: "id" }])
   spot: Spots;
+
+  @ManyToOne(() => Provinces, (provinces) => provinces.travels, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn([{ name: "originProvince", referencedColumnName: "id" }])
+  originProvince: Provinces;
+
+  @ManyToOne(() => Provinces, (provinces) => provinces.travels2)
+  @JoinColumn([{ name: "destinyProvince", referencedColumnName: "id" }])
+  destinyProvince: Provinces;
+
+  @ManyToOne(() => Transport, (transport) => transport.travels, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn([{ name: "transportId", referencedColumnName: "id" }])
+  transport: Transport;
 }
