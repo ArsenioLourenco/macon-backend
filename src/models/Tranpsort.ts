@@ -37,7 +37,7 @@ export class Tranpsort {
   })
   updatedAt: Date | null;
 
-  @ManyToOne(() => TypeTransport, (typeTransport) => typeTransport.tranpsorts)
+  @ManyToOne(() => TypeTransport, (typeTransport) => typeTransport.transports)
   @JoinColumn([{ name: "typeTransportId", referencedColumnName: "id" }])
   typeTransport: TypeTransport;
 }
