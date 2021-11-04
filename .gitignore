@@ -1,2 +1,16 @@
-#Dependencies
+node_modules/
+.git
+
+# dependencies
 /node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+
