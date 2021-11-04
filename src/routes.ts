@@ -8,11 +8,14 @@ import SendSMS from './services/sendSMS/sendSMS.service';
 import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
 import SendEMAIL from './services/email/sendEMAIL.service';
+import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
 
 const router = Router();
 const sendSMS = new SendSMS();
 
-const loginController = new LoginController()
+const loginController = new LoginController();
+const getAllTravelController = new GetAllTravelsController();
+
 import travelsRoutes from "./routes/travels.routes"
 
 router.get('/', async (__, res) => {
@@ -24,12 +27,13 @@ router.get('/', async (__, res) => {
         msg_erro: 'Nenhum parametro foi aplicado.',
         note: "Trainess Codando..."
     });
-    const sendEmail = new SendEMAIL();
-    await sendEmail.execute(
-        { destiny: "luiscaputo15@gmail.com", message: "Testando envio de Email"}
-    );
+    // const sendEmail = new SendEMAIL();
+    // // await sendEmail.execute(
+    // //     { destiny: "luiscaputo15@gmail.com", message: "Testando envio de Email"}
+    // // );
 });
 
+router.get("/travels/list", getAllTravelController.handle);
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
