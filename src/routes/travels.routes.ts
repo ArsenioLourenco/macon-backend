@@ -5,20 +5,18 @@ import DeleteTravelController from "../controllers/travels/deleteTravel.controll
 import GetAllTravelsController from "../controllers/travels/getAllTravels.controller"
 import UpdateTravelsController from "../controllers/travels/updateTravels.controller"
  
+const router= Router();
 
-const router= Router()
+const createTravelsController = new CreateTravelsController();
+const deleteTravelController = new DeleteTravelController();
+const getAllTravelController = new GetAllTravelsController();
+const deleteAllTravelController = new DeleteAllTravelController();
+const updateTravelsController = new UpdateTravelsController();
 
-const getAllTravelsController= new GetAllTravelsController()
-const createTravelsController= new CreateTravelsController()
-const deleteTravelController= new DeleteTravelController()
-const deleteAllTravelController= new DeleteAllTravelController()
-const updateTravelController= new UpdateTravelsController()
-
-router.get("/travel/all", getAllTravelsController.handle)
-router.post("/create/travel", createTravelsController.handle)
-router.delete("/travel/delete/:id",deleteTravelController.handle)
-router.delete("/travel/all/delete", deleteAllTravelController.handle)
-router.put("/travel/update", updateTravelController.handle)
-
+router.post("/travels/create", createTravelsController.handle);
+router.delete("/travels/delete/:id", deleteTravelController.handle);
+router.delete("/travels/all", deleteAllTravelController.handle);
+router.get("/travels/all", getAllTravelController.handle);
+router.put("/travels/update", updateTravelsController.handle);
 
 export default router

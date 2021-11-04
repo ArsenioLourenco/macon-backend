@@ -1,42 +1,27 @@
 import { Request, Response } from "express";
-import CreateTypeTransport from "../../services/transport/createTypeTransport.service";
-
-
-
-
+import { AppResponse } from "../../@types";
+import { TypeTransport } from "../../models/TypeTransport";
+import CreateTypeTransport, { ICreateTypeTransport } from "../../services/transport/createTypeTransport.service";
 
 export default class CreateTypeTransportController{
-    async handle(request:Request, response:Response){
-        
+    async handle(request: Request<ICreateTypeTransport>, response: Response<AppResponse<TypeTransport[]>>){
         try{
-            const createTypeTransportController= new CreateTypeTransport();
-            const {typeName, description}= request.body;
-            const createTypeTransport = await createTypeTransportController.execute({
-                typeName, description
-            })
-
-            if(createTypeTransport){
-                return response.status(200)
-                    .json({
-                        success: true,
-                        data: createTypeTransport
-                    });
-
-            } else {
-                return response.status(200)
-                .json({
-                    success: false,
-                    message: 'Fatal Error',
-                    data: createTypeTransport
+            const 
+                createTypeTransportController = new CreateTypeTransport(),
+                { 
+                    typeName, 
+                    description 
+                } = request.body,
+                creating = await createTypeTransportController.execute({
+                    typeName, 
+                    description
                 });
-
-            }
+            return response.status(201)
+                .json({ success: true, data: creating });
         }
        catch(err){
-        return err;
-        
-
+            return response.status(500)
+                .json({ success: false, message: err.message });
        }
-
     }
 }

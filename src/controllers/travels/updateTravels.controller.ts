@@ -1,54 +1,21 @@
 import { Request, Response } from "express";
+import { AppResponse } from "../../@types";
 import UpdateTravel, { IUpdateTravels } from "../../services/travels/updateTravels.service";
 
 export default class UpdateTravelsController {
-    async handle(request: Request<IUpdateTravels>, response: Response) {
-
+    async handle(request: Request<IUpdateTravels>, response: Response<AppResponse<string>>) {
         try {
-            const { id,
-                departureDate,
-                returnDate,
-                timeToGoTo,
-                timeToArrival,
-                observations,
-                spotId,
-                originProvince,
-                destinyProvince,
-                transportId,
-                price } = request.body;
-
-            const updateTravels = new UpdateTravel();
-            const update = await updateTravels.execute({
-                id,
-                departureDate,
-                returnDate,
-                timeToGoTo,
-                timeToArrival,
-                observations,
-                spotId,
-                originProvince,
-                destinyProvince,
-                transportId,
-                price
-            })
-            if (update) {
-                return response.json({
-                    success: true,
-                    message: "Travel Updated",
-                    data: update
-                })
-            }
-            else {
-                return response.json({
-                    success: false,
-                    message: "A viagem não foi alterada",
-                    data: update
-                })
+            const 
+                updateTravels = new UpdateTravel(),
+                { ... price } = request.body;
+            if (await updateTravels.execute({ ... price })){
+                return response.status(200)
+                    .json({ success: true, message: "Dados Actualizados." });
             }
         }
-        catch (err) {
-            return err
+        catch(err){
+            return response.status(500)
+                .json({ success: false, message: err.message });
         }
     }
 }
-

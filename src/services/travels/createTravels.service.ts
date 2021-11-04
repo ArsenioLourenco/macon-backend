@@ -9,7 +9,7 @@ export interface IcreateTravels {
     returnDate: Date,
     timeToGoTo: Date,
     timeToArrival: Date,
-    observations: string,
+    observations?: string,
     spotId: number,
     originProvince: number,
     destinyProvince: number,
@@ -18,47 +18,44 @@ export interface IcreateTravels {
 }
 
 export default class CreateTravels {
-    async execute({
-        departureDate,
-        returnDate,
-        timeToGoTo,
-        timeToArrival,
-        observations,
-        spotId,
-        originProvince,
-        destinyProvince,
-        transportId,
-        price
-
-
-    }: IcreateTravels) {
-        const travelsRepository = getCustomRepository(TravelsRepository)
-        const spotRepository = getCustomRepository(SpotRepository)
-        const transportRepository = getCustomRepository(TransportRepository)
-        const provincesRepository = getCustomRepository(ProvincesRepository)
+    async execute({ 
+        departureDate, 
+        returnDate, 
+        timeToGoTo, 
+        timeToArrival, 
+        observations, 
+        spotId, 
+        originProvince, 
+        destinyProvince, 
+        transportId, 
+        price }: IcreateTravels) {
         try {
-            const verifyIdSpots = await spotRepository.findOne({ where: { id: spotId } })
-            const verifyIdTransport = await transportRepository.findOne({ where: { id: transportId } })
-            const verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: {id:  originProvince } })
-            const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: {id: destinyProvince } })
-
-            const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
+            const 
+                travelsRepository   = getCustomRepository( TravelsRepository ),
+                spotRepository      = getCustomRepository( SpotRepository ),
+                transportRepository = getCustomRepository( TransportRepository ),
+                provincesRepository = getCustomRepository( ProvincesRepository ),
+                verifyIdSpots       = await spotRepository.findOne({ where: { id: spotId } }),
+                verifyIdTransport   = await transportRepository.findOne({ where: { id: transportId } }),
+                verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id:  originProvince } }),
+                verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } }),
+                findTravelsDeparture    = await travelsRepository.findOne({ 
+                    where: { departureDate }, 
+                    relations: ['transport', 'originProvince', 'destinyProvince'] 
+                });
+            
             if (findTravelsDeparture) {
-                const { id } = findTravelsDeparture.transport
-                if (id === transportId) {
-                    return 'this travel exist '
+                const { id } = findTravelsDeparture.transport;
+                if ( id === transportId ) {
+                    return 'Esse Autocarro Já esta Escalado Para esse Dia!';
                 }
             }
 
-            console.log('Begin: '+verifyIdProvinceOrigin.id)
-            console.log('Destiny: '+verifyIdProvinceDestiny.id)
-
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'Está viagem não é válida, a origem não pode ser a mesma que o destino '
+                return 'Erro: Verifique Se esta mandando os Dados correctamente';
             }
-
-
-            const createTravel = await travelsRepository
+            
+            const creating = await travelsRepository
                 .createQueryBuilder()
                 .insert()
                 .values([
@@ -74,15 +71,12 @@ export default class CreateTravels {
                         transport: verifyIdTransport,
                         price
                     },
-
                 ])
                 .execute();
-            return createTravel;
-
+            return creating;
         }
-
-        catch (err) {
-            return err;
+        catch(err) {
+            return err.message;
         }
 
     }

@@ -11,7 +11,7 @@ export async function IsAdmin(
     const usersRepository = getCustomRepository(
         UsersRepository
     ),
-    token = request.cookies.folhaDeRosto,
+    token = request.headers.authorization,
     decodeToken = verify(token, process.env.JWT_SECRET) as JwtPayload;
     
     const { id } = decodeToken

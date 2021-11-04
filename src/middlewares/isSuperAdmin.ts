@@ -8,26 +8,28 @@ export async function IsSuperAdmin(
     response: Response,
     next: NextFunction
 ) {
-    // const usersRepository = getCustomRepository(
-    //     UsersRepository
-    // ),
-    // token = request.cookies.maconBackEndInterdigitosDevs,
-    // decodeToken = verify(token, process.env.JWT_SECRET) as JwtPayload;
-    
-    // const { id } = decodeToken
-    
-    // const isAdmin = await usersRepository
-    //     .createQueryBuilder("user")
-    //     .where("user.id = :id", { id: id })
-    //     .getRawOne();
+    const usersRepository = getCustomRepository(
+        UsersRepository
+    ),
+    token = request.headers.authorization,
+    decodeToken = verify(token, process.env.JWT_SECRET) as JwtPayload;
 
-    // const { user_id_perfil } = isAdmin;
+    const { id } = decodeToken;
     
-    // if(user_id_perfil == 1){
-    //     return next();   
-    // }
-    //  return response.status(401)
-    //     .json({
-    //         message: 'Você não é Super Admin!'
-    //     })
+    console.log('teste')
+    
+    const isAdmin = await usersRepository
+        .createQueryBuilder("user")
+        .where("user.id = :id", { id: id })
+        .getRawOne();
+
+    const { user_id_perfil } = isAdmin;
+    
+    if(user_id_perfil == 1){
+        return next();   
+    }
+     return response.status(401)
+        .json({
+            message: 'Você não é Super Admin!'
+        })
 }

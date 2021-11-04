@@ -5,13 +5,12 @@ import TransportRepository from "../../repositories/Transport"
 import TravelsRepository from "../../repositories/travels.repository"
 
 export interface IUpdateTravels {
-
     id: number,
     departureDate: Date,
     returnDate: Date,
     timeToGoTo: Date,
     timeToArrival: Date,
-    observations: string,
+    observations?: string,
     spotId: number,
     originProvince: number,
     destinyProvince: number,
@@ -33,35 +32,28 @@ export default class UpdateTravel {
         transportId,
         price
     }: IUpdateTravels) {
-        const travelsRepository = getCustomRepository(TravelsRepository)
-        const spotRepository = getCustomRepository(SpotRepository)
+        const travelsRepository   = getCustomRepository(TravelsRepository)
+        const spotRepository      = getCustomRepository(SpotRepository)
         const transportRepository = getCustomRepository(TransportRepository)
         const provincesRepository = getCustomRepository(ProvincesRepository)
         try {
-            const verifyIdSpots = await spotRepository.findOne({ where: { id: spotId } })
+            const verifyIdSpots     = await spotRepository.findOne({ where: { id: spotId } })
             const verifyIdTransport = await transportRepository.findOne({ where: { id: transportId } })
-            const verifyIdProvinceOrigin = await provincesRepository.findOne({ where: { id: originProvince } })
+            const verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id: originProvince } })
             const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
-
-            const findTravelsDeparture = await travelsRepository.findOne({ where:{departureDate}, relations: ['transport', 'originProvince', 'destinyProvince'] })
-            console.log("transport id:" +findTravelsDeparture.transport.id)
+            const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
             
-                console.log("transport id:" + findTravelsDeparture.departureDate )
-                if (findTravelsDeparture.transport.id === transportId) {
-                    return 'Está viagem já existe'
+            if (findTravelsDeparture) {
+                const { id } = findTravelsDeparture.transport
+                if (id === transportId) {
+                    return 'Esse Autocarro Já esta Escalado Para esse Dia!'
                 }
-            
-            console.log('Begin: ' + verifyIdProvinceOrigin.id)
-            console.log('Destiny: ' + verifyIdProvinceDestiny.id)
-
-            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'Está viagem não é válida, a origem não pode ser a mesma que o destino'
             }
-
-
+            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
+                return 'Erro: Verifique Se esta mandando os Dados correctamente'
+            }
             if (departureDate || returnDate || timeToGoTo || timeToArrival || observations || spotId || originProvince || destinyProvince || transportId || price) {
-
-                const updateTravel = await travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({
@@ -78,101 +70,86 @@ export default class UpdateTravel {
                     })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateTravel;
             }
             if (departureDate) {
-                const updateDDate = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ departureDate })
                     .where("id = :id", { id: id })
-                    .execute();
-                return updateDDate;
-            }
+                    .execute();            }
             if (returnDate) {
-                const updateRDate = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ returnDate })
                     .where("id = :id", { id: id })
-                    .execute();
-                return updateRDate;
-            }
+                    .execute();            }
             if (timeToGoTo) {
-                const updateGoto = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ timeToGoTo })
                     .where("id = :id", { id: id })
-                    .execute();
-                return updateGoto;
-            }
+                    .execute();            }
             if (timeToArrival) {
-                const updateArrivel = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ timeToArrival })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateArrivel;
             }
             if (observations) {
-                const updateObservation = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ observations })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateObservation;
             }
             if (spotId) {
-                const updateSpot = await travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ spot: verifyIdSpots })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateSpot;
             }
             if (originProvince) {
-                const updateOrigin = await travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ originProvince: verifyIdProvinceOrigin })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateOrigin;
             }
             if (destinyProvince) {
-                const updateDestiny = await travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ destinyProvince: verifyIdProvinceDestiny })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateDestiny;
             }
             if (transportId) {
-                const updateTransport = await travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ transport: verifyIdTransport })
                     .where("id = :id", { id: id })
                     .execute();
-                return updateTransport;
             }
             if (price) {
-                const updatePrice = travelsRepository
+                return await travelsRepository
                     .createQueryBuilder()
                     .update()
                     .set({ price })
                     .where("id = :id", { id: id })
                     .execute();
-                return updatePrice;
             }
-
         } catch (err) {
-            return err
+            return err.message;
         }
 
     }

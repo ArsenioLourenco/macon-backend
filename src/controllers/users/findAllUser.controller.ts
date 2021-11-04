@@ -7,29 +7,18 @@ import { AppResponse } from '../../@types';
 export default class FindAllUsersController{
     async handle(request: Request, response: Response<AppResponse<Users[]>>){
         try{
-            const userRepository = getCustomRepository(UsersRepository);
-
-            const getAllUsers = await userRepository.find();
-
+            const 
+                userRepository = getCustomRepository(UsersRepository),
+                getAllUsers = await userRepository.find();
             if(getAllUsers){
-                return response
-                    .status(200)
-                    .json({
-                        success: true,
-                        message: 'All Users',
-                        data: getAllUsers
-                    });
+                return response.status(200)
+                    .json({ success: true, message: 'Todos os Usuários', data: getAllUsers });
             }
-            else
-            {
-                return response
-                    .json({
-                        success: false,
-                        message: 'Table Users void'
-                    });
-            }
+            return response.status(400)
+                .json({ success: false, message: 'Não Tem Usuários Reistrados.' });
         }catch(err){
-            return err;
+            return response.status(500)
+                .json({ success: false, message: err.message });
         }
     }
 }

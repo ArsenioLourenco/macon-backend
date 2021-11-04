@@ -40,6 +40,12 @@ export class AgendTravels {
   })
   updatedAt: Date | null;
 
+  @Column("varchar", { name: "phoneNumber", length: 50 })
+  phoneNumber: string;
+
+  @Column("varchar", { name: "status", length: 50 })
+  status: string;
+
   @ManyToOne(() => Travels, (travels) => travels.agendTravels, {
     onDelete: "CASCADE",
   })

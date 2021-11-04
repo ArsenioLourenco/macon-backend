@@ -13,6 +13,7 @@ import LoginController from "../controllers/users/login.controller";
 import LogoutController from "../controllers/users/logout.controller";
 import CreateUserController from "../controllers/users/createUser.controller";
 import { IsSuperAdmin } from "../middlewares/isSuperAdmin";
+import { Auth } from '../middlewares/tokenGuard';
 
 const router = Router();
 
@@ -27,18 +28,16 @@ const createUserController = new CreateUserController()
 const loginController = new LoginController();
 const logoutController = new LogoutController()
 
-router.post('/users/login', login, loginController.handle);
-
 // router.post('/users/create', createUserController.handle);
-router.use(IsSuperAdmin)
+// router.use(IsSuperAdmin)
 router.post('/users/create', createUser, createUserController.handle);
-router.get('/users/all', findUserAllUserController.handle);
+router.get('/users/all', Auth, findUserAllUserController.handle);
 router.get('/users/all/:id', findUserByIdController.handle);
 router.delete('/users/delete/:id', deleteUserController.handle);
 router.put("/users/update", updateUserController.handle)
 router.post('/users/edit/alterKey', alterKey, alterKeyController.handle);
 router.post("/users/edit/profile", alterProfileUser, alterIdUserControler.handle);
-router.get('/users/logout', logoutController.handle)
+router.get('/users/logout', logoutController.handle);
 
 // exporting router
 export default router;

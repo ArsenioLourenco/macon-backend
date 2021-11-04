@@ -12,9 +12,9 @@ export default class LoginController{
                 password
             });
 
-            response.cookie("maconBackEndInterdigitosDevs", auth, {
-                maxAge: 86400000
-            });
+            // response.cookie("maconBackEndInterdigitosDevs", auth, {
+            //     maxAge: 86400000
+            // });
 
             return response.status(200)
                 .json({
