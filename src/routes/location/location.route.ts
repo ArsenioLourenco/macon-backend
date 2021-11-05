@@ -47,21 +47,21 @@ router.post('/location/country/create', createCountryMiddleware, createCountryCo
 router.put('/location/country/update', updateCountryController.handle)
 router.delete('/location/country/delete:id', deleteCountryControler.handle)
 router.get('/location/country/:id', getCountryByIDController.handle)
-router.get('/location/countries', getAllCountriesController.handle)
+router.get('/location/countries/list', getAllCountriesController.handle)
 
 //Province Routes Information
 router.post('/location/province/create', createProvinceMiddleware, createProvinceController.handle)
 router.put('/location/province/update', updateProvinceController.handle)
 router.delete('/location/province/delete/:id', deleteProvinceControler.handle)
 router.get('/location/province/:id', getProvinceByIDController.handle)
-router.get('/location/provinces', getAllProvincesController.handle)
+router.get('/location/provinces/list', getAllProvincesController.handle)
 
 //Spot Routes Information
 router.post('/location/spot/create', createSpotController.handle)
 router.put('/location/spot/update', updateSpotController.handle)
 router.delete('/location/spot/delete/:id', deleteSpotControler.handle)
 router.get('/location/spot/:id', getSpotByIDController.handle)
-router.get('/location/spots', getAllSpotsController.handle)
+router.get('/location/spots/list', getAllSpotsController.handle)
 router.get('/location/spotprovince', getSpotsProvinceController.handle)
 
 export default router;

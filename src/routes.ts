@@ -10,7 +10,7 @@ import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
 import SendEMAIL from './services/email/sendEMAIL.service';
 import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
-import GetProvincesController from "../src/controllers/location/province/getAllProvinces.controller";
+import GetProvincesController from "./controllers/location/province/getAllProvinces.controller";
 
 const router = Router();
 const sendSMS = new SendSMS();
@@ -40,7 +40,7 @@ router.get("/travels/list", getAllTravelController.handle);
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
-router.get('/location/provinces', getAllProvincesController.handle)
+router.get('/location/provinces/list', getAllProvincesController.handle)
 router.use(Auth);
 router.use(locationRoutes);
 router.use(usersRoutes);
