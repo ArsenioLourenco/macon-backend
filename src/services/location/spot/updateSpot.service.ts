@@ -12,7 +12,7 @@ export default class UpdateSpotService {
                     .createQueryBuilder()
                     .update()
                     .set({ spotName: name, description, location, contacts })
-                    .where({ id })
+                    .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
             }
@@ -21,7 +21,7 @@ export default class UpdateSpotService {
                     .createQueryBuilder()
                     .update()
                     .set({ spotName: name })
-                    .where({ id })
+                    .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
             }
@@ -30,7 +30,7 @@ export default class UpdateSpotService {
                     .createQueryBuilder()
                     .update()
                     .set({ description })
-                    .where({ id })
+                    .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
             }
@@ -39,7 +39,7 @@ export default class UpdateSpotService {
                     .createQueryBuilder()
                     .update()
                     .set({ location })
-                    .where({ id })
+                    .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
             }
@@ -48,7 +48,7 @@ export default class UpdateSpotService {
                     .createQueryBuilder()
                     .update()
                     .set({ contacts })
-                    .where({ id })
+                    .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
             }

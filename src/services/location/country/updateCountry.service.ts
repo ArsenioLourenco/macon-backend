@@ -1,9 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import CountryRepository from "../../../repositories/country.repository";
 
-
 export interface IUpdateCountry { id: number, name: string, region: string, code: string }
-
 export default class UpdateCountryService {
     async execute({ id, name, region, code }: IUpdateCountry) {
         try {
@@ -13,29 +11,29 @@ export default class UpdateCountryService {
                 if (name && region && code) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ countryName:() =>  name, region: () => region, codeCountry: () => code })
-                        .where({ id })
+                        .set({ countryName: name, region: region, codeCountry: code })
+                        .where("id = :id", { id: id })
                         .execute();
                     return countryUpdate;
-                } else if (region) {
+                } if (region) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ region: () => region })
-                        .where({ id })
+                        .set({ region: region })
+                        .where("id = :id", { id: id })
                         .execute();
                     return countryUpdate;
-                } else if (code) {
+                } if (code) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ codeCountry: () => code })
-                        .where({ id })
+                        .set({ codeCountry: code })
+                        .where("id = :id", { id: id })
                         .execute();
                     return countryUpdate;
-                } else if (name) {
+                } if (name) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ countryName: () => name })
-                        .where({ id })
+                        .set({ countryName:  name })
+                        .where("id = :id", { id: id })
                         .execute();
                     return countryUpdate;
                 }

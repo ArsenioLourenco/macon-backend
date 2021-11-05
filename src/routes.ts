@@ -38,8 +38,8 @@ router.get("/travels/list", getAllTravelController.handle);
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
-router.use(location)
 router.use(Auth);
+router.use(location)
 router.use(usersRoutes);
 router.use(travelsRoutes)
 router.use(transportRoutes);

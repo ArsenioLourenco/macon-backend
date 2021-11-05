@@ -10,7 +10,6 @@ import { Provinces } from "./Provinces";
 @Index("PK__Countrie__3213E83FD00E5B26", ["id"], { unique: true })
 @Entity("Countries", { schema: "dbo" })
 export class Countries {
-  [x: string]: any;
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
