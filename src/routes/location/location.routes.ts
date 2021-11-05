@@ -42,26 +42,23 @@ const getSpotByIDController = new GetSpotByIDController();
 const getAllSpotsController = new GetSpotsController();
 const getSpotsProvinceController = new GetSpotsProvinceController();
 
-router.post('/location/create/country', createCountryMiddleware, createCountryController.handle)
-router.post('/location/create/province', createProvinceMiddleware, createProvinceController.handle)
-router.post('/location/create/spot', createSpotController.handle)
-
-router.put('/location/update/country', updateCountryController.handle)
-router.put('/location/update/province', updateProvinceController.handle)
-router.put('/location/update/spot', updateSpotController.handle)
-
-router.delete('/location/delete/country/:id', deleteCountryControler.handle)
-router.delete('/location/delete/province/:id', deleteProvinceControler.handle)
-router.delete('/location/delete/spot/:id', deleteSpotControler.handle)
-
+router.get('/location/country/all', getAllCountriesController.handle)
 router.get('/location/read/country/:id', getCountryByIDController.handle)
-router.get('/location/read/countries', getAllCountriesController.handle)
+router.post('/location/country/create', createCountryMiddleware, createCountryController.handle);
+router.put('/location/country/update', updateCountryController.handle);
+router.delete('/location/delete/country/:id', deleteCountryControler.handle);
 
-router.get('/location/read/province/:id', getProvinceByIDController.handle)
-router.get('/location/read/provinces', getAllProvincesController.handle)
+router.get('/location/read/province/:id', getProvinceByIDController.handle);
+router.get('/location/provinces/all', getAllProvincesController.handle);
+router.post('/location/province/create', createProvinceMiddleware, createProvinceController.handle);
+router.put('/location/province/update', updateProvinceController.handle);
+router.delete('/location/province/delete/:id', deleteProvinceControler.handle)
 
-router.get('/location/read/spot/:id', getSpotByIDController.handle)
-router.get('/location/read/spots', getAllSpotsController.handle)
-router.get('/location/read/spotprovince', getSpotsProvinceController.handle)
+router.get('/location/read/spot/:id', getSpotByIDController.handle);
+router.get('/location/spots/all', getAllSpotsController.handle);
+router.get('/location/read/spotProvince', getSpotsProvinceController.handle);
+router.post('/location/spot/create', createSpotController.handle);
+router.put('/location/spot/update', updateSpotController.handle);
+router.delete('/location/spot/delete/:id', deleteSpotControler.handle);
 
 export default router;
