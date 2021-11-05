@@ -4,22 +4,21 @@ import { AppResponse } from "../../@types";
 import { Travels } from "../../models/Travels";
 import TravelsRepository from "../../repositories/travels.repository";
 
+export interface IGetTravel{
+    originProvince:number,
+    destinyProvince:number,
+    departureDate:Date,
+    returnDate?: Date
 
-// interface IGetTravel{
-//     originProvince:number,
-//      destinyProvince:number,
-//       departureDate:Date,
-//     returnDate?: Date
-
-// }
+}
 
 export default class GetTravelsController{
-    async handle(request: Request, response: Response<AppResponse<Travels[]>>){
+    async handle(request: Request<IGetTravel>, response: Response<AppResponse<Travels[]>>){
         const {originProvince, destinyProvince, departureDate, returnDate}= request.body;
         try{
             const 
                 travelsRepository = getCustomRepository( TravelsRepository ),
-                getting = await travelsRepository.find( {where:{originProvince, destinyProvince, departureDate,}});
+                getting = await travelsRepository.find( {where:{originProvince, destinyProvince, departureDate}, relations: ['transport', 'originProvince', 'destinyProvince']});
                 
             if(getting){
                 console.log(originProvince, destinyProvince, departureDate)

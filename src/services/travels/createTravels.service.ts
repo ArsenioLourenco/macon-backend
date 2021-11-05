@@ -6,7 +6,7 @@ import TravelsRepository from "../../repositories/travels.repository";
 
 export interface IcreateTravels {
     departureDate: Date,
-    returnDate: Date,
+    returnDate?: Date,
     timeToGoTo: Date,
     timeToArrival: Date,
     observations?: string,
