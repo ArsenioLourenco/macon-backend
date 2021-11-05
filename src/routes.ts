@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Auth } from './middlewares/tokenGuard';
 import { isUsersAuthenticated } from './middlewares/isAuthenticated';
-import location from './routes/location/location.route'
+import locationRoute from './routes/location/location.route'
 import usersRoutes from "./routes/users.routes";
 import transportRoutes from "./routes/transport.routes";
 import agendTravelRoutes from "./routes/agendTravel.routes";
@@ -38,8 +38,9 @@ router.get("/travels/list", getAllTravelController.handle);
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
+router.use(locationRoute)
 router.use(Auth);
-router.use(location)
+router.use(locationRoute)
 router.use(usersRoutes);
 router.use(travelsRoutes)
 router.use(transportRoutes);
