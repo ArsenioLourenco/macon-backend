@@ -7,9 +7,9 @@ import GetAllTransportsController from "../controllers/transport/getAllTransport
 
 const router = Router();
 
-const getAllTransportsController = new GetAllTransportsController();
-const createTransportController = new CreateTransportController();
-const deleteTransportController =  new DeleteTransportController();
+const getAllTransportsController    = new GetAllTransportsController();
+const createTransportController     = new CreateTransportController();
+const deleteTransportController     = new DeleteTransportController();
 const createTransportTypeController = new CreateTypeTransportController();
 const deleteTransportTypeController = new DeleteTypeTransportController();
 
