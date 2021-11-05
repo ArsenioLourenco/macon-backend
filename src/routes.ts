@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Auth } from './middlewares/tokenGuard';
 import { isUsersAuthenticated } from './middlewares/isAuthenticated';
-import locationRoute from './routes/location/location.route'
+import locationRoutes from './routes/location/location.route'
 import usersRoutes from "./routes/users.routes";
 import transportRoutes from "./routes/transport.routes";
 import agendTravelRoutes from "./routes/agendTravel.routes";
@@ -10,12 +10,14 @@ import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
 import SendEMAIL from './services/email/sendEMAIL.service';
 import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
+import GetProvincesController from "../src/controllers/location/province/getAllProvinces.controller";
 
 const router = Router();
 const sendSMS = new SendSMS();
 
 const loginController = new LoginController();
 const getAllTravelController = new GetAllTravelsController();
+const getAllProvincesController = new GetProvincesController();
 
 import travelsRoutes from "./routes/travels.routes"
 
@@ -38,11 +40,11 @@ router.get("/travels/list", getAllTravelController.handle);
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
-router.use(locationRoute)
+router.get('/location/provinces', getAllProvincesController.handle)
 router.use(Auth);
-router.use(locationRoute)
+router.use(locationRoutes);
 router.use(usersRoutes);
-router.use(travelsRoutes)
+router.use(travelsRoutes);
 router.use(transportRoutes);
 router.use(agendTravelRoutes);
 
