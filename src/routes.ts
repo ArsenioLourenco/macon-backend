@@ -7,14 +7,23 @@ import agendTravelRoutes from "./routes/agendTravel.routes";
 import SendSMS from './services/sendSMS/sendSMS.service';
 import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
+import SendEMAIL from './services/email/sendEMAIL.service';
+import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
+import locationRoute from './routes/location/location.routes';
+import GetProvincesController from "./controllers/location/province/getAllProvinces.controller";
+import travelsRoutes from "./routes/travels.routes"
+import GetTravelsController from './controllers/travels/getTravels.controller';
+
+
 
 const router = Router();
 const sendSMS = new SendSMS();
+const loginController = new LoginController();
+const getAllTravelController = new GetAllTravelsController();
+const getAllProvinceController = new GetProvincesController();
+const getTravelsController = new GetTravelsController();
 
-const loginController = new LoginController()
-import travelsRoutes from "./routes/travels.routes"
-
-router.get('/', (__, res) => {
+router.get('/', async (__, res) => {
     res.send({
         app: 'macon-backend',
         versao: 'v0.1.0',
@@ -24,7 +33,9 @@ router.get('/', (__, res) => {
         note: "Trainess Codando..."
     });
 });
-
+router.get("/provinces/list", getAllProvinceController.handle);
+router.get("/travels/list", getAllTravelController.handle);
+router.get("/travels", getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
@@ -33,6 +44,6 @@ router.use(usersRoutes);
 router.use(travelsRoutes)
 router.use(transportRoutes);
 router.use(agendTravelRoutes);
+router.use(locationRoute);
 
 export default router;
- 

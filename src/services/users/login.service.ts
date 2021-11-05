@@ -44,14 +44,13 @@ export default class Login{
                         expiresIn: "1d",
                     }
                 );
-
                 return token;
             }   
             else{
                 return 'This user not Exists'
             }
         }catch(err){
-            return err;
+            return err.message;
         }
     }
 }

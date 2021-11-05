@@ -3,20 +3,23 @@ import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 import ProvincesRepository from "../../repositories/provinces.repository";
 import TransportRepository from "../../repositories/Transport";
 import TravelsRepository from "../../repositories/travels.repository";
+import SendEMAIL from "../email/sendEMAIL.service"
 
 export interface IAgendTravel{
     placesReserve: number,
     travelId: number,
     phoneNumber: string,
+    email: string
 }
 
 export default class AgendTravels{
-    async execute({ placesReserve, travelId, phoneNumber } : IAgendTravel){
+    async execute({ placesReserve, travelId, phoneNumber, email } : IAgendTravel){
         const 
             travelRepository = getCustomRepository( TravelsRepository ),
             transportRepository = getCustomRepository( TransportRepository ),
             agendTravelRepository = getCustomRepository( AgendTravelsRepository ),
-            provinceRepository = getCustomRepository( ProvincesRepository );
+            provinceRepository = getCustomRepository( ProvincesRepository ),
+            sendEmail = new SendEMAIL();
         try{
             const verifyIfExistTravel = await travelRepository.query(
                 `SELECT * FROM Travels WHERE id = '${travelId}'`
@@ -69,6 +72,8 @@ export default class AgendTravels{
                     status: 'Reserva Ativa!'            
                 });
             await agendTravelRepository.save(reserving);
+            // sending email
+            await sendEmail.execute({ destiny: email, message: `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`})
             return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`;
         }catch(err){
             return err.message;
