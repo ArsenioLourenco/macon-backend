@@ -12,7 +12,7 @@ import GetAllTravelsController from './controllers/travels/getAllTravels.control
 import GetProvincesController from "./controllers/location/province/getAllProvinces.controller";
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
-import locationRoutes from './routes/location/location.routes';
+import locationRoutes from './routes/location.routes';
 
 
 
