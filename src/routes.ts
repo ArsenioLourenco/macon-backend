@@ -33,7 +33,7 @@ router.get('/', async (__, res) => {
         note: "Trainess Codando..."
     });
 });
-router.get("/provinces/list", getAllProvinceController.handle);
+router.get("/provinces/list/:id", getAllProvinceController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels", getTravelsController.handle )
 router.use(agendTravelRoutes);

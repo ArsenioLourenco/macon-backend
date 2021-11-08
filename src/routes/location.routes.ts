@@ -54,7 +54,7 @@ router.post('/location/province/create', createProvinceMiddleware, createProvinc
 router.put('/location/province/update', updateProvinceController.handle)
 router.delete('/location/province/delete/:id', deleteProvinceControler.handle)
 router.get('/location/province/:id', getProvinceByIDController.handle)
-router.get('/location/provinces/list', getAllProvincesController.handle)
+router.get('/location/provinces/list/:id', getAllProvincesController.handle)
 
 //Spot Routes Information
 router.post('/location/spot/create', createSpotController.handle)

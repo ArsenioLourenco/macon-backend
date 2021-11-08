@@ -34,7 +34,14 @@ dotenv.config({
 
 const app = express();
 
-app.use(cors());
+//options for cors midddleware
+const options: cors.CorsOptions = {
+  credentials: true,
+  origin: 'http://localhost:6800',
+};
+
+//use cors middleware
+app.use(cors(options));
 app.use(logger('dev'));
 app.use(helmet());
 app.use(express.json());
