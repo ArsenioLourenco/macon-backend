@@ -22,8 +22,16 @@ services:
     environment:
       SA_PASSWORD: "google.2021"
       ACCEPT_EULA: "Y"
+  jenkins:
+    container_name: macom-jenkins
+    build:
+      context: .
+    restart: always
+    image: jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker/jenkins/:/var/jenkins_home
 networks:
   network:
     name: macon-network
-
-
