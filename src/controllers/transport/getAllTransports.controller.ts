@@ -1,25 +1,33 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import { AppResponse } from "../../@types";
-import { Transport } from "../../models/Transport";
 import TransportRepository from "../../repositories/Transport";
 
-export default class GetAllTransportsController{
-    async handle(request:Request, response: Response<AppResponse<Transport[]>>){
-        try{
-            const 
-                transportRepository = getCustomRepository( TransportRepository ),
-                allTransports = await transportRepository.find();
 
-            if(allTransports){
+export default class GetAllTransportsController{
+    async handle(request:Request, response: Response){
+        const transportRepository = getCustomRepository(
+            TransportRepository
+        );
+
+        try{
+            const getAllTransports = await transportRepository.find()
+            if(getAllTransports){
                 return response.status(200)
-                    .json({ success: true, message: 'Todos Transportes', data: allTransports });
+                .json({
+                    success: true,
+                    message: 'Transports',
+                    data: getAllTransports
+                });
             }
-            return response.status(400)
-                .json({ success: false, message: 'Sem Transports Disponíveis' });
+            else {
+                return response.status(400)
+                    .json({
+                        success: false,
+                        message: 'Transports is empty'
+                    });
+            }
         }catch(err){
-            return response.status(500)
-                .json({ success: false, message: err.message})
+            return err.message;
         }
     }
 }
