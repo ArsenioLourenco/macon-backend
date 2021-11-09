@@ -34,14 +34,8 @@ dotenv.config({
 
 const app = express();
 
-//options for cors midddleware
-const options: cors.CorsOptions = {
-  credentials: true,
-  origin: 'http://localhost:6800',
-};
-
 //use cors middleware
-app.use(cors(options));
+app.use(cors());
 app.use(logger('dev'));
 app.use(helmet());
 app.use(express.json());
@@ -56,5 +50,3 @@ app.use('/functionsPath', express.static('pathConf'));
 app.use(routes);
 
 export default app;
-
- 
