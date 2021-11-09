@@ -1,14 +1,18 @@
-import { Request, Response } from "express";
+import { request, Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { Travels } from "../../models/Travels";
 import TravelsRepository from "../../repositories/travels.repository";
 
-export default class GetAllTravelsController{
+export default class GetByIdTravelsController{
+    
     async handle(request: Request, response: Response<AppResponse<Travels[]>>){
+        const {id}= request.params;
         try{
             const travelsRepository = getCustomRepository(TravelsRepository);
-            const getAllTravels = await travelsRepository.find();
+            const getAllTravels = await travelsRepository.findOne({where:{id}, 
+                relations: ['transport', 'originProvince', 'destinyProvince']
+            });
 
             if(getAllTravels){
                 return response.status(200)
