@@ -41,7 +41,7 @@ export default class GetTravelsController {
                         relations: ['originProvince', 'destinyProvince'] 
                     }
                 );
-            if (getting.length <= 0) {
+            if (getting.length != 0) {
                 return response.status(200)
                     .json({ success: true, data: getting });
             }
