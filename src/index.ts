@@ -35,5 +35,3 @@ app.use('/functionsPath', express.static('pathConf'));
 app.use(routes);
 
 export default app;
-
- 

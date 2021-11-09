@@ -1,6 +1,4 @@
-import { response } from "express";
 import CreateUserController from "../../controllers/users/createUser.controller";
-import { Users } from "../../models/Users";
 import CreateUser, { ICreateUser } from "../../services/users/registerAdmin.service"
 
 describe("Cadastro", () => {

@@ -17,25 +17,25 @@ export default class UpdateProvinceService {
                         .execute();
                     return provinceUpdate;
                 }
-                else if (region) {
+                if (region) {
                     const provinceUpdate = await provinceRepository.createQueryBuilder()
                         .update()
                         .set({ region: region })
-                        .where({ id })
+                        .where("id = :id", { id: id })
                         .execute();
                     return provinceUpdate;
-                } else if (code) {
+                } if (code) {
                     const provinceUpdate = await provinceRepository.createQueryBuilder()
                         .update()
                         .set({ codeProvince: code })
-                        .where({ id })
+                        .where("id = :id", { id: id })
                         .execute();
                     return provinceUpdate;
-                } else if (name) {
+                } if (name) {
                     const provinceUpdate = await provinceRepository.createQueryBuilder()
                         .update()
                         .set({ provinceName: name })
-                        .where({ id })
+                        .where("id = :id", { id: id })
                         .execute();
                     return provinceUpdate;
                 }
