@@ -41,7 +41,9 @@ export default class AgendTravels {
             // geting totalPlace that was reserved on disponible travel transport
             const
                 findAllTravelAggend = await agendTravelRepository.query(
-                    `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
+                    `SELECT SUM(placesReserve) as TOTAL 
+                    FROM AgendTravels
+                    WHERE travelId = ${travelId}`
                 ),
                 [{ TOTAL }] = findAllTravelAggend;
             // Verify if have place in this travel
