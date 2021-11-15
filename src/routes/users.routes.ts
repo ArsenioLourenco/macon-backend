@@ -32,6 +32,7 @@ const logoutController = new LogoutController()
 // router.use(IsSuperAdmin)
 router.get('/users/login', loginController.handle);
 router.post('/users/create', createUser, createUserController.handle);
+router.get('/users/login', login, loginController.handle);
 router.get('/users/all', Auth, findUserAllUserController.handle);
 router.get('/users/all/:id', findUserByIdController.handle);
 router.delete('/users/delete/:id', deleteUserController.handle);

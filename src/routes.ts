@@ -9,11 +9,10 @@ import LoginController from './controllers/users/login.controller';
 import { login } from './middlewares/login';
 import SendEMAIL from './services/email/sendEMAIL.service';
 import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
-import locationRoute from './routes/location/location.routes';
 import GetProvincesController from "./controllers/location/province/getAllProvinces.controller";
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
-
+import locationRoutes from './routes/location.routes';
 
 
 const router = Router();
@@ -33,17 +32,17 @@ router.get('/', async (__, res) => {
         note: "Trainess Codando..."
     });
 });
-router.get("/provinces/list", getAllProvinceController.handle);
+router.get("/provinces/list/:id", getAllProvinceController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?", getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
 router.use(Auth);
+router.use(locationRoutes);
 router.use(usersRoutes);
-router.use(travelsRoutes)
+router.use(travelsRoutes);
 router.use(transportRoutes);
 router.use(agendTravelRoutes);
-router.use(locationRoute);
 
 export default router;
