@@ -54,6 +54,10 @@ export default class CreateTravels {
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
                 return 'Erro: Verifique Se esta mandando os Dados correctamente';
             }
+
+            // const currenteDate= new Date();
+
+
             
             const creating = await travelsRepository
                 .createQueryBuilder()
