@@ -5,6 +5,7 @@ import ProvinceRepository from '../../../repositories/province.repositoy';
 export interface ICreateProvince { name: string, region: string, code: string, country: number }
 export default class CreateProvinceService {
     async execute({ name, region, code, country }: ICreateProvince) {
+        let today = new Date()
         try {
             const provinceRepository = getCustomRepository(ProvinceRepository);
             const countryRepository = getCustomRepository(CountryRepository);
@@ -16,7 +17,8 @@ export default class CreateProvinceService {
                         provinceName: name,
                         region: region,
                         codeProvince: code,
-                        country: countryExist
+                        country: countryExist,
+                        createdAt: today
                     });
                     const final = await provinceRepository.save(createProvince);
                     return final;

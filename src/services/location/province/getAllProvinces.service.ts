@@ -8,14 +8,10 @@ export default class ProvincesService {
         try {
 
             const provinceRepository = getCustomRepository(ProvinceRepository);
-            const provinces = await provinceRepository.find({ where: {country: id}, relations: ['country']});
+            const provinces = await provinceRepository.find({ where: {country: id, deletedAt: null}, relations: ['country']});
 
             if (provinces) {
-                const province = await provinceRepository
-                    .createQueryBuilder()
-                    .where("countryId = :countryId", { countryId: id })
-                    .getMany();
-                return province;
+                return provinces;
             }
         } catch (error) {
             return error

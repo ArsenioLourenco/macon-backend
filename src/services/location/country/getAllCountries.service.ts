@@ -3,13 +3,11 @@ import CountryRepository from '../../../repositories/country.repository';
 export default class CountriesService {
     async execute() {
         try {
+            let today = new Date()
             const countryRepository = getCustomRepository(CountryRepository);
-            const country = await countryRepository.find();
+            const country = await countryRepository.find({ where: { deletedAt: null } });
             if (country) {
-                const countries = await countryRepository
-                    .createQueryBuilder()
-                    .getMany();
-                return countries;
+                return country;
             }
         } catch (error) {
             return error

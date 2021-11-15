@@ -4,15 +4,15 @@ import CountryRepository from '../../../repositories/country.repository';
 export interface IDeleteCountry {id: number,}
 export default class DeleteCountry {
     async execute({id}: IDeleteCountry) {
+        let today = new Date()
         try {
             const countryRepository = getCustomRepository(CountryRepository);
-            const countryID = countryRepository.findOne(id);
-            console.log('mauro');
-            console.log((await countryID).countryName);
+            const countryID = countryRepository.findOne({id});
             if (countryID) {
                 const deleteCountry = await countryRepository
                     .createQueryBuilder()
-                    .delete()
+                    .update()
+                    .set({deletedAt: today})
                     .where("id = :id", { id: id })
                     .execute();
                 return deleteCountry;
