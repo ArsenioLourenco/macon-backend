@@ -20,17 +20,19 @@ export default class AgendTravels{
             agendTravelRepository = getCustomRepository( AgendTravelsRepository ),
             provinceRepository = getCustomRepository( ProvincesRepository ),
             sendEmail = new SendEMAIL();
+
         try{
             const verifyIfExistTravel = await travelRepository.query(
                 `SELECT * FROM Travels WHERE id = '${travelId}'`
             );
-            console.log(travelId)
+            
             if(!verifyIfExistTravel){
                 return 'Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!';
             }
             if(placesReserve == 0){
                 return 'Passe Por favor uma quantidade de Lugares Justa!'
             }
+
             // geting transport id
             const 
                 [{ id, transportId, price, departureDate, timeToGoTo, originProvince, destinyProvince }] = verifyIfExistTravel,
@@ -38,12 +40,14 @@ export default class AgendTravels{
                 destiny = await provinceRepository.findOne(destinyProvince),
                 verifyTransportIdDatas = await transportRepository.findOne( transportId ),
                 totalPlacesInTransport = verifyTransportIdDatas.totalPlace;
+
             // geting totalPlace that was reserved on disponible travel transport
             const 
                 findAllTravelAggend = await agendTravelRepository.query(
                     `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
                 ),
                 [{ TOTAL }] = findAllTravelAggend;
+
             // Verify if have place in this travel
             const totalPlaceDisponible = (totalPlacesInTransport - TOTAL as number);
             
@@ -79,4 +83,4 @@ export default class AgendTravels{
             return err.message;
         }
     }
-}
+} 

@@ -14,6 +14,7 @@ import GetProvincesController from "./controllers/location/province/getAllProvin
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
 import GetByIdTravelsController from './controllers/travels/getByIdTravel.controller';
+ import {createTravels} from './middlewares/travel/getTravel.middleware'
 
 
 
@@ -38,7 +39,7 @@ router.get('/', async (__, res) => {
 router.get("/provinces/list", getAllProvinceController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/byId/:id", getByIdTravelController.handle);
-router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?", getTravelsController.handle )
+router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?",createTravels, getTravelsController.handle )
 // router.get("/travels/:id/:id/:id/:id", getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
