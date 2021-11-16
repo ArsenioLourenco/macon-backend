@@ -6,9 +6,7 @@ export default class CountriesService {
             let today = new Date()
             const countryRepository = getCustomRepository(CountryRepository);
             const country = await countryRepository.find({ where: { deletedAt: null } });
-            if (country) {
-                return country;
-            }
+            return country;
         } catch (error) {
             return error
         }
