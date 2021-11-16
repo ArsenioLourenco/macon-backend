@@ -37,6 +37,13 @@ export class Users {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @Column("varchar", { name: "email", length: 250, nullable: true })
   email: string;
 

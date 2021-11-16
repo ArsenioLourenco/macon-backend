@@ -5,6 +5,7 @@ import SpotRepository from '../../../repositories/spot.repository';
 export interface ICreateSpot { name: string, description: string, location: string, contacts: string, province: number, }
 export default class CreateSpotService {
     async execute({ name, description, location, contacts, province, }: ICreateSpot) {
+        let today = new Date()
         try {
             const spotRepository = getCustomRepository(SpotRepository);
             const provinceRepository = getCustomRepository(ProvinceRepository);
@@ -16,7 +17,7 @@ export default class CreateSpotService {
                         .createQueryBuilder()
                         .insert()
                         .into(Spots)
-                        .values({ spotName: name, description: description, location: location, contacts: contacts, province: provinceExist, })
+                        .values({ spotName: name, description: description, location: location, contacts: contacts, province: provinceExist, createdAt: today})
                         .execute();
                     return createPonto;
                 }

@@ -33,6 +33,13 @@ export class TypeTransport {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @OneToMany(() => Transport, (transport) => transport.typeTransport)
   transports: Transport[];
 }

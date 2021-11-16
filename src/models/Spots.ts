@@ -9,7 +9,6 @@ import {
 } from "typeorm";
 import { Provinces } from "./Provinces";
 import { Travels } from "./Travels";
-
 @Index("PK__Spots__3213E83F6A23140C", ["id"], { unique: true })
 @Entity("Spots", { schema: "dbo" })
 export class Spots {
@@ -41,6 +40,13 @@ export class Spots {
     default: () => "getdate()",
   })
   updatedAt: Date | null;
+
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
 
   @ManyToOne(() => Provinces, (provinces) => provinces.spots)
   @JoinColumn([{ name: "provinceId", referencedColumnName: "id" }])

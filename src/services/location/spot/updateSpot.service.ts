@@ -5,13 +5,14 @@ export interface IUpdateSpot { id: number, name: string, description: string, lo
 
 export default class UpdateSpotService {
     async execute({ id, name, description, location, contacts }: IUpdateSpot) {
+        let today = new Date()
         try {
             const spotRepository = getCustomRepository(SpotRepository);
             if (name && description && location && contacts) {
                 const spotUpdate = spotRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ spotName: name, description, location, contacts })
+                    .set({ spotName: name, description, location, contacts, updatedAt: today})
                     .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
@@ -20,7 +21,7 @@ export default class UpdateSpotService {
                 const spotUpdate = spotRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ spotName: name })
+                    .set({ spotName: name, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
@@ -29,7 +30,7 @@ export default class UpdateSpotService {
                 const spotUpdate = spotRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ description })
+                    .set({ description, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
@@ -38,7 +39,7 @@ export default class UpdateSpotService {
                 const spotUpdate = spotRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ location })
+                    .set({ location, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;
@@ -47,7 +48,7 @@ export default class UpdateSpotService {
                 const spotUpdate = spotRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ contacts })
+                    .set({ contacts, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
                 return spotUpdate;

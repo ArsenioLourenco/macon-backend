@@ -19,6 +19,7 @@ export default class AlterKey{
         const usersRepository = getCustomRepository(
             UsersRepository
         );
+        let today = new Date()
         try{
             const verifyExistId = await usersRepository.findOne({
                 where: {
@@ -40,7 +41,8 @@ export default class AlterKey{
                     .createQueryBuilder()
                     .update()
                     .set({
-                        password: newKeyCript
+                        password: newKeyCript,
+                        updatedAt: today
                     })
                     .where({
                         id

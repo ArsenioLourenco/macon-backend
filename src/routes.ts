@@ -14,7 +14,6 @@ import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
 import locationRoutes from './routes/location.routes';
 
-
 const router = Router();
 const sendSMS = new SendSMS();
 const loginController = new LoginController();

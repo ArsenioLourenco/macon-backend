@@ -40,6 +40,13 @@ export class AgendTravels {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @Column("varchar", { name: "phoneNumber", length: 50 })
   phoneNumber: string;
 

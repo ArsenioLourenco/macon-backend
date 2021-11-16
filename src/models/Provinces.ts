@@ -40,6 +40,13 @@ export class Provinces {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @ManyToOne(() => Countries, (countries) => countries.provinces, {
     onDelete: "CASCADE",
   })
