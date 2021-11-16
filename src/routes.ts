@@ -34,7 +34,6 @@ router.get('/', async (__, res) => {
 router.get("/provinces/list/:id", getAllProvinceController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?", getTravelsController.handle )
-// router.get("/travels/:id/:id/:id/:id", getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
