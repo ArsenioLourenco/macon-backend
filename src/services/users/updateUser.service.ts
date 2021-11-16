@@ -20,16 +20,13 @@ export default class Update {
         const usersRepository = getCustomRepository(
             UsersRepository
         );
-
+        let today = new Date()
         try {
             const verifyUserId = await usersRepository.findOne({
                 where: {
                     id: id
                 }
             });
-
-            console.log("ID: " + id)
-            console.log("Email: " + email)
 
             if (verifyUserId) {
                 if (username && email) {
@@ -53,7 +50,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({ username: newName, email, code : newCodeUpdate })
+                        .set({ username: newName, email, code : newCodeUpdate,  updatedAt: today})
                         .where("id = :id", { id: id })
                         .execute();
                     return userUpdate;
@@ -76,7 +73,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({ username: newName, code: newCodeUpdate })
+                        .set({ username: newName, code: newCodeUpdate,  updatedAt: today})
                         .where("id = :id", { id: id })
                         .execute();
                     return userUpdate;
@@ -84,7 +81,7 @@ export default class Update {
                     const userUpdate = await usersRepository
                         .createQueryBuilder()
                         .update()
-                        .set({email})
+                        .set({email,  updatedAt: today})
                         .where("id = :id", { id: id })
                         .execute();
                    return userUpdate;

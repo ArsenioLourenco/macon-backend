@@ -3,6 +3,7 @@ import TransportRepository from "../../repositories/Transport";
 
 export default class DeleteTransport{
     async execute( id: number ){
+        let today = new Date()
         try{
             const transportRepository = getCustomRepository( TransportRepository );
             const alreadyExistTransport = await transportRepository.findOne({ where: { id } });
@@ -12,9 +13,10 @@ export default class DeleteTransport{
             }
             await transportRepository
                 .createQueryBuilder()
-                .delete()
-                .where("id = :id", { id: id })
-                .execute();
+                    .update()
+                    .set({deletedAt: today})
+                    .where("id = :id", { id: id })
+                    .execute();
             return 'Transporte Removido com Sucesso!';
         }catch(err){
             return err.message;

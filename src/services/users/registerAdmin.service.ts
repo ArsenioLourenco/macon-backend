@@ -30,7 +30,7 @@ export default class CreateUser {
            const personRepository = getCustomRepository(
                PersonRepository
            )
-
+           let today = new Date()
             try{
                 if(!email || !BI || !password || !profileId){
                     return 'Please Send all datas'
@@ -104,7 +104,8 @@ export default class CreateUser {
                             code,
                             password: passwordCript,
                             email,
-                            profile: existProfileId
+                            profile: existProfileId,
+                            createdAt: today,
                         });
 
                         const saveUser = await usersRepository.save(
@@ -121,7 +122,8 @@ export default class CreateUser {
                                 bi: BI,
                                 birthDate: BIRTH_DATE,
                                 userId: id,
-                                phoneNumber
+                                phoneNumber,
+                                createdAt: today,
                             });
                             await personRepository.save(
                                 saveDatasInPerson

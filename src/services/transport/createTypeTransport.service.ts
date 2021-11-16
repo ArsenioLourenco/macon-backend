@@ -7,6 +7,7 @@ export interface ICreateTypeTransport{
 }
 export default class CreateTypeTransport{
     async execute({ typeName, description } : ICreateTypeTransport){
+        let today = new Date()
         try{
             const 
                 typeTransportRepository = getCustomRepository( TypeTransportRepository ), 
@@ -16,7 +17,8 @@ export default class CreateTypeTransport{
             }
             const creating = typeTransportRepository.create({
                 typeName,
-                description
+                description,
+                createdAt: today,
             });
             return await typeTransportRepository.save(
                 creating

@@ -22,6 +22,7 @@ export default class AlterIdProfileUser{
                 }
             }
         );
+        let today = new Date()
         try{
             if(!verifyExistId){
                 return 'This User Not Exists';
@@ -32,7 +33,7 @@ export default class AlterIdProfileUser{
             if(!verifyExistProfile){
                 return 'This Profile Not Exists';
             }
-                await usersRepository.query(`UPDATE Utilizadores SET id_perfil = ${idProfile} WHERE id = ${idUser}`);   
+                await usersRepository.query(`UPDATE Utilizadores SET id_perfil = ${idProfile}, updatedAt = ${today} WHERE id = ${idUser}`);   
                 return 'Perfil Alterado';       
         }
         catch(e){

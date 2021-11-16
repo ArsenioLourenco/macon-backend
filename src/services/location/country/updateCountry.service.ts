@@ -12,7 +12,7 @@ export default class UpdateCountryService {
                 if (name && region && code) {
                     const countryUpdate = await countryRepository.createQueryBuilder()
                         .update()
-                        .set({ countryName: name, region: region, codeCountry: code , updatedAt: today})
+                        .set({ countryName: name, region: region, codeCountry: code, updatedAt: today})
                         .where("id = :id", { id: id })
                         .execute();
                     return countryUpdate;

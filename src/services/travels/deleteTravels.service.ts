@@ -3,13 +3,15 @@ import TravelsRepository from "../../repositories/travels.repository";
 
  export default class DeleteTravel{
      async execute( id: number ){
+        let today = new Date()
          try{
             const travelsRepository= getCustomRepository( TravelsRepository );             
             await travelsRepository
-                .createQueryBuilder()
-                .delete()
-                .where("id = :id", { id: id })
-                .execute();
+            .createQueryBuilder()
+            .update()
+            .set({deletedAt: today})
+            .where("id = :id", { id: id })
+            .execute();
             return "Viagem Cancelada."
          } 
          catch(err){

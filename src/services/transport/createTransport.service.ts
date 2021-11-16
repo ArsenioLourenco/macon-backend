@@ -1,14 +1,12 @@
 import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/Transport";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
-
 export interface ICreateTransport{
     transportName: string,
     transportNumber: number,
     totalPlace: number,
     typeTransport: number
 }
-
 export default class CreateTransport{
     async execute({
         transportName, 
@@ -16,6 +14,7 @@ export default class CreateTransport{
         totalPlace, 
         typeTransport } : ICreateTransport)
     {
+        let today = new Date()
         try{    
             const 
                 transportRepository = getCustomRepository( TransportRepository ),
@@ -36,7 +35,8 @@ export default class CreateTransport{
                 transportName,
                 transportNumber,
                 totalPlace,
-                typeTransport: verifyIfExistTypeTransport
+                typeTransport: verifyIfExistTypeTransport,
+                createdAt: today,
             });
 
             await transportRepository.save(
