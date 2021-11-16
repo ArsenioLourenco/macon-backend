@@ -14,7 +14,6 @@ const getAllTravelController = new GetAllTravelsController();
 const deleteAllTravelController = new DeleteAllTravelController();
 const updateTravelsController = new UpdateTravelsController();
 
-
 router.post("/travels/create", createTravelsController.handle);
 router.delete("/travels/delete/:id", deleteTravelController.handle);
 router.delete("/travels/all", deleteAllTravelController.handle);

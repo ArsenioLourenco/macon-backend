@@ -38,26 +38,8 @@ export default class CreateTravels {
                 verifyIdSpots       = await spotRepository.findOne({ where: { id: spotId } }),
                 verifyIdTransport   = await transportRepository.findOne({ where: { id: transportId } }),
                 verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id:  originProvince } }),
-                verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } }),
-                findTravelsDeparture    = await travelsRepository.findOne({ 
-                    where: { departureDate }, 
-                    relations: ['transport', 'originProvince', 'destinyProvince'] 
-                });
-            
-            if (findTravelsDeparture) {
-                const { id } = findTravelsDeparture.transport;
-                if ( id === transportId ) {
-                    return 'Esse Autocarro Já esta Escalado Para esse Dia!';
-                }
-            }
-
-            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'Erro: Verifique Se esta mandando os Dados correctamente';
-            }
-
-            // const currenteDate= new Date();
-
-
+                verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
+           
             
             const creating = await travelsRepository
                 .createQueryBuilder()
