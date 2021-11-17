@@ -1,3 +1,4 @@
+
 import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/Transport";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
@@ -19,17 +20,7 @@ export default class CreateTransport{
             const 
                 transportRepository = getCustomRepository( TransportRepository ),
                 typeTransportRepository = getCustomRepository( TypeTransportRepository ),
-                alreadyExistsTransportNumber = await transportRepository.findOne( { where: { transportNumber } });
-
-            if(alreadyExistsTransportNumber){
-                return 'Não é permitido a duplicação de Autocarros';
-            }
-
-            const verifyIfExistTypeTransport = await typeTransportRepository.findOne( typeTransport );
-
-            if(!verifyIfExistTypeTransport){
-                return 'Não temos esse modelo de Autocarro!';
-            }
+                verifyIfExistTypeTransport = await typeTransportRepository.findOne( typeTransport );
 
             const createTransport = transportRepository.create({
                 transportName,
@@ -43,12 +34,11 @@ export default class CreateTransport{
                 createTransport
             );
 
-            return [createTransport, 'Autocarro Registrado.'];
         }
-        catch(err){
+        catch (err) {
             return err.message;
         }
-    } 
+    }
 }
 
 

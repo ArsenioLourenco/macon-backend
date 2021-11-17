@@ -15,13 +15,25 @@ export default class GetTravelsController {
     async handle(request: Request<IGetTravel>, response: Response<AppResponse<Travels[]>>) {
         try {
             const { originProvince, destinyProvince, departureDate, returnDate } = request.params;
+            const date = new Date();
+            const today = date.toLocaleDateString().split("/");
+
+           if(departureDate){
+          const partida = departureDate.toLocaleString().split("-")
+          if(today[2]==partida[0] && today[1]==partida[1] && today[0]>partida[2]){
+            response.status(400).json({success: false, message: 'essa viagem já ocorreu'})
+            
+        }
+       
+           }
+         
             if (!returnDate) {
                 const
                     travelsRepository = getCustomRepository(TravelsRepository),
                     getting = await travelsRepository.find(
                         { 
                             where: { originProvince, destinyProvince, departureDate }, 
-                            relations: ['originProvince', 'destinyProvince'] 
+                            relations: ['originProvince', 'destinyProvince', 'transport'] 
                         }
                     );
                 if (getting.length != 0) {
