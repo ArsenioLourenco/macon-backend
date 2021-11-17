@@ -9,11 +9,18 @@ export default class DeleteTransportController{
     try{
         const 
             { id } = request.params,
-            deleteTransportService = new DeleteTransport,
+            deleteTransportService = new DeleteTransport(),
             deleting = await deleteTransportService.execute( id );
-            
-        return response.status(200)
-            .json({ success: true, message: deleting });
+            if(deleting){
+                return response.status(200)
+                .json({ success: true, message:"Transporte Removido com Sucesso!", data: deleting });
+            }
+
+            else{
+                return response.status(400)
+                .json({ success: false, message:"Este Transport não existe", data:deleting });
+            }
+        
     }catch(err){
         return response.status(500)
             .json({ success: false, message: err.message });

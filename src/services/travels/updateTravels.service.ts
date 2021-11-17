@@ -43,30 +43,30 @@ export default class UpdateTravel {
             const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
             const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
             
-            if (findTravelsDeparture) {
-                const { id } = findTravelsDeparture.transport
-                if (id === transportId) {
-                    return 'Esse Autocarro Já esta Escalado Para esse Dia!'
-                }
-            }
+            // if (findTravelsDeparture) {
+            //     const { id } = findTravelsDeparture.transport
+            //     if (id === transportId) {
+            //         return 'Esse Autocarro Já esta Escalado Para esse Dia!'
+            //     }
+            // }
 
-            if(departureDate){
-                const partida= departureDate.toLocaleString().split("-"),
-                retorno= returnDate.toLocaleString().split("-");
-                if(partida[0]>retorno[0]){
-                    return 'data incorreta, o ano de partidada não pode ser maior que o de retorno'
-                }
-                if(partida[1]>retorno[1]){
-                    return 'data incorreta, o mês de partidada não pode ser maior que o de retorno'
-                }
-                if(partida[2]>retorno[2]){
-                    return 'data incorreta, o dia de partidada não pode ser maior que o de retorno'
-                }
-            }
+            // if(departureDate){
+            //     const partida= departureDate.toLocaleString().split("-"),
+            //     retorno= returnDate.toLocaleString().split("-");
+            //     if(partida[0]>retorno[0]){
+            //         return 'data incorreta, o ano de partidada não pode ser maior que o de retorno'
+            //     }
+            //     if(partida[1]>retorno[1]){
+            //         return 'data incorreta, o mês de partidada não pode ser maior que o de retorno'
+            //     }
+            //     if(partida[2]>retorno[2]){
+            //         return 'data incorreta, o dia de partidada não pode ser maior que o de retorno'
+            //     }
+            // }
 
-            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
-                return 'Erro: Verifique Se esta mandando os Dados correctamente'
-            }
+            // if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
+            //     return 'Erro: Verifique Se esta mandando os Dados correctamente'
+            // }
             if (departureDate || returnDate || timeToGoTo || timeToArrival || observations || spotId || originProvince || destinyProvince || transportId || price) {
                 return await travelsRepository
                     .createQueryBuilder()

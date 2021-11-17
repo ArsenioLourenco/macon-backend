@@ -10,11 +10,11 @@ export default class CreateTransportController {
     async handle(request: Request<ICreateTransport>, response: Response<AppResponse<Transport[]>>) {
         try {
             const
-            {transportName, transportNumber, totalPlace, typeTransport}= request.body,
-            createTransportController = new CreateTransport(),
+                { transportName, transportNumber, totalPlace, typeTransport } = request.body,
+                createTransportController = new CreateTransport(),
                 transportRepository = getCustomRepository(TransportRepository),
                 alreadyExistsTransportNumber = await transportRepository.findOne({ where: { transportNumber } });
-                
+
             if (alreadyExistsTransportNumber) {
                 return response.status(400)
                     .json({ success: false, message: "Não é permitido duplicação de Transport" });
@@ -23,14 +23,14 @@ export default class CreateTransportController {
 
             if (creating) {
                 return response.status(200)
-                .json({ success: true, message: "Transport criado com sucesso", data: creating });
+                    .json({ success: true, message: "Transport criado com sucesso", data: creating });
             }
 
-            else{
-                return response.status(200)
-                .json({ success: false, message: "Este Transport não existe" });
+            else {
+                return response.status(400)
+                    .json({ success: false, message: "Este Transport não existe" });
             }
-            
+
         }
         catch (err) {
             return response.status(500)

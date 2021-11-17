@@ -1,29 +1,28 @@
 import { getCustomRepository } from "typeorm";
 import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
-export interface ICreateTypeTransport{
+export interface ICreateTypeTransport {
     typeName: string,
     description: string
 }
-export default class CreateTypeTransport{
-    async execute({ typeName, description } : ICreateTypeTransport){
-        try{
-            const 
-                typeTransportRepository = getCustomRepository( TypeTransportRepository ), 
+export default class CreateTypeTransport {
+    async execute({ typeName, description }: ICreateTypeTransport) {
+        try {
+            const
+                typeTransportRepository = getCustomRepository(TypeTransportRepository),
                 verifyIfExistTypeTransport = await typeTransportRepository.findOne({ where: { typeName } });
-            if(verifyIfExistTypeTransport){
-                return 'Já Existe um transporte Semelhante a Esse!';
+            if (!verifyIfExistTypeTransport) {
+                const creating = typeTransportRepository.create({
+                    typeName,
+                    description
+                });
+                return await typeTransportRepository.save(
+                    creating
+                );
             }
-            const creating = typeTransportRepository.create({
-                typeName,
-                description
-            });
-            return await typeTransportRepository.save(
-                creating
-            );
         }
-        catch(err){
+        catch (err) {
             return err.message
         }
-    } 
+    }
 }

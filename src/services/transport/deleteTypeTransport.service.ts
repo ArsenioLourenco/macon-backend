@@ -7,16 +7,19 @@ export default class DeleteTypeTransport{
             const typetransportRepository = getCustomRepository(TypeTransportRepository);
             const getIdTypeTransport = await typetransportRepository.findOne(id);
 
-            if(!getIdTypeTransport) {
-                return "Esse transporte não Existe";   
-            }
-            
-            await typetransportRepository
+            if(getIdTypeTransport) {
+                // return "Esse transporte não Existe";
+                const deletedTypeTranspor= await typetransportRepository
                 .createQueryBuilder()
                 .delete()
                 .where("id = :id", { id: id })
                 .execute();
-            return 'Modelo de Transporte Removido com Sucesso!';
+                
+                return deletedTypeTranspor;
+            }
+            
+           
+            // return 'Modelo de Transporte Removido com Sucesso!';
         }
         catch(err){
             return err;
