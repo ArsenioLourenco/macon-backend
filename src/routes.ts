@@ -10,6 +10,7 @@ import { login } from './middlewares/login';
 import SendEMAIL from './services/email/sendEMAIL.service';
 import GetAllTravelsController from './controllers/travels/getAllTravels.controller';
 import GetProvincesController from "./controllers/location/province/getAllProvinces.controller";
+import GetCountriesController from "./controllers/location/country/getAllCountries.controller";
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
 import locationRoutes from './routes/location.routes';
@@ -19,6 +20,7 @@ const sendSMS = new SendSMS();
 const loginController = new LoginController();
 const getAllTravelController = new GetAllTravelsController();
 const getAllProvinceController = new GetProvincesController();
+const getAllCountriesController = new GetCountriesController();
 const getTravelsController = new GetTravelsController();
 
 router.get('/', async (__, res) => {
@@ -32,6 +34,7 @@ router.get('/', async (__, res) => {
     });
 });
 router.get("/provinces/list/:id", getAllProvinceController.handle);
+router.get('/countries/list', getAllCountriesController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?", getTravelsController.handle )
 router.use(agendTravelRoutes);
