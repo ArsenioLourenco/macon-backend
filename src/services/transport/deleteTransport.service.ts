@@ -8,20 +8,19 @@ export default class DeleteTransport{
             const transportRepository = getCustomRepository( TransportRepository );
             const alreadyExistTransport = await transportRepository.findOne({ where: { id } });
 
-            if(!alreadyExistTransport) {
-                return "This Transport not exist";   
-            }
-            await transportRepository
-                .createQueryBuilder()
+            if (alreadyExistTransport) {
+                const deleted = await transportRepository
+                    .createQueryBuilder()
                     .update()
-                    .set({deletedAt: today})
+                    .set({deletedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
-            return 'Transporte Removido com Sucesso!';
-        }catch(err){
+                return deleted
+            }
+        } catch (err) {
             return err.message;
         }
-      
+
     }
 
 }

@@ -13,7 +13,10 @@ import GetProvincesController from "./controllers/location/province/getAllProvin
 import GetCountriesController from "./controllers/location/country/getAllCountries.controller";
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
-import locationRoutes from './routes/location.routes';
+import GetByIdTravelsController from './controllers/travels/getByIdTravel.controller';
+ import {createTravels} from './middlewares/travel/getTravel.middleware'
+ import locationRoutes from './routes/location.routes';
+
 
 const router = Router();
 const sendSMS = new SendSMS();
@@ -22,6 +25,7 @@ const getAllTravelController = new GetAllTravelsController();
 const getAllProvinceController = new GetProvincesController();
 const getAllCountriesController = new GetCountriesController();
 const getTravelsController = new GetTravelsController();
+const getByIdTravelController = new GetByIdTravelsController();
 
 router.get('/', async (__, res) => {
     res.send({
@@ -36,7 +40,9 @@ router.get('/', async (__, res) => {
 router.get("/provinces/list/:id", getAllProvinceController.handle);
 router.get('/countries/list', getAllCountriesController.handle);
 router.get("/travels/list", getAllTravelController.handle);
-router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?", getTravelsController.handle )
+router.get("/travels/byId/:id", getByIdTravelController.handle);
+router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?",createTravels, getTravelsController.handle )
+// router.get("/travels/:id/:id/:id/:id", getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);

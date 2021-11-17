@@ -8,9 +8,15 @@ export default class DeleteTypeTransportController{
             const deleteTypeTransport = new DeleteTypeTransport(),
                 id = Number( request.params.id ),
                 deleting = await deleteTypeTransport.execute( id )
-             
-            return response.status(200)
-                .json({ success: true, message:  deleting });
+             if(deleting){
+                return response.status(200)
+                .json({ success: true, message:"Modelo de Transporte Removido com Sucesso!", data: deleting });
+             }
+             else{
+                return response.status(200)
+                .json({ success: true, message:"Esse tipo de transporte não Existe"});
+             }
+            
         }catch(err){
             return response.status(500)
                 .json({ success: false, message: err.message });

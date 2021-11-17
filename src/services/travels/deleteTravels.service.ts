@@ -5,17 +5,22 @@ import TravelsRepository from "../../repositories/travels.repository";
      async execute( id: number ){
         let today = new Date()
          try{
-            const travelsRepository= getCustomRepository( TravelsRepository );             
-            await travelsRepository
-            .createQueryBuilder()
-            .update()
-            .set({deletedAt: today})
-            .where("id = :id", { id: id })
-            .execute();
-            return "Viagem Cancelada."
+            const travelRepository = getCustomRepository(TravelsRepository );
+            const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
+
+            if (alreadyExistTravel) {
+                const deleted = await travelRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({deletedAt: today })
+                    .where("id = :id", { id: id })
+                    .execute();
+                return deleted
          } 
-         catch(err){
-             return err.message;
-         }
+         
      }
+     catch(err){
+        return err.message;
+    }
  }
+}
