@@ -36,12 +36,13 @@ export default class UpdateTravel {
         const spotRepository      = getCustomRepository(SpotRepository)
         const transportRepository = getCustomRepository(TransportRepository)
         const provincesRepository = getCustomRepository(ProvincesRepository)
+        let today = new Date()
         try {
             const verifyIdSpots     = await spotRepository.findOne({ where: { id: spotId } })
             const verifyIdTransport = await transportRepository.findOne({ where: { id: transportId } })
             const verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id: originProvince } })
             const verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
-            const findTravelsDeparture = await travelsRepository.findOne({ where: { departureDate }, relations: ['transport', 'originProvince', 'destinyProvince'] })
+            const findTravelsDeparture = await travelsRepository.findOne({ where: {id}, relations: ['transport', 'originProvince', 'destinyProvince'] })
             
             // if (findTravelsDeparture) {
             //     const { id } = findTravelsDeparture.transport
@@ -67,6 +68,7 @@ export default class UpdateTravel {
             // if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
             //     return 'Erro: Verifique Se esta mandando os Dados correctamente'
             // }
+            if(findTravelsDeparture){
             if (departureDate || returnDate || timeToGoTo || timeToArrival || observations || spotId || originProvince || destinyProvince || transportId || price) {
                 return await travelsRepository
                     .createQueryBuilder()
@@ -81,7 +83,8 @@ export default class UpdateTravel {
                         destinyProvince: verifyIdProvinceDestiny,
                         originProvince: verifyIdProvinceOrigin,
                         transport: verifyIdTransport,
-                        price
+                        price,
+                        updatedAt: today
                     })
                     .where("id = :id", { id: id })
                     .execute();
@@ -90,28 +93,28 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ departureDate })
+                    .set({ departureDate, updatedAt: today})
                     .where("id = :id", { id: id })
                     .execute();            }
             if (returnDate) {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ returnDate })
+                    .set({ returnDate, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();            }
             if (timeToGoTo) {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ timeToGoTo })
+                    .set({ timeToGoTo, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();            }
             if (timeToArrival) {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ timeToArrival })
+                    .set({ timeToArrival, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -119,7 +122,7 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ observations })
+                    .set({ observations, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -127,7 +130,7 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ spot: verifyIdSpots })
+                    .set({ spot: verifyIdSpots, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -135,7 +138,7 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ originProvince: verifyIdProvinceOrigin })
+                    .set({ originProvince: verifyIdProvinceOrigin, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -143,7 +146,7 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ destinyProvince: verifyIdProvinceDestiny })
+                    .set({ destinyProvince: verifyIdProvinceDestiny, updatedAt: today})
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -151,7 +154,7 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ transport: verifyIdTransport })
+                    .set({ transport: verifyIdTransport, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
@@ -159,10 +162,11 @@ export default class UpdateTravel {
                 return await travelsRepository
                     .createQueryBuilder()
                     .update()
-                    .set({ price })
+                    .set({ price, updatedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
             }
+        }
         } catch (err) {
             return err.message;
         }

@@ -4,12 +4,9 @@ export default class SpotsService {
     async execute() {
         try {
             const spotRepository = getCustomRepository(SpotRepository);
-            const spot = await spotRepository.find();
+            const spot = await spotRepository.find({ where: { deletedAt: null } });
             if (spot) {
-                const spots = await spotRepository
-                    .createQueryBuilder()
-                    .getMany();
-                return spots;
+                return spot;
             }
         } catch (error) {
             return error

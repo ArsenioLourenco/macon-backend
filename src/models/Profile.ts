@@ -34,6 +34,13 @@ export class Profile {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @OneToMany(() => Person, (person) => person.typeProfile)
   people: Person[];
 

@@ -19,5 +19,4 @@ router.delete("/transport/delete/:id", deleteTransportController.handle);
 router.post("/transportType/create", createTransportTypeController.handle);
 router.delete("/transportType/delete/:id", deleteTransportTypeController.handle);
 
-
 export default router;

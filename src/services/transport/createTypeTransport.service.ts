@@ -5,11 +5,12 @@ export interface ICreateTypeTransport {
     typeName: string,
     description: string
 }
-export default class CreateTypeTransport {
-    async execute({ typeName, description }: ICreateTypeTransport) {
-        try {
-            const
-                typeTransportRepository = getCustomRepository(TypeTransportRepository),
+export default class CreateTypeTransport{
+    async execute({ typeName, description } : ICreateTypeTransport){
+        let today = new Date()
+        try{
+            const 
+                typeTransportRepository = getCustomRepository( TypeTransportRepository ), 
                 verifyIfExistTypeTransport = await typeTransportRepository.findOne({ where: { typeName } });
             if (!verifyIfExistTypeTransport) {
                 const creating = typeTransportRepository.create({
@@ -20,6 +21,14 @@ export default class CreateTypeTransport {
                     creating
                 );
             }
+            const creating = typeTransportRepository.create({
+                typeName,
+                description,
+                createdAt: today,
+            });
+            return await typeTransportRepository.save(
+                creating
+            );
         }
         catch (err) {
             return err.message

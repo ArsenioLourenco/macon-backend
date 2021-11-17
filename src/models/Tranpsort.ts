@@ -37,6 +37,13 @@ export class Tranpsort {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @ManyToOne(() => TypeTransport, (typeTransport) => typeTransport.transports)
   @JoinColumn([{ name: "typeTransportId", referencedColumnName: "id" }])
   typeTransport: TypeTransport;

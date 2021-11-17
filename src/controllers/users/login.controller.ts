@@ -1,34 +1,62 @@
+import { string } from 'yup/lib/locale';
 import { Request, Response } from 'express';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import { AppResponse } from '../../@types';
 import Login, { ILogin } from '../../services/users/login.service';
 
-export default class LoginController{
-    async handle(request: Request<ILogin>, response: Response<AppResponse<string>>){
-        const { email, password } = request.body;
-        try{
+interface ILoginUser {
+    email: string,
+    password: string
+}
+
+export default class LoginController {
+    async handle(request: Request<ILoginUser>, response: Response) {
+        try {
+            const { email, password } = request.body;
             const loginService = new Login();
-            const auth = await loginService.execute({
-                email, 
-                password
-            });
+            const verifyUserExist = await loginService.execute({ email });
 
-            // response.cookie("maconBackEndInterdigitosDevs", auth, {
-            //     maxAge: 86400000
-            // });
+            if (verifyUserExist) {
+                const userPassword = verifyUserExist['password'];
+                const passwordCompare = await compare(
+                    password,
+                    userPassword
+                );
 
-            return response.status(200)
-                .json({
-                    success: true,
-                    message: 'Authenticated User',
-                    data: auth
-                });
-        }catch(err){
-            // return response.send(e)
-              return response.json({
-                    success: false,
-                    message: err.message
-                })
-                
+                if (!passwordCompare) {
+                    return response.status(400)
+                        .json({
+                            success: false,
+                            message: 'Incorrect Username/Password',
+                        });
+                }
+                const token = sign(
+                    {
+                        id: verifyUserExist.id,
+                        email: verifyUserExist.email,
+                    },
+                    process.env.JWT_SECRET,
+                    {
+                        expiresIn: "1d",
+                    }
+                );
+                return response.status(200)
+                    .json({
+                        success: true,
+                        message: 'Authenticated User',
+                        data: token
+                    });
+            }
+            else {
+                return 'This user not Exists';
+            }
+        } catch (err) {
+            return response.json({
+                success: false,
+                message: err.message
+            })
+
         }
     }
 }

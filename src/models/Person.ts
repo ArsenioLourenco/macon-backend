@@ -50,6 +50,13 @@ export class Person {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @ManyToOne(() => Profile, (profile) => profile.people)
   @JoinColumn([{ name: "typeProfileId", referencedColumnName: "id" }])
   typeProfile: Profile;

@@ -16,7 +16,7 @@ const updateTravelsController = new UpdateTravelsController();
 
 router.post("/travels/create", createTravelsController.handle);
 router.delete("/travels/delete/:id", deleteTravelController.handle);
-router.delete("/travels/all", deleteAllTravelController.handle);
+router.delete("/travels/delete/all", deleteAllTravelController.handle);
 router.get("/travels/all", getAllTravelController.handle);
 router.put("/travels/update", updateTravelsController.handle);
 

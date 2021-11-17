@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 6800
 
-CMD ["npm", "dev"]
+CMD ["yarn", "dev"]

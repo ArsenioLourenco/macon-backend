@@ -1,17 +1,26 @@
 import { getCustomRepository } from "typeorm";
 import TravelsRepository from "../../repositories/travels.repository";
 
-export default class DeleteTravel {
-    async execute(id: number) {
-        try {
-            const travelsRepository = getCustomRepository(TravelsRepository);
-            const deleteTravel = await travelsRepository.findOne({ where: { id } })
-            if (deleteTravel) {
-                return deleteTravel;
-            }
-        }
-        catch (err) {
-            return err.message;
-        }
+ export default class DeleteTravel{
+     async execute( id: number ){
+        let today = new Date()
+         try{
+            const travelRepository = getCustomRepository(TravelsRepository );
+            const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
+
+            if (alreadyExistTravel) {
+                const deleted = await travelRepository
+                    .createQueryBuilder()
+                    .update()
+                    .set({deletedAt: today })
+                    .where("id = :id", { id: id })
+                    .execute();
+                return deleted
+         } 
+         
+     }
+     catch(err){
+        return err.message;
     }
+ }
 }

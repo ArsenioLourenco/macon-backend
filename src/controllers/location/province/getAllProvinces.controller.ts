@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import { AppResponse } from '../../../@types';
 import { Provinces } from '../../../models/Provinces';
-import ProvincesService from '../../../services/location/province/getAllProvinces.service';
+import ProvincesService, { IProvince } from '../../../services/location/province/getAllProvinces.service';
 
 export default class GetProvincesController {
-    async handle(request: Request, response: Response<AppResponse<Provinces[]>>) {
+    async handle(request: Request<IProvince>, response: Response<AppResponse<Provinces[]>>) {
+
         try {
+            const id = request.params.id;
             const serviceProvinces = new ProvincesService();
-            const provinces = await serviceProvinces.execute();
+            const provinces = await serviceProvinces.execute({id});
             if (provinces) {
                 return response
                     .json({

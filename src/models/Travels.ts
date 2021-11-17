@@ -41,6 +41,13 @@ export class Travels {
   @Column("datetime", { name: "updated_at", nullable: false })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @Column("int", { name: "price" })
   price: number;
 

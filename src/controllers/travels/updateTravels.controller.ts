@@ -75,6 +75,11 @@ export default class UpdateTravelsController {
                 return response.status(200)
                     .json({ success: true, message: "Dados Actualizados." });
             }
+
+            else {
+                return response.status(400)
+                    .json({ success: false, message: "Esta viagem não existe" });
+            }
         }
         catch (err) {
             return response.status(500)

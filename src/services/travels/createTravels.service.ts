@@ -29,6 +29,7 @@ export default class CreateTravels {
         destinyProvince, 
         transportId, 
         price }: IcreateTravels) {
+            let today = new Date()
         try {
             const 
                 travelsRepository   = getCustomRepository( TravelsRepository ),
@@ -55,7 +56,8 @@ export default class CreateTravels {
                         originProvince: verifyIdProvinceOrigin,
                         destinyProvince: verifyIdProvinceDestiny,
                         transport: verifyIdTransport,
-                        price
+                        price,
+                        createdAt: today,
                     },
                 ])
                 .execute();

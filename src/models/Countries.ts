@@ -36,6 +36,13 @@ export class Countries {
   })
   updatedAt: Date | null;
 
+  @Column("datetime", {
+    name: "deleted_at",
+    nullable: true,
+    default: () => "getdate()",
+  })
+  deletedAt: Date | null;
+
   @OneToMany(() => Provinces, (provinces) => provinces.country)
   provinces: Provinces[];
 
