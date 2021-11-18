@@ -8,7 +8,7 @@ export default class GetAllTravelsController{
     async handle(request: Request, response: Response<AppResponse<Travels[]>>){
         try{
             const travelsRepository = getCustomRepository(TravelsRepository);
-            const getAllTravels = await travelsRepository.find();
+            const getAllTravels = await travelsRepository.find({relations: ['originProvince', 'destinyProvince', 'transport']});
 
             if(getAllTravels){
                 return response.status(200)
