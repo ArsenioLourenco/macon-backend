@@ -7,7 +7,7 @@ import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 export default class GetAgendTravelByPhoeNumberController{
     async handle(request: Request<string>, response: Response<AppResponse<AgendTravels[]>>){
         try{
-            const { phoneNumber } = request.body;
+            const { phoneNumber } = request.params;
             if(!phoneNumber){
                 return response.json({success: false, message: 'Precisas Informar o Telefone da Reserva.' })
             }
