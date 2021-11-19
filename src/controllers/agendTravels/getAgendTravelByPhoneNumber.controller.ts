@@ -3,9 +3,10 @@ import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
+import { IAgendTravel } from "../../services/agendTravels/agendTravel.service";
 
 export default class GetAgendTravelByPhoeNumberController{
-    async handle(request: Request<string>, response: Response<AppResponse<AgendTravels[]>>){
+    async handle(request: Request<IAgendTravel>, response: Response<AppResponse<AgendTravels[]>>){
         try{
             const { phoneNumber } = request.params;
             if(!phoneNumber){
@@ -13,7 +14,7 @@ export default class GetAgendTravelByPhoeNumberController{
             }
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
             const getAgendTravel = await agendTravelRepository.findOne(
-                { where: { phoneNumber} }
+                { phoneNumber }
             );
             if(getAgendTravel){
                 return response.status(200).json(
