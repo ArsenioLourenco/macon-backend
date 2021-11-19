@@ -32,6 +32,4 @@ services:
       - "8080:8080"
     volumes:
       - ./docker/jenkins/:/var/jenkins_home
-networks:
-  network:
-    name: macon-network
+
