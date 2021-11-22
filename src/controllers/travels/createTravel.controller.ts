@@ -37,7 +37,7 @@ export default class CreateTravelsController {
                 const { id } = findTravelsDeparture.transport;
                 if (id === transportId) {
                     return response.status(400)
-                .json({success:false, message: "Este autocarro já está escalado para esse dia"})
+                        .json({ success: false, message: "Este autocarro já está escalado para esse dia" })
                 }
             }
             if (departureDate) {
@@ -58,8 +58,12 @@ export default class CreateTravelsController {
             }
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
                 return response.status(400)
-                .json({success:false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino"})
+                    .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
 
+            }
+            if(!departureDate ||  originProvince || !destinyProvince || !price){
+                return response.status(400)
+                    .json({ success: false, message: "Viagem não criada" });
             }
             const creating = await createTravelsService.execute({
                 departureDate,
@@ -71,10 +75,15 @@ export default class CreateTravelsController {
                 originProvince,
                 destinyProvince,
                 transportId,
-                price});
+                price
+            });
             if (creating) {
                 return response.status(200)
                     .json({ success: true, message: "Viagem Criada.", data: creating });
+            }
+            else {
+                return response.status(400)
+                    .json({ success: false, message: "Viagem não criada" });
             }
         }
         catch (err) {

@@ -8,7 +8,7 @@ export default class DeleteCountry {
         try {
             const countryRepository = getCustomRepository(CountryRepository);
             const countryID = countryRepository.findOne({id});
-            if (countryID) {
+            if ((await countryID).deletedAt===null) {
                 const deleteCountry = await countryRepository
                     .createQueryBuilder()
                     .update()

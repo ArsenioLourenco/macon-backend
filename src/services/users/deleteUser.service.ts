@@ -4,7 +4,6 @@ import UsersRepository from "../../repositories/users.repository";
 export interface IUserDelete{
     id: number
 }
-
 export default class DeleteUser{
     async execute(id: number){
         const usersRepository = getCustomRepository(
@@ -16,7 +15,7 @@ export default class DeleteUser{
             `)
             const [{ id_perfil }] = getIdProfile;
             
-            if(!getIdProfile) {
+            if(getIdProfile!=null) {
                 return "This User not exist";   
             }
             if(id_perfil == 1){
@@ -28,7 +27,6 @@ export default class DeleteUser{
             .set({deletedAt: today})
             .where("id = :id", { id: id })
             .execute();
-            
             return deleteUser;
         }
         catch(err){

@@ -6,8 +6,6 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  CreateDateColumn
 } from "typeorm";
 import { AgendTravels } from "./AgendTravels";
 import { Spots } from "./Spots";
@@ -20,11 +18,11 @@ export class Travels {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("date", { name: "departureDate" })
-  departureDate: Date;
+  @Column("datetime", { name: "departureDate", nullable: true })
+  departureDate: Date | null;
 
-  @Column("date", { name: "returnDate" })
-  returnDate: Date;
+  @Column("datetime", { name: "returnDate", nullable: true })
+  returnDate: Date | null;
 
   @Column("time", { name: "timeToGoTo", nullable: true })
   timeToGoTo: Date | null;
@@ -32,24 +30,28 @@ export class Travels {
   @Column("time", { name: "timeToArrival", nullable: true })
   timeToArrival: Date | null;
 
-  @Column("varchar", { name: "observations", nullable: true, length: 50 })
-  observations: string;
-
-  @Column("datetime", { name: "created_at", nullable: false })
-  createdAt: Date | null;
-
-  @Column("datetime", { name: "updated_at", nullable: false })
-  updatedAt: Date | null;
-
-  @Column("datetime", {
-    name: "deleted_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
-  deletedAt: Date | null;
+  @Column("varchar", { name: "observations", nullable: true, length: 255 })
+  observations: string | null;
 
   @Column("int", { name: "price" })
   price: number;
+
+  @Column("datetime", {
+    name: "created_at",
+    nullable: true,
+    default: () => "NULL",
+  })
+  createdAt: Date | null;
+
+  @Column("datetime", {
+    name: "updated_at",
+    nullable: true,
+    default: () => "NULL",
+  })
+  updatedAt: Date | null;
+
+  @Column("datetime", { name: "deleted_at", nullable: true })
+  deletedAt: Date | null;
 
   @OneToMany(() => AgendTravels, (agendTravels) => agendTravels.travel)
   agendTravels: AgendTravels[];

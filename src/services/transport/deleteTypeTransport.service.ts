@@ -7,7 +7,7 @@ export default class DeleteTypeTransport {
             const typetransportRepository = getCustomRepository(TypeTransportRepository);
             const getIdTypeTransport = await typetransportRepository.findOne(id);
 
-            if(getIdTypeTransport) {
+            if(getIdTypeTransport.deletedAt===null) {
                 // return "Esse transporte não Existe";
                 const deletedTypeTranspor= await typetransportRepository
                 .createQueryBuilder()

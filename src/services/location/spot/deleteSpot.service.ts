@@ -8,7 +8,7 @@ export default class DeleteSpot {
         try {
             const spotRepository = getCustomRepository(SpotRepository);
             const spotID = spotRepository.findOne(id);
-            if (spotID) {
+            if ((await spotID).deletedAt==null) {
                 const deleteCountry = await spotRepository
                 .createQueryBuilder()
                 .update()

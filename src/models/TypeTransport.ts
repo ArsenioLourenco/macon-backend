@@ -22,22 +22,18 @@ export class TypeTransport {
   @Column("datetime", {
     name: "created_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   createdAt: Date | null;
 
   @Column("datetime", {
     name: "updated_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   updatedAt: Date | null;
 
-  @Column("datetime", {
-    name: "deleted_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
+  @Column("datetime", { name: "deleted_at", nullable: true })
   deletedAt: Date | null;
 
   @OneToMany(() => Transport, (transport) => transport.typeTransport)
