@@ -20,7 +20,7 @@ router.post('/client/travel/agend', agendTravels, agendTravelController.handle);
 router.get('/client/travel/all', listAllAgendTravelController.handle);
 router.put('/client/travel/cancel', cancelAgendTravelController.handle);
 router.get('/client/travel/canceleds', getCanceledTravelsController.handle);
-router.get('/client/travel/phoneNumber', getAgendTravelByPhoneNumber.handle);
+router.get('/client/travel/:phoneNumber', getAgendTravelByPhoneNumber.handle);
 router.get('/client/travel/personalCode', getAgendTravelByPersonalCodeController.handle);
 
 
