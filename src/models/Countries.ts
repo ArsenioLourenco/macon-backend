@@ -13,8 +13,8 @@ export class Countries {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("varchar", { name: "countryName", unique: true, length: 50 })
-  countryName: string;
+  @Column("varchar", { name: "countryName", nullable: true, length: 50 })
+  countryName: string | null;
 
   @Column("varchar", { name: "region", nullable: true, length: 250 })
   region: string | null;
@@ -25,22 +25,18 @@ export class Countries {
   @Column("datetime", {
     name: "created_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   createdAt: Date | null;
 
   @Column("datetime", {
     name: "updated_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   updatedAt: Date | null;
 
-  @Column("datetime", {
-    name: "deleted_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
+  @Column("datetime", { name: "deleted_at", nullable: true })
   deletedAt: Date | null;
 
   @OneToMany(() => Provinces, (provinces) => provinces.country)

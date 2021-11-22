@@ -8,7 +8,7 @@ export default class DeleteTransport{
             const transportRepository = getCustomRepository( TransportRepository );
             const alreadyExistTransport = await transportRepository.findOne({ where: { id } });
 
-            if (alreadyExistTransport) {
+            if (alreadyExistTransport.deletedAt===null) {
                 const deleted = await transportRepository
                     .createQueryBuilder()
                     .update()

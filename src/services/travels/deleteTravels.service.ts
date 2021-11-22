@@ -8,7 +8,7 @@ import TravelsRepository from "../../repositories/travels.repository";
             const travelRepository = getCustomRepository(TravelsRepository );
             const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
 
-            if (alreadyExistTravel) {
+            if (alreadyExistTravel.deletedAt===null) {
                 const deleted = await travelRepository
                     .createQueryBuilder()
                     .update()
