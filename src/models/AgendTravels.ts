@@ -4,9 +4,11 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Travels } from "./Travels";
+import { Payment } from "./Payment";
 
 @Index("PK__AgendTra__3213E83FC85E6B97", ["id"], { unique: true })
 @Entity("AgendTravels", { schema: "dbo" })
@@ -29,33 +31,32 @@ export class AgendTravels {
   @Column("datetime", {
     name: "created_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   createdAt: Date | null;
 
   @Column("datetime", {
     name: "updated_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   updatedAt: Date | null;
 
-  @Column("datetime", {
-    name: "deleted_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
+  @Column("varchar", { name: "phoneNumber", nullable: true, length: 50 })
+  phoneNumber: string | null;
+
+  @Column("varchar", { name: "status", nullable: true, length: 50 })
+  status: string | null;
+
+  @Column("datetime", { name: "deleted_at", nullable: true })
   deletedAt: Date | null;
-
-  @Column("varchar", { name: "phoneNumber", length: 50 })
-  phoneNumber: string;
-
-  @Column("varchar", { name: "status", length: 50 })
-  status: string;
 
   @ManyToOne(() => Travels, (travels) => travels.agendTravels, {
     onDelete: "CASCADE",
   })
   @JoinColumn([{ name: "travelId", referencedColumnName: "id" }])
   travel: Travels;
+
+  @OneToMany(() => Payment, (payment) => payment.agendTravelCode)
+  payments: Payment[];
 }

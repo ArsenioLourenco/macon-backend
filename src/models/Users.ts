@@ -26,26 +26,22 @@ export class Users {
   @Column("datetime", {
     name: "created_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   createdAt: Date | null;
 
   @Column("datetime", {
     name: "updated_at",
     nullable: true,
-    default: () => "getdate()",
+    default: () => "NULL",
   })
   updatedAt: Date | null;
 
-  @Column("datetime", {
-    name: "deleted_at",
-    nullable: true,
-    default: () => "getdate()",
-  })
-  deletedAt: Date | null;
-
-  @Column("varchar", { name: "email", length: 250, nullable: true })
+  @Column("varchar", { name: "email", length: 250 })
   email: string;
+
+  @Column("datetime", { name: "deleted_at", nullable: true })
+  deletedAt: Date | null;
 
   @ManyToOne(() => Profile, (profile) => profile.users)
   @JoinColumn([{ name: "profileId", referencedColumnName: "id" }])

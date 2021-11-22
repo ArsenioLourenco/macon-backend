@@ -8,7 +8,7 @@ export default class DeleteProvince {
         try {
             const provinceRepository = getCustomRepository(ProvinceRepository);
             const provinceID = provinceRepository.findOne(id);
-            if (provinceID) {
+            if ((await provinceID).deletedAt===null) {
                 const deleteProvince = await provinceRepository
                     .createQueryBuilder()
                     .update()

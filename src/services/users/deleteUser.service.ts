@@ -16,7 +16,7 @@ export default class DeleteUser{
             `)
             const [{ id_perfil }] = getIdProfile;
             
-            if(!getIdProfile) {
+            if(getIdProfile!=null) {
                 return "This User not exist";   
             }
             if(id_perfil == 1){
