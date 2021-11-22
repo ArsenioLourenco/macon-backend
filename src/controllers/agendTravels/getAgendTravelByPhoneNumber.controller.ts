@@ -3,6 +3,7 @@ import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
+import SpotRepository from "../../repositories/spots.repository";
 import { IAgendTravel } from "../../services/agendTravels/agendTravel.service";
 
 export default class GetAgendTravelByPhoeNumberController{
@@ -13,12 +14,11 @@ export default class GetAgendTravelByPhoeNumberController{
                 return response.json({success: false, message: 'Precisas Informar o Telefone da Reserva.' })
             }
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
-            const getAgendTravel = await agendTravelRepository.findOne(
-                { phoneNumber }
-            );
+            const getAgendTravel = await agendTravelRepository.findOne({where:{phoneNumber}, relations:['travel']})
+
             if(getAgendTravel){
                 return response.status(200).json(
-                    { success: true, message: 'Dados da Reserva:', data: getAgendTravel }
+                    { success: true, message: 'Dados da Reserva:', data: getAgendTravel}
                 );
             }
             return response.status(400).json(
