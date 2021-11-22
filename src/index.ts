@@ -18,7 +18,10 @@ dotenv.config({
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'http://192.168.40.32:3000'
+  ],
   credentials: true
 }));
 app.use(logger('dev'));
