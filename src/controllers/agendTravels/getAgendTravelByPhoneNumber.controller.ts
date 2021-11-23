@@ -3,7 +3,6 @@ import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
-import SpotRepository from "../../repositories/spots.repository";
 import { IAgendTravel } from "../../services/agendTravels/agendTravel.service";
 
 export default class GetAgendTravelByPhoeNumberController{

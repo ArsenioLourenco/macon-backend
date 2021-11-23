@@ -41,8 +41,8 @@ export default class CreateTravels {
                 verifyIdProvinceOrigin  = await provincesRepository.findOne({ where: { id:  originProvince } }),
                 verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
            
-            
-            const creating = await travelsRepository
+            if( verifyIdTransport){
+                const creating = await travelsRepository
                 .createQueryBuilder()
                 .insert()
                 .values([
@@ -62,6 +62,8 @@ export default class CreateTravels {
                 ])
                 .execute();
             return creating;
+            }
+           
         }
         catch(err) {
             return err.message;
