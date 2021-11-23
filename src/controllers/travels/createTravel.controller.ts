@@ -61,7 +61,7 @@ export default class CreateTravelsController {
                     .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
 
             }
-            if(!departureDate ||  originProvince || !destinyProvince || !price){
+            if(!departureDate ||  !originProvince || !destinyProvince || !price){
                 return response.status(400)
                     .json({ success: false, message: "Viagem não criada" });
             }
@@ -83,7 +83,7 @@ export default class CreateTravelsController {
             }
             else {
                 return response.status(400)
-                    .json({ success: false, message: "Viagem não criada" });
+                    .json({ success: false, message: "Viagem não criada, dados incompletos" });
             }
         }
         catch (err) {

@@ -28,7 +28,7 @@ export default class CreateTransportController {
 
             else {
                 return response.status(400)
-                    .json({ success: false, message: "Este Transport não existe" });
+                    .json({ success: false, message: "informe o tipo de transport" });
             }
 
         }
