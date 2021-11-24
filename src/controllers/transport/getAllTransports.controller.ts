@@ -8,7 +8,7 @@ export default class GetAllTransportsController{
         const transportRepository = getCustomRepository(
             TransportRepository
         );
-
+        
         try{
             const getAllTransports = await transportRepository.find({relations:['typeTransport']})
             if(getAllTransports){

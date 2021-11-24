@@ -33,7 +33,7 @@ export default class CreateTransport{
             await transportRepository.save(
                 createTransport
             );
-
+          return createTransport;
         }
         catch (err) {
             return err.message;

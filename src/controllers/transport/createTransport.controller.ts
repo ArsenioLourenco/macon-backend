@@ -4,6 +4,7 @@ import { Transport } from "../../models/Transport";
 import CreateTransport, { ICreateTransport } from "../../services/transport/createTransport.service";
 import { getCustomRepository } from "typeorm";
 import TransportRepository from "../../repositories/Transport";
+import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
 
 export default class CreateTransportController {
@@ -13,13 +14,26 @@ export default class CreateTransportController {
                 { transportName, transportNumber, totalPlace, typeTransport } = request.body,
                 createTransportController = new CreateTransport(),
                 transportRepository = getCustomRepository(TransportRepository),
+                typeTransportRepository = getCustomRepository(TypeTransportRepository ),
+                verifyIfExistTypeTransport = await typeTransportRepository.findOne( {where:{id:typeTransport}} ),
                 alreadyExistsTransportNumber = await transportRepository.findOne({ where: { transportNumber } });
+
 
             if (alreadyExistsTransportNumber) {
                 return response.status(400)
                     .json({ success: false, message: "Não é permitido duplicação de Transport" });
             }
-            const creating = await createTransportController.execute({ transportName, transportNumber, totalPlace, typeTransport });
+
+            if (!verifyIfExistTypeTransport) {
+                return response.status(400)
+                    .json({ success: false, message: "tipo de transport errado. informe um tipo de transport correto" });
+            }
+
+            if (!transportName || !transportNumber || !totalPlace) {
+                return response.status(400)
+                    .json({ success: false, message: "Dados incorretos. Informe os dados corretamente" });
+            }
+            const creating = await createTransportController.execute({ transportName, transportNumber, totalPlace, typeTransport});
 
             if (creating) {
                 return response.status(200)
@@ -28,7 +42,7 @@ export default class CreateTransportController {
 
             else {
                 return response.status(400)
-                    .json({ success: false, message: "informe o tipo de transport" });
+                    .json({ success: false, message: "Transport não criado" });
             }
 
         }
