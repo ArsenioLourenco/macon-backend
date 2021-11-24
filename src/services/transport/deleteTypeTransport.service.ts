@@ -9,14 +9,14 @@ export default class DeleteTypeTransport {
 
             if(getIdTypeTransport.deletedAt===null) {
                 // return "Esse transporte não Existe";
-                const deletedTypeTranspor= await typetransportRepository
+                const TypeTransport= await typetransportRepository
                 .createQueryBuilder()
                 .update()
                 .set({ deletedAt: today })
                 .where("id = :id", { id: id })
                 .execute();
                 
-                return deletedTypeTranspor;
+                return TypeTransport;
             }
             
            

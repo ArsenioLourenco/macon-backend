@@ -22,7 +22,7 @@ export default class CreateTransport{
                 typeTransportRepository = getCustomRepository( TypeTransportRepository ),
                 verifyIfExistTypeTransport = await typeTransportRepository.findOne( typeTransport );
 
-            const createTransport = transportRepository.create({
+            const Transport = transportRepository.create({
                 transportName,
                 transportNumber,
                 totalPlace,
@@ -31,9 +31,9 @@ export default class CreateTransport{
             });
 
             await transportRepository.save(
-                createTransport
+                Transport
             );
-          return createTransport;
+          return Transport;
         }
         catch (err) {
             return err.message;
