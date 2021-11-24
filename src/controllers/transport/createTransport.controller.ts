@@ -11,7 +11,7 @@ export default class CreateTransportController {
     async handle(request: Request<ICreateTransport>, response: Response<AppResponse<Transport[]>>) {
         try {
             const
-                { transportName, transportNumber, totalPlace, typeTransport } = request.body,
+                {transportName, transportNumber, totalPlace, typeTransport} = request.body,
                 createTransportController = new CreateTransport(),
                 transportRepository = getCustomRepository(TransportRepository),
                 typeTransportRepository = getCustomRepository(TypeTransportRepository ),

@@ -6,13 +6,13 @@ export default class GetPaymentController {
     async handle(request: Request, response: Response) {
         try {
             const paymentRepository = getCustomRepository(PaymentRepository),
-                Payment = await paymentRepository.find({relations:['agendTravelCode']});
+                payment = await paymentRepository.find({relations:['agendTravelCode']});
 
-            if (Payment) {
+            if (payment) {
                 return response.status(200)
                     .json({
                         success: true,
-                        data: Payment
+                        data: payment
                     })
             }
             else {

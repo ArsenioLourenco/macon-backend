@@ -10,13 +10,13 @@ export default class GetAllTypeTransportsController{
         );
 
         try{
-            const TypeTransports = await typeTransportRepository.find()
-            if(TypeTransports){
+            const typeTransports = await typeTransportRepository.find()
+            if(typeTransports){
                 return response.status(200)
                 .json({
                     success: true,
                     message: 'Transports',
-                    data: TypeTransports
+                    data: typeTransports
                 });
             }
             else {

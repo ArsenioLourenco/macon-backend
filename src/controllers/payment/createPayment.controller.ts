@@ -6,14 +6,14 @@ export default class CreatePaymentController {
         const { status, agendTravelCode } = request.body,
             createPayment = new CreatePayment();
         try {
-            const Payment = await createPayment.execute({ status, agendTravelCode });
+            const payment = await createPayment.execute({ status, agendTravelCode });
 
-            if (Payment) {
+            if (payment) {
                 return response.status(200)
                     .json({
                         success: true,
                         message: 'pagamento feito',
-                        data: Payment
+                        data: payment
                     })
             }
             else {
@@ -21,7 +21,7 @@ export default class CreatePaymentController {
                     .json({
                         success: false,
                         message: 'Não temos esse agendamento',
-                        data: Payment
+                        data: payment
                     })
             }
         }
