@@ -30,15 +30,15 @@ export default class GetTravelsController {
             if (!returnDate) {
                 const
                     travelsRepository = getCustomRepository(TravelsRepository),
-                    getting = await travelsRepository.find(
+                    travel = await travelsRepository.find(
                         { 
                             where: { originProvince, destinyProvince, departureDate }, 
                             relations: ['originProvince', 'destinyProvince', 'transport'] 
                         }
                     );
-                if (getting.length != 0) {
+                if (travel.length != 0) {
                     return response.status(200)
-                        .json({ success: true, data: getting });
+                        .json({ success: true, data: travel });
                 }
                 else {
                     return response.status(400)
@@ -47,15 +47,15 @@ export default class GetTravelsController {
             }
             const
                 travelsRepository = getCustomRepository(TravelsRepository),
-                getting = await travelsRepository.find(
+                travel = await travelsRepository.find(
                     { 
                         where: { originProvince, destinyProvince, departureDate, returnDate }, 
                         relations: ['originProvince', 'destinyProvince'] 
                     }
                 );
-            if (getting.length != 0) {
+            if (travel.length != 0) {
                 return response.status(200)
-                    .json({ success: true, data: getting });
+                    .json({ success: true, data: travel });
             }
             else {
                 return response.status(400)

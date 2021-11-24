@@ -42,7 +42,7 @@ export default class CreateTravels {
                 verifyIdProvinceDestiny = await provincesRepository.findOne({ where: { id: destinyProvince } })
            
             if( verifyIdTransport){
-                const Travels = await travelsRepository
+                const travels = await travelsRepository
                 .createQueryBuilder()
                 .insert()
                 .values([
@@ -61,7 +61,7 @@ export default class CreateTravels {
                     },
                 ])
                 .execute();
-            return Travels;
+            return travels;
             }
            
         }

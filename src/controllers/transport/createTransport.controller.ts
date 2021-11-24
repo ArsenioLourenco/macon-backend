@@ -33,11 +33,11 @@ export default class CreateTransportController {
                 return response.status(400)
                     .json({ success: false, message: "Dados incorretos. Informe os dados corretamente" });
             }
-            const creating = await createTransportController.execute({ transportName, transportNumber, totalPlace, typeTransport});
+            const transports = await createTransportController.execute({ transportName, transportNumber, totalPlace, typeTransport});
 
-            if (creating) {
+            if (transports) {
                 return response.status(200)
-                    .json({ success: true, message: "Transport criado com sucesso", data: creating });
+                    .json({ success: true, message: "Transport criado com sucesso", data: transports });
             }
 
             else {

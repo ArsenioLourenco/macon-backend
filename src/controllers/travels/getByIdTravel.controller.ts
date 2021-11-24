@@ -10,13 +10,13 @@ export default class GetByIdTravelsController{
         const {id}= request.params;
         try{
             const travelsRepository = getCustomRepository(TravelsRepository);
-            const Travels = await travelsRepository.findOne({where:{id}, 
+            const travels = await travelsRepository.findOne({where:{id}, 
                 relations: ['transport', 'originProvince', 'destinyProvince']
             });
 
-            if(Travels){
+            if(travels){
                 return response.status(200)
-                    .json({ success: true, message: 'Viagens Disponíveis', data: Travels });
+                    .json({ success: true, message: 'Viagens Disponíveis', data: travels });
             }
             return response.status(400)
                 .json({ success: false, message: 'Sem Viagens Disponíveis' });

@@ -8,10 +8,10 @@ export default class DeleteTravelController {
             const
                 deletetravelService = new DeleteTravel(),
                 { id } = request.params,
-                Travel = await deletetravelService.execute(id);
-            if (Travel) {
+                travel = await deletetravelService.execute(id);
+            if (travel) {
                 return response.status(200)
-                    .json({ success: true, message: `Usuário ${id} Removido`, data: Travel });
+                    .json({ success: true, message: `Usuário ${id} Removido`, data: travel });
             }
             else {
                 return response.status(400)

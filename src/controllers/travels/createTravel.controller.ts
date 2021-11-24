@@ -31,7 +31,7 @@ export default class CreateTravelsController {
                     where: { departureDate },
                     relations: ['transport', 'originProvince', 'destinyProvince']
                 });
-                
+
             if(!departureDate ||  !originProvince || !destinyProvince || !price){
                 return response.status(400)
                     .json({ success: false, message: "Viagem não criada" });
@@ -65,7 +65,7 @@ export default class CreateTravelsController {
                     .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
 
             }
-            const creating = await createTravelsService.execute({
+            const travel = await createTravelsService.execute({
                 departureDate,
                 returnDate,
                 timeToGoTo,
@@ -77,9 +77,9 @@ export default class CreateTravelsController {
                 transportId,
                 price
             });
-            if (creating) {
+            if (travel) {
                 return response.status(200)
-                    .json({ success: true, message: "Viagem Criada.", data: creating });
+                    .json({ success: true, message: "Viagem Criada.", data: travel });
             }
             else {
                 return response.status(400)
