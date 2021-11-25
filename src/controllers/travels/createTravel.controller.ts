@@ -31,7 +31,11 @@ export default class CreateTravelsController {
                     where: { departureDate },
                     relations: ['transport', 'originProvince', 'destinyProvince']
                 });
-
+                
+            if(!departureDate ||  !originProvince || !destinyProvince || !price){
+                return response.status(400)
+                    .json({ success: false, message: "Viagem não criada" });
+            }
 
             if (findTravelsDeparture) {
                 const { id } = findTravelsDeparture.transport;
@@ -56,14 +60,10 @@ export default class CreateTravelsController {
                         .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o dia de partida não pode ser maior que o de retorno" });
                 }
             }
-            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
+            if (verifyIdProvinceOrigin?.id === verifyIdProvinceDestiny?.id) {
                 return response.status(400)
                     .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
 
-            }
-            if(!departureDate ||  !originProvince || !destinyProvince || !price){
-                return response.status(400)
-                    .json({ success: false, message: "Viagem não criada" });
             }
             const creating = await createTravelsService.execute({
                 departureDate,

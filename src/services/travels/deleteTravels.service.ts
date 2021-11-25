@@ -9,13 +9,13 @@ import TravelsRepository from "../../repositories/travels.repository";
             const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
 
             if (alreadyExistTravel.deletedAt===null) {
-                const deleted = await travelRepository
+                const Travel = await travelRepository
                     .createQueryBuilder()
                     .update()
                     .set({deletedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
-                return deleted
+                return Travel
          } 
          
      }
