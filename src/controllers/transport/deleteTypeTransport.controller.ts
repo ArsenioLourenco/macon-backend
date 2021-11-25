@@ -7,10 +7,10 @@ export default class DeleteTypeTransportController{
         try{
             const deleteTypeTransport = new DeleteTypeTransport(),
                 id = Number( request.params.id ),
-                typeTransports = await deleteTypeTransport.execute( id )
-             if(typeTransports){
+                typeTransport = await deleteTypeTransport.execute( id )
+             if(typeTransport){
                 return response.status(200)
-                .json({ success: true, message:"Modelo de Transporte Removido com Sucesso!", data: typeTransports});
+                .json({ success: true, message:"Modelo de Transporte Removido com Sucesso!", data: typeTransport});
              }
              else{
                 return response.status(200)
