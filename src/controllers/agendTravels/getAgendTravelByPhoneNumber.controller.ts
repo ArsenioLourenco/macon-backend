@@ -13,7 +13,7 @@ export default class GetAgendTravelByPhoeNumberController{
                 return response.json({success: false, message: 'Precisas Informar o Telefone da Reserva.' })
             }
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
-            const agendTravel = await agendTravelRepository.findOne({where:{phoneNumber}, relations:['travel']})
+            const agendTravel = await agendTravelRepository.findOne({where:{phoneNumber}, relations:['travel', 'travel.originProvince', 'travel.destinyProvince']})
 
             if(agendTravel){
                 return response.status(200).json(
