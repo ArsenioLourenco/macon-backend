@@ -7,7 +7,7 @@ import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 export default class GetAgendTravelByPersonalCodeController{
     async handle(request: Request<string>, response: Response<AppResponse<AgendTravels[]>>){
         try{
-            const { CodeReserve } = request.body;
+            const CodeReserve = request.params;
             if(!CodeReserve){
                 return response.json({success: false, message: 'Precisas Informar o Código da Reserva.' })
             }
