@@ -12,17 +12,17 @@ export const createTravels= async (
 ) => {
   const schema=  Yup.object().shape({
     originProvince: Yup.number()
-    .required('originProvince não foi inserido'),
+    .required('OriginProvince não foi preenchido'),
     price: Yup.number()
-    .required('price não foi inserido'),
+    .required('Price não foi preenchido'),
     transportId: Yup.number()
-    .required('transportId não foi inserido'),
+    .required('TransportId não foi preenchido'),
     destinyProvince: Yup.number()
-    .required('transportId não foi inserido'),
+    .required('TransportId não foi preenchido'),
     departureDate: Yup.date()
-    .required('departureDate  não foi inserido'),
+    .required('DepartureDate  não foi preenchido'),
     returnDate: Yup.date()
-    .required('returnDate  não foi inserido')
+    .required('ReturnDate  não foi preenchido')
 
   })
   

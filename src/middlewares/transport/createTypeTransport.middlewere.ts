@@ -13,7 +13,7 @@ export const createTypeTransport= async (
 ) => {
   const schema=  Yup.object().shape({
       typeName: Yup.string()
-      .required('o nome do tipo de transport não foi inserido'),
+      .required('O nome do tipo de transport não foi preenchido'),
   })
   
   await showError(req, res, next, schema);

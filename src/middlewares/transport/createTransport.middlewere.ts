@@ -12,11 +12,11 @@ export const createTransport= async (
 ) => {
   const schema=  Yup.object().shape({
       transportNumber: Yup.number()
-      .required('o numero do transporte não foi inserido'),
+      .required('O numero do transporte não foi preenchido'),
       totalPlace: Yup.number()
-      .required('o total de espaço do transporte não foi inserido'),
+      .required('O total de espaço do transporte não foi preenchido'),
      typeTransport: Yup.number()
-      .required('o tipo de transporte não foi inserido')
+      .required('O tipo de transporte não foi preenchido')
   })
   
   await showError(req, res, next, schema);
