@@ -17,8 +17,6 @@ export const getTravels= async (
     .required('destinyProvince é um número'),
     departureDate: Yup.date()
     .required('departureDate é uma data'),
-    returnDate: Yup.date()
-    .required('returnDate é uma data')
   })
   
   await showError(req, res, next, schema);
