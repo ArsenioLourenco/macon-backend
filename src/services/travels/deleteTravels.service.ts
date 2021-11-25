@@ -6,16 +6,16 @@ import TravelsRepository from "../../repositories/travels.repository";
         let today = new Date()
          try{
             const travelRepository = getCustomRepository(TravelsRepository );
-            const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
+            const alreadyExistTravel = await travelRepository.findOne({ where:{id}});
 
             if (alreadyExistTravel.deletedAt===null) {
-                const Travel = await travelRepository
+                const travel = await travelRepository
                     .createQueryBuilder()
                     .update()
                     .set({deletedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
-                return Travel
+                return travel
          } 
          
      }

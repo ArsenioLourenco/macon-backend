@@ -15,7 +15,7 @@ export const showError = async (
     next();
   } catch (err) {
     if (err instanceof Yup.ValidationError) {
-      return res.status(400).json({ success: false, message: 'Dados do parametro errado, coloca dados válidos' });
+      return res.status(400).json({ success: false, message: err.message });
     }
 
     return res

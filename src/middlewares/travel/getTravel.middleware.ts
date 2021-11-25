@@ -5,7 +5,7 @@ import { AppResponse } from "../../@types";
 import { showError } from '.';
 import { IGetTravel } from "../../controllers/travels/getTravels.controller";
 
-export const createTravels= async (
+export const getTravels= async (
          req: Request<IGetTravel>,
          res: Response<AppResponse<Travels[]>>,
          next: NextFunction
@@ -16,12 +16,8 @@ export const createTravels= async (
     destinyProvince: Yup.number()
     .required('destinyProvince é um número'),
     departureDate: Yup.date()
-    .default(function () {
-      return new Date()})
     .required('departureDate é uma data'),
     returnDate: Yup.date()
-    .default(function () {
-      return new Date()})
     .required('returnDate é uma data')
   })
   

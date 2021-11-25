@@ -10,8 +10,8 @@ export default class GetTravels {
     async execute({ originProvince, destinyProvince, departureDate, returnDate }: IGetTravel) {
         const travelsRepository = getCustomRepository(TravelsRepository)
         try {
-            const Travel = travelsRepository.find({ where: { originProvince, destinyProvince, departureDate, returnDate, deletedAt: null } })
-            return Travel;
+            const travel = travelsRepository.find({ where: { originProvince, destinyProvince, departureDate, returnDate, deletedAt: null } })
+            return travel;
         } catch (e) {
 
         }

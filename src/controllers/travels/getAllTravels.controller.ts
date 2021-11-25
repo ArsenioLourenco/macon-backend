@@ -8,11 +8,11 @@ export default class GetAllTravelsController{
     async handle(request: Request, response: Response<AppResponse<Travels[]>>){
         try{
             const travelsRepository = getCustomRepository(TravelsRepository);
-            const Travels = await travelsRepository.find({relations: ['originProvince', 'destinyProvince', 'transport']});
+            const travels = await travelsRepository.find({relations: ['originProvince', 'destinyProvince', 'transport']});
 
-            if(Travels){
+            if(travels){
                 return response.status(200)
-                    .json({ success: true, message: 'Viagens Disponíveis', data: Travels });
+                    .json({ success: true, message: 'Viagens Disponíveis', data: travels });
             }
             return response.status(400)
                 .json({ success: false, message: 'Sem Viagens Disponíveis' });

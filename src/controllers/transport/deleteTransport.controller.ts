@@ -10,15 +10,15 @@ export default class DeleteTransportController{
         const 
             { id } = request.params,
             deleteTransportService = new DeleteTransport(),
-            deleting = await deleteTransportService.execute( id );
-            if(deleting){
+            transports = await deleteTransportService.execute( id );
+            if(transports){
                 return response.status(200)
-                .json({ success: true, message:"Transporte Removido com Sucesso!", data: deleting });
+                .json({ success: true, message:"Transporte Removido com Sucesso!", data: transports });
             }
 
             else{
                 return response.status(400)
-                .json({ success: false, message:"Este Transport não existe", data:deleting });
+                .json({ success: false, message:"Este Transport não existe", data:transports });
             }
         
     }catch(err){
