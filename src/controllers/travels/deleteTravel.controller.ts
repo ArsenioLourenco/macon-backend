@@ -11,7 +11,7 @@ export default class DeleteTravelController {
                 travel = await deletetravelService.execute(id);
             if (travel) {
                 return response.status(200)
-                    .json({ success: true, message: `Usuário ${id} Removido`, data: travel });
+                    .json({ success: true, message: `Usuário ${id} Removido`, data:travel });
             }
             else {
                 return response.status(400)

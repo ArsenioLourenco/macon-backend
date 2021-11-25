@@ -6,8 +6,9 @@ import CreateTravelsController from "../controllers/travels/createTravel.control
 import DeleteAllTravelController from "../controllers/travels/deleteAllTravel.controller"
 import DeleteTravelController from "../controllers/travels/deleteTravel.controller"
 import GetAllTravelsController from "../controllers/travels/getAllTravels.controller"
-
 import UpdateTravelsController from "../controllers/travels/updateTravels.controller"
+import { byIDTravel } from "../middlewares/travel/byIdTravel.middlewere"
+import { createTravels } from "../middlewares/travel/travels.middlewere"
  
 const router= Router();
 
@@ -22,11 +23,11 @@ const createPaymentControler= new CreatePaymentController(),
 deletePaymentController= new DeletePaymentController()
 
 
-router.post("/travels/create", createTravelsController.handle);
-router.delete("/travels/delete/:id", deleteTravelController.handle);
+router.post("/travels/create", createTravels, createTravelsController.handle);
+router.delete("/travels/delete/:id",byIDTravel, deleteTravelController.handle);
 router.delete("/travels/delete/all", deleteAllTravelController.handle);
 router.get("/travels/all", getAllTravelController.handle);
-router.put("/travels/update", updateTravelsController.handle);
+router.put("/travels/update",createTravels, updateTravelsController.handle);
 
 router.post("/create/payment", createPaymentControler.handle)
 router.get("/payment/all", getPaymentController.handle)

@@ -32,11 +32,6 @@ export default class CreateTravelsController {
                     relations: ['transport', 'originProvince', 'destinyProvince']
                 });
 
-            if(!departureDate ||  !originProvince || !destinyProvince || !price){
-                return response.status(400)
-                    .json({ success: false, message: "Viagem não criada" });
-            }
-
             if (findTravelsDeparture) {
                 const { id } = findTravelsDeparture.transport;
                 if (id === transportId) {

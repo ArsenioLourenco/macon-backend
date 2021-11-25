@@ -6,7 +6,7 @@ import TravelsRepository from "../../repositories/travels.repository";
         let today = new Date()
          try{
             const travelRepository = getCustomRepository(TravelsRepository );
-            const alreadyExistTravel = await travelRepository.findOne({ where: { id } });
+            const alreadyExistTravel = await travelRepository.findOne({ where:{id}});
 
             if (alreadyExistTravel.deletedAt===null) {
                 const travel = await travelRepository

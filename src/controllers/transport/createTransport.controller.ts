@@ -29,10 +29,6 @@ export default class CreateTransportController {
                     .json({ success: false, message: "tipo de transport errado. informe um tipo de transport correto" });
             }
 
-            if (!transportName || !transportNumber || !totalPlace) {
-                return response.status(400)
-                    .json({ success: false, message: "Dados incorretos. Informe os dados corretamente" });
-            }
             const transports = await createTransportController.execute({ transportName, transportNumber, totalPlace, typeTransport});
 
             if (transports) {
