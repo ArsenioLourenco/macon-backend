@@ -50,7 +50,7 @@ export default class GetTravelsController {
                 travel = await travelsRepository.find(
                     { 
                         where: { originProvince, destinyProvince, departureDate, returnDate }, 
-                        relations: ['originProvince', 'destinyProvince'] 
+                        relations: ['originProvince', 'destinyProvince', 'transport'] 
                     }
                 );
             if (travel.length != 0) {

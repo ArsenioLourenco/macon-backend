@@ -5,16 +5,15 @@ import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 
 export default class GetAgendTravelByPersonalCodeController{
-    async handle(request: Request<string>, response: Response<AppResponse<AgendTravels[]>>){
+    async handle(request: Request, response: Response<AppResponse<AgendTravels[]>>){
         try{
-            const CodeReserve = request.params;
-            if(!CodeReserve){
+            const {personalCodeAgend} =request.params;
+            if(!personalCodeAgend){
                 return response.json({success: false, message: 'Precisas Informar o Código da Reserva.' })
             }
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
-            const getAgendTravel = await agendTravelRepository.findOne(
-                { where: { personalCodeAgend: CodeReserve} }
-            );
+            const getAgendTravel = await agendTravelRepository.findOne({ where:{personalCodeAgend} });
+            console.log("reserve", personalCodeAgend)
             if(getAgendTravel){
                 return response.status(200).json(
                     { success: true, message: 'Dados da Reserva:', data: getAgendTravel }
@@ -30,3 +29,4 @@ export default class GetAgendTravelByPersonalCodeController{
         }
     }
 }
+
