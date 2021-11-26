@@ -42,17 +42,11 @@ export default class CreateTravelsController {
             if (departureDate) {
                 const partida = departureDate.toLocaleString().split("-"),
                     retorno = returnDate.toLocaleString().split("-");
-                if (partida[0] > retorno[0]) {
-                    return response.status(200)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o ano de partida não pode ser maior que o de retorno" });
-                }
-                if (partida[1] > retorno[1]) {
-                    return response.status(400)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o mês de partida não pode ser maior que o de retorno" });
-                }
-                if (partida[2] > retorno[2]) {
-                    return response.status(400)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o dia de partida não pode ser maior que o de retorno" });
+                if (partida[0] >= retorno[0] && partida[1] >= retorno[1] ) {
+                    if (partida[2] > retorno[2]){
+                        return response.status(200)
+                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, a data de partida não pode ser maior que o de retorno" });
+                    }
                 }
             }
             if (verifyIdProvinceOrigin?.id === verifyIdProvinceDestiny?.id) {
