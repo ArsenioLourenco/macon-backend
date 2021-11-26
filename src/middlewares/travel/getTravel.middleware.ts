@@ -12,11 +12,11 @@ export const getTravels= async (
 ) => {
   const schema=  Yup.object().shape({
     originProvince: Yup.number()
-    .required('originProvince é um número'),
+    .required('A origem  é um campo obrigatório'),
     destinyProvince: Yup.number()
-    .required('destinyProvince é um número'),
+    .required('O destino é um campo obrigatório'),
     departureDate: Yup.date()
-    .required('departureDate é uma data'),
+    .required('A data de partida é um campo obrigatório'),
   })
   
   await showError(req, res, next, schema);
