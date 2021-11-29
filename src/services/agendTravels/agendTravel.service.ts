@@ -14,7 +14,7 @@ export interface IAgendTravel {
 }
 
 export default class AgendTravels {
-  async execute({ placesReserve, travelId, phoneNumber, email }: IAgendTravel) {
+  async execute({ placesReserve, travelId, phoneNumber, email}: IAgendTravel) {
     const travelRepository = getCustomRepository(TravelsRepository),
       transportRepository = getCustomRepository(TransportRepository),
       agendTravelRepository = getCustomRepository(AgendTravelsRepository),

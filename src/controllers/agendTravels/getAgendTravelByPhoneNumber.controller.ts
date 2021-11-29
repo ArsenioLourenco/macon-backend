@@ -5,15 +5,17 @@ import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 import { IAgendTravel } from "../../services/agendTravels/agendTravel.service";
 
-export default class GetAgendTravelByPhoeNumberController{
+export default class GetAgendTravelByPhoneNumberController{
     async handle(request: Request<IAgendTravel>, response: Response<AppResponse<AgendTravels[]>>){
         try{
             const { phoneNumber } = request.params;
+            console.log('Phone: ', phoneNumber);
+            
             if(!phoneNumber){
                 return response.json({success: false, message: 'Precisas Informar o Telefone da Reserva.' })
             }
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
-            const agendTravel = await agendTravelRepository.findOne({where:{phoneNumber}, relations:['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport']})
+            const agendTravel = await agendTravelRepository.findOne({where:{phoneNumber}, relations:['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport', 'travel.spot']})
 
             if(agendTravel){
                 return response.status(200).json(
