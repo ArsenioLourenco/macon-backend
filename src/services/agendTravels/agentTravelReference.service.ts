@@ -2,16 +2,16 @@ import { getCustomRepository } from "typeorm";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 
 export interface IAgendTravelContactReference {
-    contactReference: string;
+    reference: string;
 }
 
 export default class AgendTravelContactReferenceService {
-    async execute({ contactReference }: IAgendTravelContactReference) {
+    async execute({ reference }: IAgendTravelContactReference) {
 
         try {
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository)
 
-            const agendTravel = await agendTravelRepository.findOne({ where: [{ phoneNumber: contactReference }, { userAgendCode: contactReference }], relations: ['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport', 'travel.spot'] })
+            const agendTravel = await agendTravelRepository.findOne({ where: [{ phoneNumber: reference }, { userAgendCode: reference }], relations: ['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport', 'travel.spot'] })
 
             return agendTravel;
         } catch (err) {

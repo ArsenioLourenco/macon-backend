@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
-import AgendTravelContactReferenceService, { IAgendTravelContactReference } from "../../services/agendTravels/agentTravelContactReference.service";
+import AgendTravelContactReferenceService, { IAgendTravelContactReference } from "../../services/agendTravels/agentTravelReference.service";
 
 export default class GetAgendTravelByContactReferenceController{
     async handle(request: Request<IAgendTravelContactReference>, response: Response<AppResponse<AgendTravels[]>>){
         try{
-            const { contactReference } = request.params;
-            console.log('Phone: ', contactReference);
+            const { reference } = request.params;
+            console.log('Phone: ', reference);
             const serviceContactReference =  new AgendTravelContactReferenceService()
-            const contactServiceExec = await serviceContactReference.execute({contactReference})
+            const contactServiceExec = await serviceContactReference.execute({reference})
             
             if (contactServiceExec) {
                 return response
