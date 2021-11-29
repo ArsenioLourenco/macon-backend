@@ -1,23 +1,20 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
-import AgendTravelContactReferenceService, { IAgendTravelContactReference } from "../../services/agendTravels/agentTravelReference.service";
-
-export default class GetAgendTravelByContactReferenceController{
-    async handle(request: Request<IAgendTravelContactReference>, response: Response<AppResponse<AgendTravels[]>>){
+import AgendTravelReferenceService, { IAgendTravelReference } from "../../services/agendTravels/agentTravelReference.service";
+export default class GetAgendTravelByReferenceController{
+    async handle(request: Request<IAgendTravelReference>, response: Response<AppResponse<AgendTravels[]>>){
         try{
             const { reference } = request.params;
-            console.log('Phone: ', reference);
-            const serviceContactReference =  new AgendTravelContactReferenceService()
-            const contactServiceExec = await serviceContactReference.execute({reference})
+            const referenceService =  new AgendTravelReferenceService()
+            const serviceReference = await referenceService.execute({reference})
             
-            if (contactServiceExec) {
+            if (serviceReference) {
                 return response
                     .json({
                         success: true,
                         message: 'Resultado de Agendamento',
-                        data: contactServiceExec
+                        data: serviceReference
                     });
             }
             else {

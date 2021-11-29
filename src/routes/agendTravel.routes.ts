@@ -20,5 +20,4 @@ router.put('/client/travel/cancel', cancelAgendTravelController.handle);
 router.get('/client/travel/canceleds', getCanceledTravelsController.handle);
 router.get('/client/travel/:reference', getAgendTravelByReferenceController.handle);
 
-
 export default router;
