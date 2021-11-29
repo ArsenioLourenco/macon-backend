@@ -5,24 +5,18 @@ import { AppResponse } from "../../@types";
 import { showError } from '.';
 import { IGetTravel } from "../../controllers/travels/getTravels.controller";
 
-export const createTravels= async (
+export const getTravels= async (
          req: Request<IGetTravel>,
          res: Response<AppResponse<Travels[]>>,
          next: NextFunction
 ) => {
   const schema=  Yup.object().shape({
     originProvince: Yup.number()
-    .required('originProvince é um número'),
+    .required('A origem  é um campo obrigatório'),
     destinyProvince: Yup.number()
-    .required('destinyProvince é um número'),
+    .required('O destino é um campo obrigatório'),
     departureDate: Yup.date()
-    .default(function () {
-      return new Date()})
-    .required('departureDate é uma data'),
-    returnDate: Yup.date()
-    .default(function () {
-      return new Date()})
-    .required('returnDate é uma data')
+    .required('A data de partida é um campo obrigatório'),
   })
   
   await showError(req, res, next, schema);

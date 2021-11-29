@@ -14,7 +14,7 @@ import GetCountriesController from "./controllers/location/country/getAllCountri
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
 import GetByIdTravelsController from './controllers/travels/getByIdTravel.controller';
- import {createTravels} from './middlewares/travel/getTravel.middleware'
+ import {getTravels} from './middlewares/travel/getTravel.middleware'
  import locationRoutes from './routes/location.routes';
 
 
@@ -41,7 +41,7 @@ router.get("/provinces/list/:id", getAllProvinceController.handle);
 router.get('/countries/list', getAllCountriesController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/byId/:id", getByIdTravelController.handle);
-router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?",createTravels, getTravelsController.handle )
+router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?",getTravels, getTravelsController.handle )
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);

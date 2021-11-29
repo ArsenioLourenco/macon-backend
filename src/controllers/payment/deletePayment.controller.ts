@@ -8,9 +8,9 @@ export default class DeletePaymentController {
               paymentRepository= getCustomRepository(PaymentRepository),
               today= new Date();
         try {
-            const Payment = await paymentRepository.findOne(id)
+            const payment = await paymentRepository.findOne(id)
               
-            if (Payment.deletetAt===null) {
+            if (payment.deletetAt===null) {
                 const deletedPayment= await paymentRepository
                 .createQueryBuilder()
                 .update()

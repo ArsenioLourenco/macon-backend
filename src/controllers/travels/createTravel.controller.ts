@@ -32,7 +32,6 @@ export default class CreateTravelsController {
                     relations: ['transport', 'originProvince', 'destinyProvince']
                 });
 
-
             if (findTravelsDeparture) {
                 const { id } = findTravelsDeparture.transport;
                 if (id === transportId) {
@@ -43,29 +42,19 @@ export default class CreateTravelsController {
             if (departureDate) {
                 const partida = departureDate.toLocaleString().split("-"),
                     retorno = returnDate.toLocaleString().split("-");
-                if (partida[0] > retorno[0]) {
-                    return response.status(200)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o ano de partida não pode ser maior que o de retorno" });
-                }
-                if (partida[1] > retorno[1]) {
-                    return response.status(400)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o mês de partida não pode ser maior que o de retorno" });
-                }
-                if (partida[2] > retorno[2]) {
-                    return response.status(400)
-                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, o dia de partida não pode ser maior que o de retorno" });
+                if (partida[0] >= retorno[0] && partida[1] >= retorno[1] ) {
+                    if (partida[2] > retorno[2]){
+                        return response.status(200)
+                        .json({ success: false, message: "Viagem nao foi Criada. data incorreta, a data de partida não pode ser maior que o de retorno" });
+                    }
                 }
             }
-            if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
+            if (verifyIdProvinceOrigin?.id === verifyIdProvinceDestiny?.id) {
                 return response.status(400)
                     .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
 
             }
-            if(!departureDate ||  !originProvince || !destinyProvince || !price){
-                return response.status(400)
-                    .json({ success: false, message: "Viagem não criada" });
-            }
-            const creating = await createTravelsService.execute({
+            const travel = await createTravelsService.execute({
                 departureDate,
                 returnDate,
                 timeToGoTo,
@@ -77,9 +66,9 @@ export default class CreateTravelsController {
                 transportId,
                 price
             });
-            if (creating) {
+            if (travel) {
                 return response.status(200)
-                    .json({ success: true, message: "Viagem Criada.", data: creating });
+                    .json({ success: true, message: "Viagem Criada.", data: travel });
             }
             else {
                 return response.status(400)

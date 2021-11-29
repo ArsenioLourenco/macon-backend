@@ -1,22 +1,22 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
-import TransportRepository from "../../repositories/Transport";
+import TypeTransportRepository from "../../repositories/typeTransport.repository";
 
 
-export default class GetAllTransportsController{
+export default class GetAllTypeTransportsController{
     async handle(request:Request, response: Response){
-        const transportRepository = getCustomRepository(
-            TransportRepository
+        const typeTransportRepository = getCustomRepository(
+           TypeTransportRepository
         );
-        
+
         try{
-            const transports = await transportRepository.find({relations:['typeTransport']})
-            if(transports){
+            const typeTransports = await typeTransportRepository.find()
+            if(typeTransports){
                 return response.status(200)
                 .json({
                     success: true,
                     message: 'Transports',
-                    data: transports
+                    data: typeTransports
                 });
             }
             else {

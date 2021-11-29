@@ -16,7 +16,7 @@ export default class CreatePayment {
 		try {
 			if (findAgendTravel) {
 				const reference = crypto.randomBytes(7).toString('hex'),
-					createPayment = await paymentRepository
+					payment = await paymentRepository
 						.createQueryBuilder()
 						.insert()
 						.values({
@@ -25,7 +25,7 @@ export default class CreatePayment {
 							agendTravelCode: findAgendTravel
 						})
 						.execute();
-				return createPayment
+				return payment
 			}
 		}
 		catch (err) {

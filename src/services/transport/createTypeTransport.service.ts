@@ -13,21 +13,21 @@ export default class CreateTypeTransport{
                 typeTransportRepository = getCustomRepository( TypeTransportRepository ), 
                 verifyIfExistTypeTransport = await typeTransportRepository.findOne({ where: { typeName } });
             if (!verifyIfExistTypeTransport) {
-                const creating = typeTransportRepository.create({
+                const typeTransport = typeTransportRepository.create({
                     typeName,
                     description
                 });
                 return await typeTransportRepository.save(
-                    creating
+                    typeTransport
                 );
             }
-            const creating = typeTransportRepository.create({
+            const typeTransport = typeTransportRepository.create({
                 typeName,
                 description,
                 createdAt: today,
             });
             return await typeTransportRepository.save(
-                creating
+                typeTransport
             );
         }
         catch (err) {

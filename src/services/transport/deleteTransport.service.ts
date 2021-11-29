@@ -9,13 +9,13 @@ export default class DeleteTransport{
             const alreadyExistTransport = await transportRepository.findOne({ where: { id } });
 
             if (alreadyExistTransport.deletedAt===null) {
-                const deleted = await transportRepository
+                const transport = await transportRepository
                     .createQueryBuilder()
                     .update()
                     .set({deletedAt: today })
                     .where("id = :id", { id: id })
                     .execute();
-                return deleted
+                return transport
             }
         } catch (err) {
             return err.message;

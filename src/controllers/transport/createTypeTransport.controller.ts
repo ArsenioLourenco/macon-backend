@@ -12,13 +12,13 @@ export default class CreateTypeTransportController {
                     typeName,
                     description
                 } = request.body,
-                creating = await createTypeTransportController.execute({
+                typeTransports = await createTypeTransportController.execute({
                     typeName,
                     description
                 });
-            if (creating) {
+            if (typeTransports) {
                 return response.status(200)
-                    .json({ success: true, message: 'Tipo de trnansporte Criado com Sucesso', data: creating });
+                    .json({ success: true, message: 'Tipo de trnansporte Criado com Sucesso', data: typeTransports });
             }
             else {
                 return response.status(400)
