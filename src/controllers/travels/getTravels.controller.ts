@@ -18,24 +18,25 @@ export default class GetTravelsController {
             const date = new Date();
             const today = date.toLocaleDateString().split("/");
 
-           if(departureDate){
-          const partida = departureDate.toLocaleString().split("-")
-          if(today[2]==partida[0] && today[1]==partida[1] && today[0]>partida[2]){
-            response.status(400).json({success: false, message: 'essa viagem já ocorreu'})
-            
-        }
-       
-           }
-         
+            if (departureDate) {
+                const partida = departureDate.toLocaleString().split("-")
+                if (today[2] >= partida[0] && today[1] >= partida[1]) {
+                    if (today[0] > partida[2]) {
+                        response.status(400).json({ success: false, message: 'essa viagem já ocorreu' })
+                    }
+                }
+
+            }
             if (!returnDate) {
                 const
                     travelsRepository = getCustomRepository(TravelsRepository),
                     travel = await travelsRepository.find(
-                        { 
-                            where: { originProvince, destinyProvince, departureDate }, 
-                            relations: ['originProvince', 'destinyProvince', 'transport'] 
+                        {
+                            where: { originProvince, destinyProvince, departureDate },
+                            relations: ['originProvince', 'destinyProvince', 'transport']
                         }
                     );
+
                 if (travel.length != 0) {
                     return response.status(200)
                         .json({ success: true, data: travel });
@@ -48,9 +49,9 @@ export default class GetTravelsController {
             const
                 travelsRepository = getCustomRepository(TravelsRepository),
                 travel = await travelsRepository.find(
-                    { 
-                        where: { originProvince, destinyProvince, departureDate, returnDate }, 
-                        relations: ['originProvince', 'destinyProvince', 'transport'] 
+                    {
+                        where: { originProvince, destinyProvince, departureDate, returnDate },
+                        relations: ['originProvince', 'destinyProvince', 'transport']
                     }
                 );
             if (travel.length != 0) {
