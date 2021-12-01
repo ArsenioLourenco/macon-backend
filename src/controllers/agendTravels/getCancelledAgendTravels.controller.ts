@@ -4,16 +4,16 @@ import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
 
-export default class GetCanceledAgendTravelsController{
+export default class GetCancelledAgendTravelsController{
     async handle(request: Request, response: Response<AppResponse<AgendTravels[]>>){
         try{
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
-            const getCanceledTravels = await agendTravelRepository.find(
+            const getCancelledTravels = await agendTravelRepository.find(
                 { where: { status: 'Reserva Cancelada'} }
             );
-            if((getCanceledTravels).length > 0){
+            if((getCancelledTravels).length > 0){
                 return response.status(200).json(
-                    { success: true, message: 'Reservas Canceladas:', data: getCanceledTravels }
+                    { success: true, message: 'Reservas Canceladas:', data: getCancelledTravels }
                 );
             }
             return response.status(200).json(
