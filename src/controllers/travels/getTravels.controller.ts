@@ -18,7 +18,8 @@ export default class GetTravelsController {
 
             if (departureDate) {
                 const partida = departureDate.toLocaleString().split("-")
-                if (today[2] >= partida[0] && today[1] > partida[1] && today[0] <= partida[2] || today[2] >= partida[0] && today[1] == partida[1] && today[0] > partida[2]) {
+                if (today[2] >= partida[0] && today[1] > partida[1] && today[0] <= partida[2] ||
+                    today[2] >= partida[0] && today[1] == partida[1] && today[0] > partida[2]) {
                     return response.status(400).json({ success: false, message: 'essa viagem já ocorreu' })
                 }
             }
