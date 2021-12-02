@@ -11,7 +11,7 @@ export default class AgendTravelReferenceService {
 
             const agendTravel = await agendTravelRepository.findOne({
                 where: [{ phoneNumber: reference }, { userAgendCode: reference }],
-                relations: ['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport', 'travel.spot']
+                relations: ['travel', 'travel.originProvince', 'travel.destinyProvince', 'travel.transport', 'travel.spot', 'travel.spot.province']
             });
 
             return agendTravel;
