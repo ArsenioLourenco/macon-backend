@@ -3,6 +3,7 @@ import { getCustomRepository } from "typeorm";
 import { AppResponse } from "../../@types";
 import { Travels } from "../../models/Travels";
 import TravelsRepository from "../../repositories/travels.repository";
+import { format } from "date-fns";
 export interface IGetTravel {
     originProvince: number,
     destinyProvince: number,
@@ -13,15 +14,10 @@ export default class GetTravelsController {
     async handle(request: Request<IGetTravel>, response: Response<AppResponse<Travels[]>>) {
         try {
             const { originProvince, destinyProvince, departureDate, returnDate } = request.params;
-            const date = new Date();
-            const today = date.toLocaleDateString().split("/");
+            const today = format(new Date, "yyyy-MM-dd");
 
-            if (departureDate) {
-                const partida = departureDate.toLocaleString().split("-")
-                if (today[2] >= partida[0] && today[1] > partida[1] && today[0] <= partida[2] ||
-                    today[2] >= partida[0] && today[1] == partida[1] && today[0] > partida[2]) {
-                    return response.status(400).json({ success: false, message: 'essa viagem já ocorreu' })
-                }
+            if (today > String(departureDate)) {
+                return response.status(400).json({ success: false, message: 'essa viagem já ocorreu' })
             }
             if (!returnDate) {
                 const
