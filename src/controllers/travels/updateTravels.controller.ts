@@ -4,7 +4,6 @@ import UpdateTravel, { IUpdateTravels } from "../../services/travels/updateTrave
 import { getCustomRepository } from "typeorm";
 import ProvincesRepository from "../../repositories/provinces.repository";
 import TravelsRepository from "../../repositories/travels.repository";
-
 export default class UpdateTravelsController {
     async handle(request: Request<IUpdateTravels>, response: Response<AppResponse<string>>) {
         try {
@@ -57,7 +56,6 @@ export default class UpdateTravelsController {
             if (verifyIdProvinceOrigin.id === verifyIdProvinceDestiny.id) {
                 return response.status(400)
                     .json({ success: false, message: "Verifique Se esta mandando os Dados correctamente. a origem não pode coincidir com o destino" })
-
             }
             if (await updateTravels.execute({
                 id,
@@ -75,7 +73,6 @@ export default class UpdateTravelsController {
                 return response.status(200)
                     .json({ success: true, message: "Dados Actualizados." });
             }
-
             else {
                 return response.status(400)
                     .json({ success: false, message: "Esta viagem não existe" });
