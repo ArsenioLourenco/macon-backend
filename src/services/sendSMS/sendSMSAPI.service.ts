@@ -7,11 +7,11 @@ class SendSMSAPI {
     try {
       const Vonage = require("@vonage/server-sdk"),
         vonage = new Vonage({
-          apiKey: "ff6ae0b3",
-          apiSecret: "G6hh2SZ0bcGcIW3h",
+          apiKey: "03c77009",
+          apiSecret: "7T80hXunzD52OvF7",
         }),
         from = "MACON - AGENDAMENTO",
-        to = 244945323281;
+        to = 244932618149;
       return vonage.message.sendSms(from, to, text, (err, responseData) => {
         if (err) {
           console.log(err);
