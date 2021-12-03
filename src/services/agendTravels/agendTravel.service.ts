@@ -5,14 +5,12 @@ import TransportRepository from "../../repositories/Transport";
 import TravelsRepository from "../../repositories/travels.repository";
 import SendEMAIL from "../email/sendEMAIL.service";
 import SendSMSAPI from "../sendSMS/sendSMSAPI.service";
-
 export interface IAgendTravel {
   placesReserve: number;
   travelId: number;
   phoneNumber: string;
   email: string;
 }
-
 export default class AgendTravels {
   async execute({ placesReserve, travelId, phoneNumber, email }: IAgendTravel) {
     const travelRepository = getCustomRepository(TravelsRepository),
@@ -25,33 +23,25 @@ export default class AgendTravels {
       const verifyIfExistTravel = await travelRepository.query(
         `SELECT * FROM Travels WHERE id = '${travelId}'`
       );
-      console.log(travelId);
-      if (!verifyIfExistTravel) {
-        return "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!";
-      }
-      if (placesReserve == 0) {
-        return "Passe Por favor uma quantidade de Lugares Justa!";
-      }
       // geting transport id
       const [
-          {
-            id,
-            transportId,
-            price,
-            departureDate,
-            timeToGoTo,
-            originProvince,
-            destinyProvince,
-          },
-        ] = verifyIfExistTravel,
+        {
+          id,
+          transportId,
+          price,
+          timeToGoTo,
+          originProvince,
+          destinyProvince,
+        },
+      ] = verifyIfExistTravel,
         origin = await provinceRepository.findOne(originProvince),
         destiny = await provinceRepository.findOne(destinyProvince),
         verifyTransportIdDatas = await transportRepository.findOne(transportId),
         totalPlacesInTransport = verifyTransportIdDatas.totalPlace;
       // geting totalPlace that was reserved on disponible travel transport
       const findAllTravelAggend = await agendTravelRepository.query(
-          `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
-        ),
+        `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
+      ),
         [{ TOTAL }] = findAllTravelAggend;
       // Verify if have place in this travel
       const totalPlaceDisponible = (totalPlacesInTransport - TOTAL) as number;
@@ -62,9 +52,9 @@ export default class AgendTravels {
       const calculateTheTotalCustOfTheTrip = (placesReserve * price) as number;
       // Reserving
       const lastMaxId = await agendTravelRepository
-          .createQueryBuilder("AgendTravels")
-          .select("MAX(AgendTravels.id)", "max")
-          .getRawOne(),
+        .createQueryBuilder("AgendTravels")
+        .select("MAX(AgendTravels.id)", "max")
+        .getRawOne(),
         newIdAgendTravels = parseInt(lastMaxId["max"] + 1).toString(),
         zerosLeft = "0000",
         remainingZeros = zerosLeft.substring(

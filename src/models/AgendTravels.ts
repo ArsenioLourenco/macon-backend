@@ -13,6 +13,9 @@ import { Payment } from "./Payment";
 @Index("PK__AgendTra__3213E83FC85E6B97", ["id"], { unique: true })
 @Entity("AgendTravels", { schema: "dbo" })
 export class AgendTravels {
+  execute(arg0: { placesReserve: any; travelId: any; phoneNumber: any; email: any; }) {
+      throw new Error("Method not implemented.");
+  }
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
