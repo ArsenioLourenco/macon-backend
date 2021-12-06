@@ -30,7 +30,7 @@ router.get("/travels/all", getAllTravelController.handle);
 router.put("/travels/update",createTravels, updateTravelsController.handle);
 
 router.post("/create/payment", createPaymentControler.handle)
-router.get("/payment/all", getPaymentController.handle)
+router.get("/payment/all/:id", getPaymentController.handle)
 router.delete("/payment/delete/:id", deletePaymentController.handle)
 
 export default router

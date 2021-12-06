@@ -4,9 +4,10 @@ import PaymentRepository from "../../repositories/payment.repository";
 
 export default class GetPaymentController {
     async handle(request: Request, response: Response) {
+       const {id}=request.params;
         try {
             const paymentRepository = getCustomRepository(PaymentRepository),
-                payment = await paymentRepository.find({relations:['agendTravelCode']});
+                payment = await paymentRepository.find({where:{id},relations:['agendTravelCode', 'agendTravelCode.travel']});
 
             if (payment) {
                 return response.status(200)
@@ -23,7 +24,6 @@ export default class GetPaymentController {
                     })
             }
         }
-
         catch (err) {
             return response.status(500)
                 .json({
