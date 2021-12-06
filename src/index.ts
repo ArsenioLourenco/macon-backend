@@ -6,7 +6,7 @@ import helmet from "helmet";
 import logger from "morgan";
 import routes from "./routes";
 import express from "express";
-import "express-async-errors";
+// import "express-async-errors";
 import dotenv from "dotenv-safe";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
@@ -38,15 +38,15 @@ app.use("/functionsPath", express.static("pathConf"));
 
 app.use(routes);
 
-app.use(
-  (err: Error, request: Request, response: Response, next: NextFunction) => {
-    if (err instanceof Error) {
-      return response.status(400).json({ error: err.message });
-    }
-    return response
-      .status(500)
-      .json({ status: "error", message: "Internal Server Error" });
-  }
-);
+// app.use(
+//   (err: Error, request: Request, response: Response, next: NextFunction) => {
+//     if (err instanceof Error) {
+//       return response.status(400).json({ error: err.message });
+//     }
+//     return response
+//       .status(500)
+//       .json({ status: "error", message: "Internal Server Error" });
+//   }
+// );
 
 export default app;
