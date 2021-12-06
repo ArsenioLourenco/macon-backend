@@ -13,7 +13,7 @@ export interface IAgendTravel {
   email: string;
 }
 export default class AgendTravels {
-  async execute({ placesReserve, travelId, phoneNumber, email}: IAgendTravel) {
+  async execute({ placesReserve, travelId, phoneNumber, email }: IAgendTravel) {
     const travelRepository = getCustomRepository(TravelsRepository),
       transportRepository = getCustomRepository(TransportRepository),
       agendTravelRepository = getCustomRepository(AgendTravelsRepository),
@@ -26,10 +26,12 @@ export default class AgendTravels {
       );
       console.log(travelId);
       if (!verifyIfExistTravel) {
-        return "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!";
+        throw new Error(
+          "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!"
+        );
       }
       if (placesReserve == 0) {
-        return "Passe Por favor uma quantidade de Lugares Justa!";
+        throw new Error("Passe Por favor uma quantidade de Lugares Justa!");
       }
       // geting transport id
       const [
@@ -49,14 +51,26 @@ export default class AgendTravels {
         totalPlacesInTransport = verifyTransportIdDatas.totalPlace;
       // geting totalPlace that was reserved on disponible travel transport
       const findAllTravelAggend = await agendTravelRepository.query(
-          `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
+          `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels WHERE travelId = '${travelId}'`
         ),
         [{ TOTAL }] = findAllTravelAggend;
       // Verify if have place in this travel
-      const totalPlaceDisponible = (totalPlacesInTransport - TOTAL) as number;
+      const totalPlaceDisponible = (totalPlacesInTransport -
+        parseInt(TOTAL)) as number;
+
+      console.log(
+        "This is the error ===> " +
+          parseInt(TOTAL) +
+          " Transport ===> " +
+          totalPlacesInTransport +
+          " Places Disponiveis ===> " +
+          totalPlaceDisponible
+      );
 
       if (placesReserve > totalPlaceDisponible) {
-        return `Lamentamos, mas para esse trajeto temos apenas disponível ${totalPlaceDisponible} lugares.`;
+        throw new Error(
+          `Lamentamos, mas para esse trajeto temos apenas disponível ${totalPlaceDisponible} lugares.`
+        );
       }
       const calculateTheTotalCustOfTheTrip = (placesReserve * price) as number;
       // Reserving
@@ -91,22 +105,22 @@ export default class AgendTravels {
         destiny: email,
         message: `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`,
       });
-      await sendSMSAPI.execute({
-        text:
-          "Reserva efectuada de " +
-          placesReserve +
-          " luagares. Trajecto " +
-          origin.provinceName +
-          " - " +
-          destiny.provinceName +
-          ". Data De Partida: " +
-          timeToGoTo +
-          ". Custo: " +
-          calculateTheTotalCustOfTheTrip +
-          ". Codigo da reseva: " +
-          personalCodeAgend +
-          ".",
-      });
+      // await sendSMSAPI.execute({
+      //   text:
+      //     "Reserva efectuada de " +
+      //     placesReserve +
+      //     " luagares. Trajecto " +
+      //     origin.provinceName +
+      //     " - " +
+      //     destiny.provinceName +
+      //     ". Data De Partida: " +
+      //     timeToGoTo +
+      //     ". Custo: " +
+      //     calculateTheTotalCustOfTheTrip +
+      //     ". Codigo da reseva: " +
+      //     personalCodeAgend +
+      //     ".",
+      // });
       return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`;
     } catch (err) {
       return err.message;
