@@ -16,6 +16,7 @@ import GetTravelsController from './controllers/travels/getTravels.controller';
 import GetByIdTravelsController from './controllers/travels/getByIdTravel.controller';
  import {getTravels} from './middlewares/travel/getTravel.middleware'
  import locationRoutes from './routes/location.routes';
+ import GetPaymentController from "./controllers/payment/getPayment.controller"
 
 
 const router = Router();
@@ -26,6 +27,7 @@ const getAllProvinceController = new GetProvincesController();
 const getAllCountriesController = new GetCountriesController();
 const getTravelsController = new GetTravelsController();
 const getByIdTravelController = new GetByIdTravelsController();
+const getPaymentController= new GetPaymentController();
 
 router.get('/', async (__, res) => {
     res.send({
@@ -42,6 +44,7 @@ router.get('/countries/list', getAllCountriesController.handle);
 router.get("/travels/list", getAllTravelController.handle);
 router.get("/travels/byId/:id", getByIdTravelController.handle);
 router.get("/travels/:originProvince/:destinyProvince/:departureDate/:returnDate?",getTravels, getTravelsController.handle )
+router.get("/payment/:id", getPaymentController.handle)
 router.use(agendTravelRoutes);
 router.get('/users/isAuthenticated', isUsersAuthenticated);
 router.post('/users/login', login, loginController.handle);
