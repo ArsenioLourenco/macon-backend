@@ -48,6 +48,12 @@ export class AgendTravels {
   @Column("varchar", { name: "phoneNumber", nullable: true, length: 50 })
   phoneNumber: string | null;
 
+  @Column("varchar", { name: "nomeClient", nullable: true, length: 50 })
+  name: string | null;
+
+  @Column("varchar", { name: "quantBaggege", nullable: true, length: 50 })
+  quantity: number | null;
+
   @Column("varchar", { name: "status", nullable: true, length: 50 })
   status: string | null;
 

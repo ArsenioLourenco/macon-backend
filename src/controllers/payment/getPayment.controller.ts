@@ -6,8 +6,10 @@ export default class GetPaymentController {
     async handle(request: Request, response: Response) {
        const {id}=request.params;
         try {
+            console.log('ID: ', id);
+            
             const paymentRepository = getCustomRepository(PaymentRepository),
-                payment = await paymentRepository.find({where:{id},relations:['agendTravelCode', 'agendTravelCode.travel']});
+                payment = await paymentRepository.findOne({where:{id},relations:['agendTravelCode', 'agendTravelCode.travel']});
 
             if (payment) {
                 return response.status(200)
