@@ -7,7 +7,6 @@ pass=google.2021
 engine=mssql
 port=1433
 output=./src/models
-schema=public
 
 echo "Generating database entities"
 yarn typeorm-model-generator -h $host -d $db -u $user -x $pass -e $engine -p $port -o $output -s $schema

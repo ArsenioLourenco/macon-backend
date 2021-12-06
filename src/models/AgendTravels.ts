@@ -13,9 +13,6 @@ import { Payment } from "./Payment";
 @Index("PK__AgendTra__3213E83FC85E6B97", ["id"], { unique: true })
 @Entity("AgendTravels", { schema: "dbo" })
 export class AgendTravels {
-  execute(arg0: { placesReserve: any; travelId: any; phoneNumber: any; email: any; }) {
-      throw new Error("Method not implemented.");
-  }
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
@@ -48,17 +45,17 @@ export class AgendTravels {
   @Column("varchar", { name: "phoneNumber", nullable: true, length: 50 })
   phoneNumber: string | null;
 
-  @Column("varchar", { name: "nomeClient", nullable: true, length: 50 })
-  name: string | null;
-
-  @Column("varchar", { name: "quantBaggege", nullable: true, length: 50 })
-  quantity: number | null;
-
   @Column("varchar", { name: "status", nullable: true, length: 50 })
   status: string | null;
 
   @Column("datetime", { name: "deleted_at", nullable: true })
   deletedAt: Date | null;
+
+  @Column("varchar", { name: "clientName", nullable: true, length: 255 })
+  clientName: string | null;
+
+  @Column("int", { name: "baggageNumber", nullable: true })
+  baggageNumber: number | null;
 
   @ManyToOne(() => Travels, (travels) => travels.agendTravels, {
     onDelete: "CASCADE",

@@ -16,7 +16,14 @@ export interface IAgendTravel {
 }
 
 export default class AgendTravels {
-  async execute({ placesReserve, travelId, phoneNumber, email, name, baggage }: IAgendTravel) {
+  async execute({
+    placesReserve,
+    travelId,
+    phoneNumber,
+    email,
+    name,
+    baggage,
+  }: IAgendTravel) {
     const travelRepository = getCustomRepository(TravelsRepository),
       transportRepository = getCustomRepository(TransportRepository),
       agendTravelRepository = getCustomRepository(AgendTravelsRepository),
@@ -86,8 +93,8 @@ export default class AgendTravels {
           personalCodeAgend,
           notes: "",
           phoneNumber,
-          nomeClient: name,
-          quantBaggege: baggage,
+          clientName: name,
+          baggageNumber: baggage,
           status: "Reserva Ativa!",
         });
       await agendTravelRepository.save(reserving);
