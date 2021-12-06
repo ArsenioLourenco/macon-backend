@@ -34,10 +34,11 @@ export default class AgendTravels {
       const verifyIfExistTravel = await travelRepository.query(
         `SELECT * FROM Travels WHERE id = '${travelId}'`
       );
-      console.log(travelId);
+
       if (!verifyIfExistTravel) {
         return "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!";
       }
+
       if (placesReserve == 0) {
         return "Passe Por favor uma quantidade de Lugares Justa!";
       }
@@ -65,8 +66,10 @@ export default class AgendTravels {
       // Verify if have place in this travel
       const totalPlaceDisponible = (totalPlacesInTransport - TOTAL) as number;
 
-      if (placesReserve > totalPlaceDisponible) {
-        return `Lamentamos, mas para esse trajeto temos apenas disponível ${totalPlaceDisponible} lugares.`;
+      if (placesReserve > totalPlaceDisponible || totalPlaceDisponible <= 0) {
+        throw new Error(
+          `Lamentamos, mas para esse trajeto temos apenas disponível ${totalPlaceDisponible} lugares.`
+        );
       }
       const calculateTheTotalCustOfTheTrip = (placesReserve * price) as number;
       // Reserving
@@ -121,7 +124,7 @@ export default class AgendTravels {
       // });
       return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`;
     } catch (err) {
-      return err.message;
+      throw new Error(err.message);
     }
   }
 }
