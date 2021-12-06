@@ -17,20 +17,19 @@ export default class AgendTravelsController {
                 return response.status(400).json(
                     { success: false, message: "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!" }
                 );
-            }else{
-
-                if (placesReserve == 0) {
-                    return response.status(400).json(
-                        { success: false, message: "Passe Por favor uma quantidade de Lugares Justa!" }
-                    );
-                }
-                if (agending) {
-                    return response.status(201).json(
-                        { success: true, message: agending }
-                    );
-                }
             }
-            
+            if (placesReserve == 0) {
+                return response.status(400).json(
+                    { success: false, message: "Passe Por favor uma quantidade de Lugares Justa!" }
+                );
+            }
+            if (agending) {
+                return response.status(201).json(
+                    { success: true, message: agending }
+                );
+            }
+
+
         } catch (err) {
             return response.status(500).json(
                 { success: false, message: err.message }
