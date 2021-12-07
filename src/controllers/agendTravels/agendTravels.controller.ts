@@ -12,7 +12,7 @@ export default class AgendTravelsController {
     response: Response<AppResponse<AgendTravels[]>>
   ) {
     try {
-      const { placesReserve, travelId, phoneNumber, email, name, baggage } =
+      const { placesReserve, travelId, phoneNumber, email, clientName, baggageNumber } =
         request.body;
       const agendTravelService = new AgendTravelsService();
 
@@ -28,8 +28,8 @@ export default class AgendTravelsController {
         travelId,
         phoneNumber,
         email,
-        name,
-        baggage,
+        clientName,
+        baggageNumber,
       });
       console.log(agend);
       return response.status(201).json({ success: true, message: agend });

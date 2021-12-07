@@ -11,8 +11,8 @@ export interface IAgendTravel {
   travelId: number;
   phoneNumber: string;
   email: string;
-  name: string;
-  baggage: number;
+  clientName: string;
+  baggageNumber?: number;
 }
 
 export default class AgendTravels {
@@ -21,8 +21,8 @@ export default class AgendTravels {
     travelId,
     phoneNumber,
     email,
-    name,
-    baggage,
+    clientName,
+    baggageNumber,
   }: IAgendTravel) {
     const travelRepository = getCustomRepository(TravelsRepository),
       transportRepository = getCustomRepository(TransportRepository),
@@ -60,16 +60,15 @@ export default class AgendTravels {
         totalPlacesInTransport = verifyTransportIdDatas.totalPlace;
       // geting totalPlace that was reserved on disponible travel transport
       const findAllTravelAggend = await agendTravelRepository.query(
-          `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels`
+          `SELECT SUM(placesReserve) as TOTAL FROM AgendTravels WHERE travelId = ${travelId}`
         ),
         [{ TOTAL }] = findAllTravelAggend;
       // Verify if have place in this travel
       const totalPlaceDisponible = (totalPlacesInTransport - TOTAL) as number;
 
-      if (placesReserve > totalPlaceDisponible || totalPlaceDisponible <= 0) {
-        throw new Error(
-          `Lamentamos, mas para esse trajeto temos apenas disponível ${totalPlaceDisponible} lugares.`
-        );
+      if (placesReserve > totalPlaceDisponible) {
+        const placesAvailable = totalPlaceDisponible <= 0 ? 0 : totalPlaceDisponible;
+        return `Lamentamos, mas para esse trajeto temos apenas disponível ${placesAvailable} lugares.`;
       }
       const calculateTheTotalCustOfTheTrip = (placesReserve * price) as number;
       // Reserving
@@ -96,8 +95,8 @@ export default class AgendTravels {
           personalCodeAgend,
           notes: "",
           phoneNumber,
-          clientName: name,
-          baggageNumber: baggage,
+          clientName,
+          baggageNumber,
           status: "Reserva Ativa!",
         });
       await agendTravelRepository.save(reserving);
