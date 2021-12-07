@@ -12,7 +12,7 @@ export default class AgendTravelsController {
     response: Response<AppResponse<AgendTravels[]>>
   ) {
     try {
-      const { placesReserve, travelId, phoneNumber, email, name, baggage } =
+      const { placesReserve, travelId, phoneNumber, email, clientName, baggageNumber } =
         request.body;
       const travelRepository = getCustomRepository(TravelsRepository);
       const verifyIfExistTravel = await travelRepository.findOne(travelId);
@@ -22,8 +22,8 @@ export default class AgendTravelsController {
         travelId,
         phoneNumber,
         email,
-        name,
-        baggage,
+        clientName,
+        baggageNumber,
       });
 
       if (!verifyIfExistTravel) {
