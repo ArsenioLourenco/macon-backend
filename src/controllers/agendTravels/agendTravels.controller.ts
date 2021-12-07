@@ -14,10 +14,16 @@ export default class AgendTravelsController {
     try {
       const { placesReserve, travelId, phoneNumber, email, clientName, baggageNumber } =
         request.body;
-      const travelRepository = getCustomRepository(TravelsRepository);
-      const verifyIfExistTravel = await travelRepository.findOne(travelId);
       const agendTravelService = new AgendTravelsService();
-      const agending = await agendTravelService.execute({
+
+      if (placesReserve <= 0) {
+        return response.status(400).json({
+          success: false,
+          message: "Passe Por favor uma quantidade de Lugares Justa!",
+        });
+      }
+
+      const agend = await agendTravelService.execute({
         placesReserve,
         travelId,
         phoneNumber,
@@ -25,23 +31,8 @@ export default class AgendTravelsController {
         clientName,
         baggageNumber,
       });
-
-      if (!verifyIfExistTravel) {
-        return response.status(400).json({
-          success: false,
-          message:
-            "Lamentamos, mas não temos viagens para esse trajscto, dirija-se a um terminal mais próximo de si!",
-        });
-      }
-      if (placesReserve == 0) {
-        return response.status(400).json({
-          success: false,
-          message: "Passe Por favor uma quantidade de Lugares Justa!",
-        });
-      }
-      if (agending) {
-        return response.status(201).json({ success: true, message: agending });
-      }
+      console.log(agend);
+      return response.status(201).json({ success: true, message: agend });
     } catch (err) {
       return response
         .status(500)
