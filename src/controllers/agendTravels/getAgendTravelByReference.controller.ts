@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
-import AgendTravelReferenceService, { IAgendTravelReference } from "../../services/agendTravels/agentTravelReference.service";
+import AgendTravelReferenceService, { IAgendTravelReference } from "../../services/agendTravels/getAgentTravelReference.service";
 export default class GetAgendTravelByReferenceController{
     async handle(request: Request<IAgendTravelReference>, response: Response<AppResponse<AgendTravels[]>>){
         try{

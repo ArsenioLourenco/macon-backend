@@ -66,6 +66,8 @@ export default class AgendTravels {
       // Verify if have place in this travel
       const totalPlaceDisponible = (totalPlacesInTransport - TOTAL) as number;
 
+      console.log('Reserved Place: ', totalPlaceDisponible, placesReserve);
+
       if (placesReserve > totalPlaceDisponible) {
         const placesAvailable = totalPlaceDisponible <= 0 ? 0 : totalPlaceDisponible;
         return `Lamentamos, mas para esse trajeto temos apenas disponível ${placesAvailable} lugares.`;
@@ -100,10 +102,20 @@ export default class AgendTravels {
           status: "Reserva Ativa!",
         });
       await agendTravelRepository.save(reserving);
+
+      const travelsId= await agendTravelRepository.query(`SELECT MAX(Id) FROM AgendTravels`);
+
+      console.log("travelsId", travelsId);
+      const  [valor] = travelsId;
+
+      console.log("valor", valor);
+      const{ "":ids}= valor;
+
+      console.log("ids", ids);
       // sending email
       await sendEmail.execute({
         destiny: email,
-        message: `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`,
+        message: `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}. Agendamento: ${ids}`,
       });
       // await sendSMSAPI.execute({
       //   text:
@@ -121,7 +133,7 @@ export default class AgendTravels {
       //     personalCodeAgend +
       //     ".",
       // });
-      return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}`;
+      return `Reserva efectuada de ${placesReserve} luagares. Trajecto ${origin.provinceName} - ${destiny.provinceName}. Data De Partida: ${timeToGoTo}. Custo: ${calculateTheTotalCustOfTheTrip}. Código da reseva: ${personalCodeAgend}. Agendamento: ${ids}`;
     } catch (err) {
       throw new Error(err.message);
     }

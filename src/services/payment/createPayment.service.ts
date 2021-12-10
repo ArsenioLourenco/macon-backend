@@ -5,18 +5,18 @@ import crypto from "crypto"
 
 export interface ICreatePayment {
 	status: string,
-	agendTravelCode: number
+	agendTravelCode: number;
+	reference: string;
 }
 
 export default class CreatePayment {
-	async execute({ status, agendTravelCode }: ICreatePayment) {
+	async execute({ status, agendTravelCode, reference }: ICreatePayment) {
 		const paymentRepository = getCustomRepository(PaymentRepository),
 			agendTravelRepository = getCustomRepository(AgendTravelsRepository),
 			findAgendTravel = await agendTravelRepository.findOne({ where: { id: agendTravelCode } })
 		try {
 			if (findAgendTravel) {
-				const reference = crypto.randomBytes(7).toString('hex'),
-					payment = await paymentRepository
+					const payment = await paymentRepository
 						.createQueryBuilder()
 						.insert()
 						.values({

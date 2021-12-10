@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
 import { AppResponse } from "../../@types";
-import { getCustomRepository } from "typeorm";
 import { AgendTravels } from "../../models/AgendTravels";
-import AgendTravelsService, {
-  IAgendTravel,
-} from "../../services/agendTravels/agendTravel.service";
-import TravelsRepository from "../../repositories/travels.repository";
+import AgendTravelsService, {IAgendTravel} from "../../services/agendTravels/agendTravel.service";
 export default class AgendTravelsController {
   async handle(
     request: Request<IAgendTravel>,

@@ -3,10 +3,10 @@ import CreatePayment from "../../services/payment/createPayment.service";
 
 export default class CreatePaymentController {
     async handle(request: Request, response: Response) {
-        const { status, agendTravelCode } = request.body,
+        const { status, agendTravelCode, reference } = request.body,
             createPayment = new CreatePayment();
         try {
-            const payment = await createPayment.execute({ status, agendTravelCode });
+            const payment = await createPayment.execute({ status, agendTravelCode, reference });
 
             if (payment) {
                 return response.status(200)

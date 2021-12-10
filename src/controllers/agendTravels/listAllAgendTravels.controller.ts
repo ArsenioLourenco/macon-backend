@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, MaxKey } from "typeorm";
 import { AppResponse } from "../../@types";
 import { AgendTravels } from "../../models/AgendTravels";
 import AgendTravelsRepository from "../../repositories/agendTravels.repository";
@@ -9,6 +9,7 @@ export default class ListAllAgendTravelsController{
         try{
             const agendTravelRepository = getCustomRepository(AgendTravelsRepository);
             const getAllAgendTravels = await agendTravelRepository.find();
+            
             if(getAllAgendTravels){
                 return response.status(200).json(
                     { success: true, message: 'Todas Reservas.', data: getAllAgendTravels }
