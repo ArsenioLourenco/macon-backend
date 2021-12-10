@@ -70,7 +70,7 @@ export default class AgendTravels {
 
       if (placesReserve > totalPlaceDisponible) {
         const placesAvailable = totalPlaceDisponible <= 0 ? 0 : totalPlaceDisponible;
-        return `Lamentamos, mas para esse trajeto temos apenas disponível ${placesAvailable} lugares.`;
+        throw new Error(`Lamentamos, mas para esse trajeto temos apenas disponível ${placesAvailable} lugares.`);
       }
       const calculateTheTotalCustOfTheTrip = (placesReserve * price) as number;
       // Reserving

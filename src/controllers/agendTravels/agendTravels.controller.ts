@@ -31,7 +31,7 @@ export default class AgendTravelsController {
       return response.status(201).json({ success: true, message: agend });
     } catch (err) {
       return response
-        .status(500)
+        .status(400)
         .json({ success: false, message: err.message });
     }
   }
