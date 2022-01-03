@@ -14,9 +14,9 @@ import GetCountriesController from "./controllers/location/country/getAllCountri
 import travelsRoutes from "./routes/travels.routes"
 import GetTravelsController from './controllers/travels/getTravels.controller';
 import GetByIdTravelsController from './controllers/travels/getByIdTravel.controller';
- import {getTravels} from './middlewares/travel/getTravel.middleware'
- import locationRoutes from './routes/location.routes';
- import GetPaymentController from "./controllers/payment/getPayment.controller"
+import {getTravels} from './middlewares/travel/getTravel.middleware'
+import locationRoutes from './routes/location.routes';
+import GetPaymentController from "./controllers/payment/getPayment.controller"
 import CreatePaymentController from './controllers/payment/createPayment.controller';
 
 
